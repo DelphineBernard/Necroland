@@ -2,6 +2,7 @@ BEGIN;
 
 DROP TABLE IF EXISTS "role" CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
+DROP TABLE IF EXISTS "status" CASCADE;
 DROP TABLE IF EXISTS "reservation";
 DROP TABLE IF EXISTS "category" CASCADE;
 DROP TABLE IF EXISTS "attraction" CASCADE;
@@ -33,6 +34,11 @@ CREATE TABLE "user" (
     "role_id" INTEGER REFERENCES "role"("id") NOT NULL DEFAULT 1
 );
 
+CREATE TABLE "status" (
+    "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
+    "label" TEXT NOT NULL
+);
+
 CREATE TABLE "reservation" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
     "start_date" DATE NOT NULL, 
@@ -40,11 +46,10 @@ CREATE TABLE "reservation" (
     "nb_people" INTEGER NOT NULL,
     "type" TEXT NOT NULL,
     "total_price" DECIMAL(10, 2) NOT NULL,
-    "status" TEXT NOT NULL DEFAULT 'Confirmée',
-    "payment_status" TEXT NOT NULL DEFAULT 'En attente',
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ,
     "user_id" INTEGER REFERENCES "user"("id") NOT NULL,
+    "status_id" INTEGER REFERENCES "status"("id") NOT NULL DEFAULT 1,
     CONSTRAINT "duration" CHECK (EXTRACT(DAY FROM AGE("end_date", "start_date")) <= 3)
 );
 
@@ -83,12 +88,12 @@ CREATE TABLE "message" (
 	"id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
 	"object" TEXT NOT NULL,
 	"content" TEXT NOT NULL,
-	"status" TEXT NOT NULL DEFAULT 'En cours de traitement',
 	"email" TEXT NOT NULL,
     "lastname" TEXT NOT NULL,
 	"firstname" TEXT NOT NULL,
 	"createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
-    "updatedAt" TIMESTAMPTZ
+    "updatedAt" TIMESTAMPTZ,
+    "status_id" INTEGER REFERENCES "status"("id") NOT NULL DEFAULT 3
 );
 
 CREATE TABLE "price" (
