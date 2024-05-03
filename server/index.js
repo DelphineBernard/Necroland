@@ -2,11 +2,14 @@ import express from 'express';
 import path from 'path';
 import * as dotenv from 'dotenv';
 import router from './app/router.js';
+import cors from 'cors';
 
 dotenv.config();
 
 const port = process.env.PORT_EXPRESS || 3000;
 const app = express();
+
+app.use(cors());
 
 app.use(express.urlencoded({ extended: true}));
 
