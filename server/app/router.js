@@ -1,25 +1,21 @@
 import express from 'express';
-// import { getAttractions, getTags, getPhotos, getCategories } from './controllers/mainController.js';
-// import { getUsers, getRoles } from './controllers/usersController.js';
-// import messagesController from './controllers/messagesController.js';
-// import reservationsController from './controllers/reservationsController.js';
-// import pricesController from './controllers/pricesController.js';
-// import authController from './controllers/authController.js';
+import messagesController from './controllers/messagesController.js';
+import reservationsController from './controllers/reservationsController.js';
+import pricesController from './controllers/pricesController.js';
+import authController from './controllers/authController.js';
+import mainController from './controllers/mainController.js';
+import userController from './controllers/usersController.js';
 
 const router = express.Router();
 
-router.get("/coucou", (req, res) => {
-    res.json({message: "coucou"});
-});
-
-// router.get('/prices', pricesController);
-// router.get('/messages', messagesController);
-// router.get('/users', getUsers);
-// router.get('/reservations', reservationsController);
-// router.get('/roles', getRoles);
-// router.get('/attractions', getAttractions);
-// router.get('/tags', getTags);
-// router.get('/categories', getCategories);
-// router.get('/photos', getPhotos);
+router.get('/prices', pricesController.getPrices);
+router.get('/messages', messagesController.getMessages);
+router.get('/users', userController.getUsers);
+router.get('/reservations', reservationsController.getReservations);
+router.get('/roles', userController.getRoles);
+router.get('/attractions', mainController.getAttractions);
+router.get('/tags', mainController.getTags);
+router.get('/categories', mainController.getCategories);
+router.get('/photos', mainController.getPhotos);
 
 export default router;
