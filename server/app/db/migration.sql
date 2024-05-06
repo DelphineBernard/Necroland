@@ -21,14 +21,14 @@ CREATE TABLE "role" (
 
 CREATE TABLE "user" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
-    "firstname" VARCHAR(40) NOT NULL,
-    "lastname" VARCHAR(40) NOT NULL,
-    "address" VARCHAR(255) NOT NULL, 
+    "firstname" TEXT NOT NULL,
+    "lastname" TEXT NOT NULL,
+    "address" TEXT NOT NULL, 
     "postal_code" TEXT NOT NULL,
     "city" TEXT NOT NULL,
     "country" TEXT NOT NULL,
-    "email" VARCHAR(100) UNIQUE NOT NULL,
-    "password" VARCHAR(100) NOT NULL,
+    "email" TEXT UNIQUE NOT NULL,
+    "password" TEXT NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ,
     "role_id" INTEGER REFERENCES "role"("id") NOT NULL DEFAULT 1
