@@ -36,7 +36,9 @@ CREATE TABLE "user" (
 
 CREATE TABLE "status" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
-    "label" TEXT NOT NULL
+    "label" TEXT NOT NULL,
+    "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    "updatedAt" TIMESTAMPTZ
 );
 
 CREATE TABLE "reservation" (
