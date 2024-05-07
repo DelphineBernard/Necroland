@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import Header from "../../components/Header";
-import Footer from "../../components/Footer";
 
 const Accueil = () => {
 
@@ -17,11 +16,9 @@ const Accueil = () => {
 
     return (
         <>
-            <Header title={"Necroland"} />
             {attractions.map(attraction => (
                 <h2 key={attraction.id}>{attraction.name}</h2>
             ))}
-            <Footer />
         </>
     )
 }
