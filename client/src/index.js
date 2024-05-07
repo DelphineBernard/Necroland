@@ -6,6 +6,7 @@ import {
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import Accueil from "./routes/Accueil";
+import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
 
@@ -17,10 +18,10 @@ const router = createBrowserRouter([
             path: "/",
             element: <Accueil />,
         },
-        //   {
-        //     path: "/attractions",
-        //     element: <Attractions />,
-        //   },
+        {
+             path: "/attractions",
+             element: <Attractions />,
+        },
         //   {
         //     path: "/le-parc",
         //     element: <LeParc />,
@@ -29,10 +30,10 @@ const router = createBrowserRouter([
         //     path: "/infos-pratiques",
         //     element: <InfosPratiques />,
         //   },
-            {
-                path: "/contact",
-                element: <Contact />,
-            },
+        {
+             path: "/contact",
+             element: <Contact />,
+        },
         //   {
         //     path: "/reservation",
         //     element: <Reservation />,
@@ -41,10 +42,10 @@ const router = createBrowserRouter([
         //     path: "/connexion",
         //     element: <Connexion />,
         //   },
-            {
-                path: "/profil",
-                element: <Profil />,
-            },
+        {
+             path: "/profil",
+             element: <Profil />,
+        },
         //   {
         //     path: "/cgv",
         //     element: <CGV />,
