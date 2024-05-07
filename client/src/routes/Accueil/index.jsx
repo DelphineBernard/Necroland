@@ -17,7 +17,7 @@ const Accueil = () => {
 
     return (
         <>
-            <Header title={"Necroland"} />
+            <Header />
             {attractions.map(attraction => (
                 <h2 key={attraction.id}>{attraction.name}</h2>
             ))}

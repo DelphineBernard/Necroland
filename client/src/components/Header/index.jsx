@@ -1,7 +1,11 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/logo.png";
+import { useLocation } from 'react-router-dom';
 
-const Header = ({title}) => {
+
+const Header = () => {
+    const location = useLocation();
+    const title = getTitleForPath(location.pathname);
     return (
         <header className="header">
             <nav className="nav">
@@ -22,6 +26,18 @@ const Header = ({title}) => {
             </div>
         </header>
     )
+}
+
+// Définir la fonction getTitleForPath pour mapper les titres aux chemins d'URL
+const getTitleForPath = (path) => {
+    switch (path) {
+      case '/':
+        return "NecroLand";
+      case '/Attractions':
+        return "Les attractions";
+      default:
+        return "Necroland";
+    }
 }
 
 export default Header;

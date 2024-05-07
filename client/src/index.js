@@ -5,16 +5,17 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Accueil from "./routes/Accueil";
+import Attractions from "./routes/Attractions";
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Accueil />,
   },
-//   {
-//     path: "/attractions",
-//     element: <Attractions />,
-//   },
+   {
+    path: "/attractions",
+     element: <Attractions />,
+  },
 //   {
 //     path: "/le-parc",
 //     element: <LeParc />,
