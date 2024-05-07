@@ -2,7 +2,7 @@ import { Model, DataTypes } from "sequelize";
 
 import sequelize from "../database.js";
 
-class Reservation extends Model { }
+class Reservation extends Model {}
 
 Reservation.init({
     start_date: {
