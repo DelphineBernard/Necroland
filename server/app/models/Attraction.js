@@ -7,11 +7,11 @@ class Attraction extends Model {}
 Attraction.init({
     name: {
         type: DataTypes.TEXT,
-        allowNull: false    
+        allowNull: false
     },
     description: {
         type: DataTypes.TEXT,
-        allowNull: false    
+        allowNull: false
     },
     createdAt: {
         type: DataTypes.DATE,
@@ -30,7 +30,6 @@ Attraction.init({
     sequelize,
     modelName: "Attraction",
     tableName: "attraction"
-    
 });
 
 export default Attraction;

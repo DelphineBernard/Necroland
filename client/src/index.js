@@ -5,6 +5,7 @@ import {
   RouterProvider,
 } from "react-router-dom";
 import Accueil from "./routes/Accueil";
+import Contact from "./routes/Contact";
 
 const router = createBrowserRouter([
   {
@@ -23,10 +24,10 @@ const router = createBrowserRouter([
 //     path: "/infos-pratiques",
 //     element: <InfosPratiques />,
 //   },
-//   {
-//     path: "/contact",
-//     element: <Contact />,
-//   },
+  {
+    path: "/contact",
+    element: <Contact />,
+  },
 //   {
 //     path: "/reservation",
 //     element: <Reservation />,
