@@ -7,6 +7,7 @@ import {
 import Layout from "./components/Layout";
 import Accueil from "./routes/Accueil";
 import Profil from "./routes/Profil";
+import Contact from "./routes/Contact";
 
 const router = createBrowserRouter([
     {   
@@ -28,10 +29,10 @@ const router = createBrowserRouter([
         //     path: "/infos-pratiques",
         //     element: <InfosPratiques />,
         //   },
-        //   {
-        //     path: "/contact",
-        //     element: <Contact />,
-        //   },
+            {
+                path: "/contact",
+                element: <Contact />,
+            },
         //   {
         //     path: "/reservation",
         //     element: <Reservation />,
@@ -43,7 +44,7 @@ const router = createBrowserRouter([
             {
                 path: "/profil",
                 element: <Profil />,
-            }
+            },
         //   {
         //     path: "/cgv",
         //     element: <CGV />,
