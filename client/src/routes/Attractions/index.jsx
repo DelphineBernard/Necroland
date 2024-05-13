@@ -8,9 +8,6 @@ const Attractions = () => {
 
     return (
         <>
-            <Header />
-           
-            <Footer />
         </>
     )
 }

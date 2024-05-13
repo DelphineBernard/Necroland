@@ -8,18 +8,16 @@ const Footer = () => {
     return (
         <footer className="footer">
             <nav className="footer__nav">
-                <ul className="footer__nav__links">
-                    <li className="footer__nav__links_item"><Link to={"contact"}>Contact</Link></li>
-                    <li className="footer__nav__links_item"><Link to={"cgv"}>CGV</Link></li>
-                    <li className="footer__nav__links_item"><Link to={"mentions-legales"}>Mentions légales</Link></li>
-                    <li className="footer__nav__links_item"><Link to={"plan-du-site"}>Plan du site</Link></li>
-                </ul>
+                <Link className="footer__nav__link" to={"contact"}>Contact</Link>
+                <Link className="footer__nav__link" to={"cgv"}>CGV</Link>
+                <Link className="footer__nav__link" to={"mentions-legales"}>Mentions légales</Link>
+                <Link className="footer__nav__link" to={"plan-du-site"}>Plan du site</Link>
             </nav>
-            <div className="social-networks">
-                <a href="#"><img src={Twitter} alt="" /></a>
-                <a href="#"><img src={Facebook} alt="" /></a>
-                <a href="#"><img src={Instagram} alt="" /></a>
-                <a href="#"><img src={Tiktok} alt="" /></a>
+            <div className="footer__social-networks">
+                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Twitter} alt="" /></a>
+                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Facebook} alt="" /></a>
+                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Instagram} alt="" /></a>
+                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Tiktok} alt="" /></a>
             </div>
         </footer>
     )

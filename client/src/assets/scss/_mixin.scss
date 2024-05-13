@@ -1,0 +1,18 @@
+@use 'var';
+
+@mixin medium {
+  @media screen and (min-width: var.$breakpoint-medium) {
+    @content;
+  }
+}
+
+@mixin big {
+  @media screen and (min-width: var.$breakpoint-big) {
+    @content;
+  }
+}
+
+@mixin links {
+    text-decoration: none;
+    font-family: var.$passion_one;
+}
