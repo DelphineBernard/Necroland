@@ -15,11 +15,11 @@ const Accueil = () => {
     }, []);
 
     return (
-        <>
+        <main>
             {attractions.map(attraction => (
                 <h2 key={attraction.id}>{attraction.name}</h2>
             ))}
-        </>
+        </main>
     )
 }
 
