@@ -54,6 +54,16 @@ const getTitleForPath = (path) => {
         return "Les attractions";
       case '/contact':
         return "Contact";
+      case '/inscription':
+        return "Nouveau client ?";
+      case '/connexion':
+        return "Déjà client ?";
+      case '/le-parc':
+        return "Le parc";
+      case '/mentions-legales':
+        return "Mentions légales";
+      case '/erreur':
+        return "Erreur";
       default:
         return "Necroland";
     }

@@ -1,12 +1,9 @@
-import Header from "../../components/Header";
-import Footer from "../../components/Footer";
-
 const Contact = () => {
 
     return (
     
         <main>
-            <form>
+            <form method="post">
                 <p>* Champs obligatoires</p>
                 <div>
                     <label for="lastname">Nom *</label>
