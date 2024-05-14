@@ -1,0 +1,25 @@
+@use '../scss/var';
+
+@font-face {
+    font-family: 'Gotham';
+    src: 
+        url('../fonts/gotham.ttf') format('truetype'),
+        url('../fonts/gotham.woff2') format('woff2'),
+        url('../fonts/gotham.woff') format('woff');
+}
+
+* {
+    color: var.$color_white;
+}
+
+img {
+    max-width: 100%;
+}
+
+main {
+    background-color: var.$dark_gray;
+}
+
+.hidden {
+    display: none;
+}

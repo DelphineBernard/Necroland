@@ -10,6 +10,11 @@ import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
 import Reservation from "./routes/Reservation";
+import Connexion from "./routes/Connexion";
+import Inscription from "./routes/Inscription";
+import LeParc from "./routes/LeParc";
+import MentionsLegales from "./routes/MentionsLegales";
+import Erreur from "./routes/Erreur";
 
 const router = createBrowserRouter([
     {   
@@ -23,10 +28,10 @@ const router = createBrowserRouter([
             path: "/attractions",
             element: <Attractions />,
         },
-        //   {
-        //     path: "/le-parc",
-        //     element: <LeParc />,
-        //   },
+        {
+            path: "/le-parc",
+            element: <LeParc />,
+        },
         //   {
         //     path: "/infos-pratiques",
         //     element: <InfosPratiques />,
@@ -39,34 +44,34 @@ const router = createBrowserRouter([
             path: "/reservation",
             element: <Reservation />,
         },
-        //   {
-        //     path: "/connexion",
-        //     element: <Connexion />,
-        //   },
-        // {
-        //     path: "/inscription",
-        //     element: <Inscription />,
-        // },
+        {
+            path: "/connexion",
+            element: <Connexion />,
+        },
+        {
+            path: "/inscription",
+            element: <Inscription />,
+        },
         {
             path: "/profil",
             element: <Profil />,
         },
-        // {
-        //     path: "/error404",
-        //     element: <Error404 />,
-        // },
         //   {
         //     path: "/cgv",
         //     element: <CGV />,
         //   },
-        //   {
-        //     path: "/mentions-legales",
-        //     element: <MentionsLegales />,
-        //   },
+        {
+            path: "/mentions-legales",
+            element: <MentionsLegales />,
+        },
         //   {
         //     path: "/plan-du-site",
         //     element: <PlanDuSite />,
         //   },
+        {
+            path: "/erreur",
+            element: <Erreur />,
+        },
         ]
     }
 ]);
