@@ -4,11 +4,12 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Layout from "./components/Layout";
+import { Layout } from "./components/Layout";
 import Accueil from "./routes/Accueil";
 import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
+import Reservation from "./routes/Reservation";
 
 const router = createBrowserRouter([
     {   
@@ -19,8 +20,8 @@ const router = createBrowserRouter([
             element: <Accueil />,
         },
         {
-             path: "/attractions",
-             element: <Attractions />,
+            path: "/attractions",
+            element: <Attractions />,
         },
         //   {
         //     path: "/le-parc",
@@ -31,21 +32,29 @@ const router = createBrowserRouter([
         //     element: <InfosPratiques />,
         //   },
         {
-             path: "/contact",
-             element: <Contact />,
+            path: "/contact",
+            element: <Contact />,
         },
-        //   {
-        //     path: "/reservation",
-        //     element: <Reservation />,
-        //   },
+        {
+            path: "/reservation",
+            element: <Reservation />,
+        },
         //   {
         //     path: "/connexion",
         //     element: <Connexion />,
         //   },
+        // {
+        //     path: "/inscription",
+        //     element: <Inscription />,
+        // },
         {
-             path: "/profil",
-             element: <Profil />,
+            path: "/profil",
+            element: <Profil />,
         },
+        // {
+        //     path: "/error404",
+        //     element: <Error404 />,
+        // },
         //   {
         //     path: "/cgv",
         //     element: <CGV />,

@@ -33,7 +33,7 @@ const getTitleForPath = (path) => {
     switch (path) {
       case '/':
         return "NecroLand";
-      case '/Attractions':
+      case '/attractions':
         return "Les attractions";
       default:
         return "Necroland";
