@@ -23,10 +23,10 @@ INSERT INTO "status" (label) VALUES
 ('En cours de traitement'),
 ('Traité');
 
-INSERT INTO "category" (name) VALUES
-('Rollercoaster'),
-('Restaurant'),
-('Expérience immersive');
+INSERT INTO "category" (name, slug) VALUES
+('Rollercoaster', 'rollercoaster'),
+('Restaurant', 'restaurant'),
+('Expérience immersive', 'experience-immersive');
 
 INSERT INTO "attraction" (name, description, category_id) VALUES
 
@@ -44,23 +44,23 @@ des virages serrés et des descentes à couper le souffle. Zombie Thrill est con
 
 ('Pink Elegance Bistro', 'Bienvenue au "Pink Elegance Bistro", un lieu où l''élégance rencontre la féminité dans une ambiance rose chatoyante. Notre restaurant girly friendly vous invite à plonger dans un monde de sophistication et de convivialité. Le décor rose, les détails élégants et une cuisine délicieuse créent une atmosphère chaleureuse et accueillante pour toutes les occasions. Que ce soit pour un déjeuner entre amies, un rendez-vous romantique ou une journée spéciale, Pink Elegance Bistro vous offre une expérience gastronomique exceptionnelle.', 2);
 
-INSERT INTO "tag" (name) VALUES
-('Horreur'),
-('Effrayant'),
-('Maison hantée'),
-('Adultes seulement'),
-('Cuisine créative'),
-('Macabre'),
-('Ambiance sombre'),
-('Expérience gastronomique'),
-('Montagnes russes'),
-('Adrénaline'),
-('Looping'),
-('Survie'),
-('Aventure'),
-('Vitesse'),
-('Convivial'),
-('Chic');
+INSERT INTO "tag" (name, slug) VALUES
+('Horreur', 'horreur'),
+('Effrayant', 'effrayant'),
+('Maison hantée', 'maison-hantee'),
+('Adultes seulement', 'adultes-seulement'),
+('Cuisine créative', 'cuisine-creative'),
+('Macabre', 'macabre'),
+('Ambiance sombre', 'ambiance-sombre'),
+('Expérience gastronomique', 'experience-gastronomique'),
+('Montagnes russes', 'montagnes-russes'),
+('Adrénaline', 'adrenaline'),
+('Looping', 'looping'),
+('Survie', 'survie'),
+('Aventure', 'aventure'),
+('Vitesse', 'vitesse'),
+('Convivial', 'convivial'),
+('Chic', 'chic');
 
 INSERT INTO "price" (duration, price, hotel) VALUES
 (1, 65.00, false),

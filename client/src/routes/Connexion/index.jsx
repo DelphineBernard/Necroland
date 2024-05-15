@@ -10,11 +10,11 @@ const Connexion = () => {
                 <p>* Champs obligatoires</p>
                 {typeof alert !== 'undefined' && <p className="message message--error">{alert}</p>}
                 <div>
-                    <label for="email">Adresse e-mail *</label>
+                    <label htmlFor="email">Adresse e-mail *</label>
                     <input type="email" name="email" id="email" placeholder="Votre adresse e-mail" />
                 </div>
                 <div>
-                    <label for="password">Mot de passe *</label>
+                    <label htmlFor="password">Mot de passe *</label>
                     <input type="password" name="password" id="password" placeholder="Votre mot de passe"/>
                     <a href="#">Mot de passe oublié ?</a>
                 </div>
