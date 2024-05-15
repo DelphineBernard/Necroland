@@ -11,9 +11,13 @@ const router = express.Router();
 router.get('/prices', pricesController.getPrices);
 router.get('/messages', messagesController.getMessages);
 router.get('/users', userController.getUsers);
+
 router.get('/reservations', reservationsController.getReservations);
+router.post('/reservation', reservationsController.addReservation);
+
 router.get('/roles', userController.getRoles);
 router.get('/attractions', mainController.getAttractions);
+
 router.get('/tags', mainController.getTags);
 router.get('/categories', mainController.getCategories);
 router.get('/photos', mainController.getPhotos);

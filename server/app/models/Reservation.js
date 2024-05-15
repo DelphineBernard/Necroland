@@ -6,18 +6,18 @@ class Reservation extends Model {}
 
 Reservation.init({
     start_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     end_date: {
-        type: DataTypes.DATE,
+        type: DataTypes.DATEONLY,
         allowNull: false
     },
     nb_people: {
         type: DataTypes.INTEGER,
         allowNull: false
     },
-    type: {
+    hotel: {
         type: DataTypes.TEXT,
         allowNull: false
     },
@@ -40,6 +40,7 @@ Reservation.init({
     },
     status_id: {
         type: DataTypes.INTEGER,
+        defaultValue: 1,
         allowNull: false
     },
 }, {
