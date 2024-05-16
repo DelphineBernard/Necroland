@@ -10,40 +10,40 @@ const Inscription = () => {
                 <p>* Champs obligatoires</p>
                 {typeof alert !== 'undefined' && <p className="message message--error">{alert}</p>}
                 <div>
-                    <label for="email">Adresse e-mail *</label>
+                    <label htmlFor="email">Adresse e-mail *</label>
                     <input type="email" name="email" id="email" placeholder="Votre adresse e-mail" />
                 </div>
                 <div>
-                    <label for="password">Mot de passe *</label>
+                    <label htmlFor="password">Mot de passe *</label>
                     <p>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</p>
                     <input type="password" name="password" id="password" placeholder="Votre mot de passe" />
                 </div>
                 <div>
-                    <label for="passwordConfirm">Confirmation mot de passe *</label>
+                    <label htmlFor="passwordConfirm">Confirmation mot de passe *</label>
                     <input type="password" name="passwordConfirm" id="passwordConfirm" placeholder="Confirmez votre mot de passe" />
                 </div>
                 <div>
-                    <label for="lastname">Nom *</label>
+                    <label htmlFor="lastname">Nom *</label>
                     <input type="text" name="lastname" id="lastname" placeholder="Votre nom" />
                 </div>
                 <div>
-                    <label for="firstname">Prénom *</label>
+                    <label htmlFor="firstname">Prénom *</label>
                     <input type="text" name="firstname" id="firstname" placeholder="Votre prénom" />
                 </div>
                 <div>
-                    <label for="address">Adresse *</label>
+                    <label htmlFor="address">Adresse *</label>
                     <input type="text" name="address" id="address" placeholder="Votre adresse" />
                 </div>
                 <div>
-                    <label for="postalCode">Code postal *</label>
+                    <label htmlFor="postalCode">Code postal *</label>
                     <input type="text" name="postalCode" id="postalCode" placeholder="Votre code postal" />
                 </div>
                 <div>
-                    <label for="city">Ville *</label>
+                    <label htmlFor="city">Ville *</label>
                     <input type="text" name="city" id="city" placeholder="La ville où vous habitez" />
                 </div>
                 <div>
-                    <label for="country">Pays *</label>
+                    <label htmlFor="country">Pays *</label>
                     <input type="text" name="country" id="country" placeholder="France"/>
                 </div>
                 <button type="submit">S'inscrire</button>

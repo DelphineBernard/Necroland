@@ -1,12 +1,40 @@
-import Attraction from "../models/Attraction.js";
-import Tag from "../models/Tag.js";
-import Category from "../models/Category.js";
-import Photo from "../models/Photo.js";
+import {Attraction, Tag, Category, Photo } from "../models/index.js";
 
 const mainController = {
+
     getAttractions: async (req, res) => {
         const attractions = await Attraction.findAll();
         res.json({attractions});
+    },
+
+    getAttractionsByCategory: async (req, res) => {
+        try {
+            const category = req.params.category;
+            const foundCategory = await Category.findOne({where: { slug: category }});
+            if (foundCategory) {
+                const categoryId = foundCategory.id;
+                const attractions = await Attraction.findAll({where: { category_id: categoryId} });
+                res.json({attractions});
+            }
+        } catch (error) {
+            console.log(error);
+        } 
+    },
+
+    getAttractionsByTag: async (req, res) => {
+        try {
+            const tag = req.params.tag;
+            const foundTag = await Tag.findOne({
+                where: { slug: tag },
+                include: { model: Attraction, as: 'Attractions' },
+            });
+            if (foundTag) {
+                const attractions = foundTag;
+                res.json({attractions});
+            }
+        } catch (error) {
+            console.log(error);
+        } 
     },
 
     getTags: async (req, res) => {

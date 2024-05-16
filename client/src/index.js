@@ -1,4 +1,3 @@
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
@@ -15,6 +14,7 @@ import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
 import Erreur from "./routes/Erreur";
+import { ContextProvider } from "./components/Context";
 
 const router = createBrowserRouter([
     {   
@@ -77,5 +77,8 @@ const router = createBrowserRouter([
 ]);
 
 ReactDOM.createRoot(document.getElementById("app")).render(
-    <RouterProvider router={router} />
+    <ContextProvider>
+        <RouterProvider router={router} />
+    </ContextProvider>
 );
+// En enveloppant le router avec la balise ContextProvider je rends disponibles à tous les composants enfants, les valeurs de mon Context

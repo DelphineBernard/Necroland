@@ -6,6 +6,7 @@ import { createContext, useState, useEffect } from "react";
 const AllPricesContext = createContext();
 
 const Layout = () => {
+
     const [allPrices, setAllPrices] = useState([])
 
     useEffect(() => {

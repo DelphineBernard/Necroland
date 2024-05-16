@@ -19,12 +19,13 @@ const Accueil = () => {
                 <h2>Ouverture du parc dans 1 mois</h2>
                 <div>
                     <h3>Bienvenue à Necroland !</h3>
-                    <p>Entrez dans un monde où les morts ne dorment jamais.</p>
+                    <div>
+                        <p>Entrez dans un monde où les morts ne dorment <span>jamais</span>.</p>
+                        <img src="" alt="" />
+                    </div>
+                    
                     <p>Préparez-vous </p>
-                    <p>ZombieLand Adventure Park, où l'horreur rencontre l'aventure, et où chaque visiteur
-devient un survivant. Réservez votre billet pour une expérience inoubliable, mais
-n'oubliez pas : dans ZombieLand, chaque coin sombre peut cacher un secret
-terrifiant.</p>
+                    
                 </div> 
             </section>
             <section>
