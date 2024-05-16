@@ -1,7 +1,6 @@
 const Contact = () => {
 
     return (
-    
         <main>
             <form method="post">
                 <p>* Champs obligatoires</p>
@@ -28,7 +27,6 @@ const Contact = () => {
                 <button type="submit">Envoyer</button>
             </form>
         </main>
-
     )
 }
 

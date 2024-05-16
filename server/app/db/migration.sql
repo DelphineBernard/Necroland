@@ -48,7 +48,7 @@ CREATE TABLE "reservation" (
     "start_date" DATE NOT NULL, 
     "end_date" DATE NOT NULL,
     "nb_people" INTEGER NOT NULL,
-    "type" TEXT NOT NULL,
+    "hotel" TEXT NOT NULL,
     "total_price" DECIMAL(10, 2) NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ,

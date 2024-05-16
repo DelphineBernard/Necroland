@@ -28,6 +28,7 @@ INSERT INTO "category" (name, slug) VALUES
 ('Restaurant', 'restaurant'),
 ('Expérience immersive', 'experience-immersive');
 
+
 INSERT INTO "attraction" (name, description, category_id) VALUES
 
 ('Dead Encounter', 'Plongez dans l''horreur avec Dead Encounter, une expérience cauchemardesque qui vous emmènera au plus profond de vos frayeurs. Cette maison d''horreur interdite aux moins de 18 ans vous mettra au défi de survivre à une série de scènes terrifiantes. Des monstres sanguinaires aux apparitions effrayantes, chaque coin cache une horreur inimaginable. Oserez-vous affronter vos pires cauchemars ?', 3),
@@ -93,6 +94,5 @@ INSERT INTO "attraction_has_tag" (attraction_id, tag_id) VALUES
 ((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='chic')),
 ((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='convivial')),
 ((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='experience-gastronomique'));
-
 
 COMMIT;
