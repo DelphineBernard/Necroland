@@ -71,4 +71,28 @@ INSERT INTO "price" (duration, price, hotel) VALUES
 (3, 385.00, true),
 (4, 560.00, true);
 
+INSERT INTO "attraction_has_tag" (attraction_id, tag_id) VALUES
+((SELECT "id" FROM "attraction" WHERE "name"='Dead Encounter'),(SELECT "id" FROM "tag" WHERE "slug"='horreur')),
+((SELECT "id" FROM "attraction" WHERE "name"='Dead Encounter'),(SELECT "id" FROM "tag" WHERE "slug"='effrayant')),
+((SELECT "id" FROM "attraction" WHERE "name"='Dead Encounter'),(SELECT "id" FROM "tag" WHERE "slug"='maison-hantee')),
+((SELECT "id" FROM "attraction" WHERE "name"='Dead Encounter'),(SELECT "id" FROM "tag" WHERE "slug"='adultes-seulement')),
+((SELECT "id" FROM "attraction" WHERE "name"='Feast of shadows'),(SELECT "id" FROM "tag" WHERE "slug"='cuisine-creative')),
+((SELECT "id" FROM "attraction" WHERE "name"='Feast of shadows'),(SELECT "id" FROM "tag" WHERE "slug"='macabre')),
+((SELECT "id" FROM "attraction" WHERE "name"='Feast of shadows'),(SELECT "id" FROM "tag" WHERE "slug"='ambiance-sombre')),
+((SELECT "id" FROM "attraction" WHERE "name"='Feast of shadows'),(SELECT "id" FROM "tag" WHERE "slug"='experience-gastronomique')),
+((SELECT "id" FROM "attraction" WHERE "name"='Undead Plunge'),(SELECT "id" FROM "tag" WHERE "slug"='montagnes-russes')),
+((SELECT "id" FROM "attraction" WHERE "name"='Undead Plunge'),(SELECT "id" FROM "tag" WHERE "slug"='adrenaline')),
+((SELECT "id" FROM "attraction" WHERE "name"='Undead Plunge'),(SELECT "id" FROM "tag" WHERE "slug"='looping')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie parade'),(SELECT "id" FROM "tag" WHERE "slug"='horreur')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie parade'),(SELECT "id" FROM "tag" WHERE "slug"='survie')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie parade'),(SELECT "id" FROM "tag" WHERE "slug"='aventure')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie parade'),(SELECT "id" FROM "tag" WHERE "slug"='effrayant')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie thrill'),(SELECT "id" FROM "tag" WHERE "slug"='montagnes-russes')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie thrill'),(SELECT "id" FROM "tag" WHERE "slug"='adrenaline')),
+((SELECT "id" FROM "attraction" WHERE "name"='Zombie thrill'),(SELECT "id" FROM "tag" WHERE "slug"='vitesse')),
+((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='chic')),
+((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='convivial')),
+((SELECT "id" FROM "attraction" WHERE "name"='Pink Elegance Bistro'),(SELECT "id" FROM "tag" WHERE "slug"='experience-gastronomique'));
+
+
 COMMIT;

@@ -1,4 +1,3 @@
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
@@ -81,3 +80,4 @@ ReactDOM.createRoot(document.getElementById("app")).render(
         <RouterProvider router={router} />
     </ContextProvider>
 );
+// En enveloppant le router avec la balise ContextProvider je rends disponibles à tous les composants enfants, les valeurs de mon Context

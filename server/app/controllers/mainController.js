@@ -1,7 +1,4 @@
-import Attraction from "../models/Attraction.js";
-import Tag from "../models/Tag.js";
-import Category from "../models/Category.js";
-import Photo from "../models/Photo.js";
+import {Attraction, Tag, Category, Photo } from "../models/index.js";
 
 const mainController = {
 
@@ -32,8 +29,8 @@ const mainController = {
                 include: { model: Attraction, as: 'Attractions' },
             });
             if (foundTag) {
-                console.log(foundTag)
-                // res.json({attractions});
+                const attractions = foundTag;
+                res.json({attractions});
             }
         } catch (error) {
             console.log(error);

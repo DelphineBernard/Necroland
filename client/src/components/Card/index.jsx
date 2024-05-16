@@ -6,6 +6,7 @@ const Card = ({name, img, description, category}) => {
             <div>
                 <p>{description}</p>
                 <p>{category}</p>
+                
                 <button>Plus de photos</button>
             </div>
         </article>

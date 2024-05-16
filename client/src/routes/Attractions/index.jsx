@@ -6,7 +6,7 @@ import CategoryTabs from "../../components/CategoryTabs";
 import { Context } from "../../components/Context";
 
 const Attractions = () => {
-
+    // Je récupère les données du Context dont j'ai besoin
     const { attractions, setAttractions } = useContext(Context);
 
     const fetchAttractions = async () => {
@@ -19,6 +19,7 @@ const Attractions = () => {
         }
     };
 
+    // Par défaut, au chargement de la page Attractions, j'affiche toutes les attractions
     useEffect(() => {
         fetchAttractions();
     }, []);
