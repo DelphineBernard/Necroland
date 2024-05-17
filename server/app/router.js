@@ -5,6 +5,7 @@ import pricesController from './controllers/pricesController.js';
 import authController from './controllers/authController.js';
 import mainController from './controllers/mainController.js';
 import userController from './controllers/usersController.js';
+import isLogged from './middlewares/isLogged.js';
 
 const router = express.Router();
 
@@ -12,8 +13,8 @@ router.get('/prices', pricesController.getPrices);
 router.get('/messages', messagesController.getMessages);
 router.get('/users', userController.getUsers);
 
-router.get('/reservations', reservationsController.getReservations);
-router.post('/reservation', reservationsController.addReservation);
+router.get('/reservations', isLogged, reservationsController.getReservations);
+router.post('/reservation', isLogged, reservationsController.addReservation);
 
 router.get('/roles', userController.getRoles);
 
@@ -24,5 +25,9 @@ router.get('/attractions/tags/:tag', mainController.getAttractionsByTag);
 router.get('/tags', mainController.getTags);
 router.get('/categories', mainController.getCategories);
 router.get('/photos', mainController.getPhotos);
+
+router.post('/inscription', authController.register);
+router.post('/connexion', authController.login);
+router.post('/deconnexion', authController.logout);
 
 export default router;
