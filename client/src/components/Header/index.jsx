@@ -1,27 +1,44 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/logo.png";
+import Avatar from "../../assets/icons/avatar.png";
+import Banner from "../../assets/img/banner.jpg";
+import Menu from "../../assets/icons/menu.png";
 import { useLocation } from 'react-router-dom';
-
+import { useState } from "react";
 
 const Header = () => {
     const location = useLocation();
     const title = getTitleForPath(location.pathname);
+
+    const [menuVisible, setMenuVisible] = useState(false);
+
+    const toggleMenu = () => {
+        setMenuVisible(!menuVisible);
+    };
+
     return (
         <header className="header">
             <nav className="nav">
-                <Link to={"/"} title={"Retour à l'accueil"}>
+                <a href="#" onClick={toggleMenu}>
+                    <img className="nav__icon nav__icon-menu" src={Menu} alt="" />
+                </a>
+                <Link className="logo" to={"/"} title={"Retour à l'accueil"}>
                     <img src={Logo} alt="Necroland"/>
                 </Link>
-                <ul className="nav__links">
-                    <li className="nav__links_item"><Link to={"attractions"}>Les attractions</Link></li>
-                    <li className="nav__links_item"><Link to={"le-parc"}>Le parc</Link></li>
-                    <li className="nav__links_item"><Link to={"infos-pratiques"}>Infos pratiques</Link></li>
-                    <li className="nav__links_item"><Link to={"contact"}>Contact</Link></li>
-                    <li className="nav__links_item"><Link to={"reservation"}>Réservation</Link></li>
-                    <li className="nav__links_item"><Link to={"connexion"}>Connexion</Link></li>
-                </ul>
+                <div className={`nav__links ${menuVisible ? '' : 'hidden'}`}>
+                    <Link className="nav__links_item" to={"attractions"}>Les attractions</Link>
+                    <Link className="nav__links_item" to={"le-parc"}>Le parc</Link>
+                    <Link className="nav__links_item" to={"infos-pratiques"}>Infos pratiques</Link>
+                    
+                    <Link className="nav__links_item" to={"contact"}>Contact</Link>
+                    <Link className="nav__links_item" to={"reservation"}>Réservation</Link>
+                </div>
+                <Link className="nav__links_item" to={"connexion"}>
+                    <img className="nav__icon" src={Avatar} alt="" />
+                </Link>
             </nav>
             <div className="banner">
+                <img src={Banner} alt="" />
                 <h1 className="banner__title">{title}</h1>
             </div>
         </header>

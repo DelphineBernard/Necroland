@@ -1,0 +1,55 @@
+@use '../../assets/scss/var';
+@use '../../assets/scss/mixin';
+
+.footer {
+    display: flex;
+    flex-direction: column;
+    background-color: var.$color_black;
+    padding: 1rem 0;
+    &__nav {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        &__link {
+            @include mixin.links;
+        }
+    }
+
+    &__social-networks {
+        margin-top: 1rem;
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        &__img {
+            width: 25px;
+        }
+    }
+}
+
+@include mixin.medium {
+    .footer {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 2rem;
+        &__nav {
+            flex-direction: row;
+            gap: 5rem;
+        }
+        &__social-networks {
+            margin-top: 0;
+            gap: 2rem;
+        }
+    }
+}
+
+@include mixin.big {
+    .footer {
+        &__nav {
+            &__link {
+                font-size: 1.5rem;
+            }
+        }
+    }
+}

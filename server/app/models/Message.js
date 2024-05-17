@@ -36,6 +36,7 @@ Message.init({
     },
     status_id: {
         type: DataTypes.INTEGER,
+        defaultValue: 3,
         allowNull: false
     },
 }, {
