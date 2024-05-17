@@ -52,30 +52,18 @@ const getTitleForPath = (path) => {
         return "NecroLand";
       case '/attractions':
         return "Les attractions";
+      case '/contact':
+        return "Contact";
+      case '/inscription':
+        return "Nouveau client ?";
+      case '/connexion':
+        return "Déjà client ?";
       case '/le-parc':
         return "Le parc";
-      case '/infos-pratiques':
-        return "Infos pratiques"; 
-      case '/contact':
-        return "Contact";
-      case '/reservation':
-        return "Réservation";
-      case '/connexion':
-        return "Connexion";
-      case '/inscription':
-        return "Inscription"; 
-      case '/profil':
-        return "Profil";
-      case '/contact':
-        return "Contact";
-      case '/cgv':
-        return "Les conditions générales de vente";
       case '/mentions-legales':
-        return "Les mentions légales";
-      case '/plan-du-site':
-        return "Plan du site";
-      case '/error404':
-        return "Error 404";
+        return "Mentions légales";
+      case '/erreur':
+        return "Erreur";
       default:
         return "Necroland";
     }
