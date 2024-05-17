@@ -11,6 +11,7 @@ Category.init({
     },
     slug: {
         type: DataTypes.TEXT,
+        unique: true,
         allowNull: false
     },
     createdAt: {
