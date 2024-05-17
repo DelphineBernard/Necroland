@@ -1,14 +1,20 @@
-import * as React from "react";
 import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
-import Layout from "./components/Layout";
+import { Layout } from "./components/Layout";
 import Accueil from "./routes/Accueil";
 import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
+import Reservation from "./routes/Reservation";
+import Connexion from "./routes/Connexion";
+import Inscription from "./routes/Inscription";
+import LeParc from "./routes/LeParc";
+import MentionsLegales from "./routes/MentionsLegales";
+import Erreur from "./routes/Erreur";
+import { ContextProvider } from "./components/Context";
 
 const router = createBrowserRouter([
     {   
@@ -19,49 +25,60 @@ const router = createBrowserRouter([
             element: <Accueil />,
         },
         {
-             path: "/attractions",
-             element: <Attractions />,
+            path: "/attractions",
+            element: <Attractions />,
         },
-        //   {
-        //     path: "/le-parc",
-        //     element: <LeParc />,
-        //   },
+        {
+            path: "/le-parc",
+            element: <LeParc />,
+        },
         //   {
         //     path: "/infos-pratiques",
         //     element: <InfosPratiques />,
         //   },
         {
-             path: "/contact",
-             element: <Contact />,
+            path: "/contact",
+            element: <Contact />,
         },
-        //   {
-        //     path: "/reservation",
-        //     element: <Reservation />,
-        //   },
-        //   {
-        //     path: "/connexion",
-        //     element: <Connexion />,
-        //   },
         {
-             path: "/profil",
-             element: <Profil />,
+            path: "/reservation",
+            element: <Reservation />,
+        },
+        {
+            path: "/connexion",
+            element: <Connexion />,
+        },
+        {
+            path: "/inscription",
+            element: <Inscription />,
+        },
+        {
+            path: "/profil",
+            element: <Profil />,
         },
         //   {
         //     path: "/cgv",
         //     element: <CGV />,
         //   },
-        //   {
-        //     path: "/mentions-legales",
-        //     element: <MentionsLegales />,
-        //   },
+        {
+            path: "/mentions-legales",
+            element: <MentionsLegales />,
+        },
         //   {
         //     path: "/plan-du-site",
         //     element: <PlanDuSite />,
         //   },
+        {
+            path: "/erreur",
+            element: <Erreur />,
+        },
         ]
     }
 ]);
 
 ReactDOM.createRoot(document.getElementById("app")).render(
-    <RouterProvider router={router} />
+    <ContextProvider>
+        <RouterProvider router={router} />
+    </ContextProvider>
 );
+// En enveloppant le router avec la balise ContextProvider je rends disponibles à tous les composants enfants, les valeurs de mon Context

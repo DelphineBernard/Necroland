@@ -26,7 +26,7 @@ Attraction.belongsTo(Category, {foreignKey: "category_id", as: "category"});
 Attraction.hasMany(Photo, { foreignKey: "attraction_id", as: "photos"});
 Photo.belongsTo(Attraction, { foreignKey: "attraction_id", as: "attraction"});
 
-Attraction.belongsToMany(Tag, { through: "AttractionTags" });
-Tag.belongsToMany(Attraction, { through: "AttractionTags"});
+Attraction.belongsToMany(Tag, { through: 'attraction_has_tag', foreignKey: 'attraction_id', otherKey: 'tag_id' });
+Tag.belongsToMany(Attraction, { through: 'attraction_has_tag', foreignKey: 'tag_id', otherKey: 'attraction_id' });
 
 export {User, Reservation, Role, Status, Attraction, Category, Message, Photo, Tag};

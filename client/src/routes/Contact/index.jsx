@@ -5,7 +5,7 @@ const Contact = () => {
 
     return (
         <>
-            <Header title={"Contact"} />
+        
             <main>
                 <form>
                     <p>* Champs obligatoires</p>
@@ -32,7 +32,7 @@ const Contact = () => {
                     <button type="submit">Envoyer</button>
                 </form>
             </main>
-            <Footer />
+         
         </>
     )
 }

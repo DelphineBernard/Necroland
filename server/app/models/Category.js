@@ -9,6 +9,10 @@ Category.init({
         type: DataTypes.TEXT,
         allowNull: false    
     },
+    slug: {
+        type: DataTypes.TEXT,
+        allowNull: false
+    },
     createdAt: {
         type: DataTypes.DATE,
         defaultValue: DataTypes.NOW,

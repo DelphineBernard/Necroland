@@ -1,5 +1,7 @@
 BEGIN;
 
+SET CLIENT_ENCODING TO 'UTF-8';
+
 DROP TABLE IF EXISTS "role" CASCADE;
 DROP TABLE IF EXISTS "user" CASCADE;
 DROP TABLE IF EXISTS "status" CASCADE;
@@ -46,7 +48,7 @@ CREATE TABLE "reservation" (
     "start_date" DATE NOT NULL, 
     "end_date" DATE NOT NULL,
     "nb_people" INTEGER NOT NULL,
-    "type" TEXT NOT NULL,
+    "hotel" TEXT NOT NULL,
     "total_price" DECIMAL(10, 2) NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ,
@@ -58,6 +60,7 @@ CREATE TABLE "reservation" (
 CREATE TABLE "category" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
     "name" TEXT UNIQUE NOT NULL,
+    "slug" TEXT UNIQUE NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ
 );
@@ -74,6 +77,7 @@ CREATE TABLE "attraction" (
 CREATE TABLE "tag" (
     "id" INTEGER GENERATED ALWAYS AS IDENTITY PRIMARY KEY, 
     "name" TEXT UNIQUE NOT NULL,
+    "slug" TEXT UNIQUE NOT NULL,
     "createdAt" TIMESTAMPTZ NOT NULL DEFAULT NOW(),
     "updatedAt" TIMESTAMPTZ
 );
