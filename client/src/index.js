@@ -13,6 +13,7 @@ import Connexion from "./routes/Connexion";
 import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
+import CGV from "./routes/CGV";
 import Erreur from "./routes/Erreur";
 import { ContextProvider } from "./components/Context";
 
@@ -56,10 +57,10 @@ const router = createBrowserRouter([
             path: "/profil",
             element: <Profil />,
         },
-        //   {
-        //     path: "/cgv",
-        //     element: <CGV />,
-        //   },
+        {
+            path: "/cgv",
+            element: <CGV />,
+        },
         {
             path: "/mentions-legales",
             element: <MentionsLegales />,

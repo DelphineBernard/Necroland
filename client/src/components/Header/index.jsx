@@ -60,10 +60,14 @@ const getTitleForPath = (path) => {
         return "Déjà client ?";
       case '/le-parc':
         return "Le parc";
+      case '/reservation':
+        return 'Réservation';
       case '/mentions-legales':
         return "Mentions légales";
       case '/erreur':
         return "Erreur";
+      case '/cgv':
+        return 'CGV';
       default:
         return "Necroland";
     }
