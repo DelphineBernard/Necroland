@@ -16,6 +16,8 @@ import MentionsLegales from "./routes/MentionsLegales";
 import CGV from "./routes/CGV";
 import Erreur from "./routes/Erreur";
 import { ContextProvider } from "./components/Context";
+import InfosPratiques from "./routes/InfosPratiques";
+import PlanDuSite from "./routes/PlanDuSite";
 
 const router = createBrowserRouter([
     {   
@@ -33,10 +35,10 @@ const router = createBrowserRouter([
             path: "/le-parc",
             element: <LeParc />,
         },
-        //   {
-        //     path: "/infos-pratiques",
-        //     element: <InfosPratiques />,
-        //   },
+        {
+            path: "/infos-pratiques",
+            element: <InfosPratiques />,
+        },
         {
             path: "/contact",
             element: <Contact />,
@@ -65,10 +67,10 @@ const router = createBrowserRouter([
             path: "/mentions-legales",
             element: <MentionsLegales />,
         },
-        //   {
-        //     path: "/plan-du-site",
-        //     element: <PlanDuSite />,
-        //   },
+        {
+            path: "/plan-du-site",
+            element: <PlanDuSite />,
+        },
         {
             path: "/erreur",
             element: <Erreur />,
