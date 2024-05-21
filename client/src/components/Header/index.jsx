@@ -66,16 +66,16 @@ const getTitleForPath = (path) => {
         return "Inscription"; 
       case '/profil':
         return "Profil";
-      case '/contact':
-        return "Contact";
       case '/cgv':
-        return "Les conditions générales de vente";
+        return "Conditions générales de vente";
       case '/mentions-legales':
-        return "Les mentions légales";
+        return "Mentions légales";
       case '/plan-du-site':
         return "Plan du site";
-      case '/error404':
-        return "Error 404";
+      case '/le-parc':
+        return "Le parc";
+      case '/erreur':
+        return "Erreur";
       default:
         return "Necroland";
     }
