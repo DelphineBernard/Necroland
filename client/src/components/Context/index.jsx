@@ -9,9 +9,10 @@ const ContextProvider = ({ children }) => {
     const [categories, setCategories] = useState([]);
     const [tags, setTags] = useState([]);
     const [tagSearched, setTagSearched] = useState("");
+    const [allPrices, setAllPrices] = useState([]);
 
     return (
-        <Context.Provider value={{attractions, setAttractions, categories, setCategories, tags, setTags, tagSearched, setTagSearched}}>
+        <Context.Provider value={{attractions, setAttractions, categories, setCategories, tags, setTags, tagSearched, setTagSearched, allPrices, setAllPrices}}>
             {children}
         </Context.Provider>
     )

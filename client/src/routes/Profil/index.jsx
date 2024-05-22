@@ -1,18 +1,36 @@
+import { useSelector } from 'react-redux';
+import { useEffect, useState } from 'react';
+import decodeJWT from '../../utils/jwtUtils.js';
+
 const Profil = () => {
+
+    const token = useSelector((state) => state.auth.token);
+    const [decodedToken, setDecodedToken] = useState(null);
+
+    useEffect(() => {
+        if (token) {
+            const decoded = decodeJWT(token);
+            if (decoded) {
+                setDecodedToken(decoded);
+            }
+        }
+    }, [token]);
 
     return(
         <>
             <section>
                 <h2>Vos informations</h2>
-                <ul>
-                    <li>Nom: </li>
-                    <li>Prénom: </li>
-                    <li>Adresse: </li>
-                    <li>CP: </li>
-                    <li>Ville: </li>
-                    <li>Pays: </li>
-                    <li>Email: </li>
-                </ul>
+                {decodedToken && (
+                    <ul>
+                        <li>Nom: {decodedToken.lastname}</li>
+                        <li>Prénom: {decodedToken.userFirstname}</li>
+                        <li>Adresse: {decodedToken.address}</li>
+                        <li>CP: {decodedToken.postal_code}</li>
+                        <li>Ville: {decodedToken.city}</li>
+                        <li>Pays: {decodedToken.country}</li>
+                        <li>Email: {decodedToken.email}</li>
+                    </ul>
+                )}
                 <button>Modifier vos informations</button>
             </section>
 

@@ -5,6 +5,7 @@ import Banner from "../../assets/img/banner.jpg";
 import Menu from "../../assets/icons/menu.png";
 import { useLocation } from 'react-router-dom';
 import { useState } from "react";
+import LogoutButton from "../LogoutButton";
 
 const Header = () => {
     const location = useLocation();
@@ -36,6 +37,7 @@ const Header = () => {
                 <Link className="nav__links_item" to={"connexion"}>
                     <img className="nav__icon" src={Avatar} alt="" />
                 </Link>
+                <LogoutButton />
             </nav>
             <div className="banner">
                 <img src={Banner} alt="" />
