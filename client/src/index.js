@@ -2,6 +2,7 @@ import * as ReactDOM from "react-dom/client";
 import {
   createBrowserRouter,
   RouterProvider,
+  Navigate
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import Accueil from "./routes/Accueil";
@@ -15,6 +16,27 @@ import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
 import Erreur from "./routes/Erreur";
 import { ContextProvider } from "./components/Context";
+import { useSelector } from "react-redux";
+
+const IsLogged = ({ element: Element}) => {
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+
+    return isAuthenticated ? (
+        <Element />
+    ) : (
+        <Navigate to="/connexion" />
+    );
+};
+
+const IsAdmin = ({ element: Element}) => {
+    const isAdmin = useSelector(state => state.auth.isAdmin);
+
+    return isAdmin ? (
+        <Element />
+    ) : (
+        <Navigate to="/erreur" />
+    );
+};
 
 const router = createBrowserRouter([
     {   
@@ -42,8 +64,12 @@ const router = createBrowserRouter([
         },
         {
             path: "/reservation",
-            element: <Reservation />,
+            element: <IsLogged element={Reservation} />,
         },
+        // {
+        //     path: "/gestion-admin",
+        //     element: <IsAdmin element={Backoffice} />,
+        // },
         {
             path: "/connexion",
             element: <Connexion />,
@@ -54,7 +80,7 @@ const router = createBrowserRouter([
         },
         {
             path: "/profil",
-            element: <Profil />,
+            element: <IsLogged element={Profil} />,
         },
         //   {
         //     path: "/cgv",

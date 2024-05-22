@@ -28,9 +28,18 @@ const authController = {
                 email: req.body.email,
                 password: req.body.password,
             });
-            const token = jwt.sign({ id: newUser.id }, process.env.JWT_SECRET, { expiresIn: '24h' });
-            res.cookie('token', token, { httpOnly: true });
-            res.status(201).json({ token, user: newUser});
+            const token = jwt.sign({
+                userId: newUser.id, 
+                userEmail: newUser.email,
+                userFirstname: newUser.firstname, 
+                userLastname: newUser.lastname,
+                userAddress: newUser.address,
+                userPostalCode: newUser.postal_code,
+                userCity: newUser.city,
+                userCountry: newUser.country,
+                userRoleId: newUser.role_id, 
+            }, process.env.JWT_SECRET, { expiresIn: '24h' });
+            res.status(201).json({ token });
         } catch (error) {
             console.log(error.message)
             res.status(500).json({ message: error.message });
@@ -39,13 +48,16 @@ const authController = {
 
     login: async (req, res) => {
         try {
+            console.log(req.body.email)
             const foundUser = await User.findOne({ where: {email: req.body.email}});
+            
+            console.log("foundUser", foundUser);
 
             if (foundUser) {
                 const result = await bcrypt.compare(req.body.password, foundUser.password);
 
                 if (result) {
-                    const jwtToken = jwt.sign({
+                    const token = jwt.sign({
                         userId: foundUser.id, 
                         userEmail: foundUser.email,
                         userFirstname: foundUser.firstname, 
@@ -56,8 +68,7 @@ const authController = {
                         userCountry: foundUser.country,
                         userRoleId: foundUser.role_id,
                     }, process.env.JWT_SECRET, { expiresIn: '24h' });
-                    res.cookie('token', jwtToken, { httpOnly: true});
-                    res.status(200).json({ token: jwtToken });
+                    res.status(200).json({ token });
                 } else {
                     throw new Error('Mauvais couple identifiant/mot de passe');
                 }
@@ -71,8 +82,13 @@ const authController = {
     },
 
     logout: (req, res) => {
-        res.cookie('token', '', { expires: new Date(0) });
-        res.json({ message: 'Vous avez été déconnecté(e)'});
+        try {
+            res.status(200).json({ message: 'Vous avez été déconnecté(e)'});
+        } catch (error) {
+            console.error("Erreur lors de la déconnexion :", error);
+            res.status(500).json({ message: "Une erreur est survenue lors de la déconnexion." });
+        }
+        
     }
 }
 

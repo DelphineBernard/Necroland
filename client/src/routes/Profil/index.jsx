@@ -4,9 +4,11 @@ import decodeJWT from '../../utils/jwtUtils.js';
 
 const Profil = () => {
 
+    // Je récupère mon token stocké dans le store
     const token = useSelector((state) => state.auth.token);
     const [decodedToken, setDecodedToken] = useState(null);
 
+    // A chaque fois que mon token change, je recharge le composant et décode le token, je stocke mon token décodé dans un state
     useEffect(() => {
         if (token) {
             const decoded = decodeJWT(token);
@@ -20,15 +22,16 @@ const Profil = () => {
         <>
             <section>
                 <h2>Vos informations</h2>
+                {/* Je peux accéder à toutes les propriétés de mon token décodé */}
                 {decodedToken && (
                     <ul>
-                        <li>Nom: {decodedToken.lastname}</li>
+                        <li>Nom: {decodedToken.userLastname}</li>
                         <li>Prénom: {decodedToken.userFirstname}</li>
-                        <li>Adresse: {decodedToken.address}</li>
-                        <li>CP: {decodedToken.postal_code}</li>
-                        <li>Ville: {decodedToken.city}</li>
-                        <li>Pays: {decodedToken.country}</li>
-                        <li>Email: {decodedToken.email}</li>
+                        <li>Adresse: {decodedToken.userAddress}</li>
+                        <li>CP: {decodedToken.userPostalCode}</li>
+                        <li>Ville: {decodedToken.userCity}</li>
+                        <li>Pays: {decodedToken.userCountry}</li>
+                        <li>Email: {decodedToken.userEmail}</li>
                     </ul>
                 )}
                 <button>Modifier vos informations</button>

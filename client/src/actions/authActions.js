@@ -1,4 +1,7 @@
+// La fonction Login fait une requête sur l'endpoint API correspondante, elle récupère le token généré côté back-end dans le authController.login
+// Si la requête aboutit, la fonction dispatch permet d'envoyer l'action au store Redux
 const login = (userData) => async dispatch => {
+
     try {
         const response = await fetch("http://localhost:3000/api/connexion", {
             method: "POST",
@@ -14,8 +17,8 @@ const login = (userData) => async dispatch => {
         }
 
         const result = await response.json();
-        console.log(result)
 
+        // L'objet passé à dispatch est une action, le type indique au reducer ce qu'il doit faire en réponse à cette action et le payload contient notre token
         dispatch({
             type: 'LOGIN_SUCCESS',
             payload: result.token,
@@ -65,7 +68,10 @@ const logout = () => async dispatch => {
         });
         dispatch({ type: 'LOGOUT' });
     } catch (error) {
-        console.error("Erreur lors de la déconnexion", error);
+        dispatch({ 
+            type: 'LOGOUT_FAILED', 
+            payload: error.message, 
+        });
     }
 }
 

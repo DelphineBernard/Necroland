@@ -6,8 +6,12 @@ import Menu from "../../assets/icons/menu.png";
 import { useLocation } from 'react-router-dom';
 import { useState } from "react";
 import LogoutButton from "../LogoutButton";
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+
+    const token = useSelector((state) => state.auth.token);
+
     const location = useLocation();
     const title = getTitleForPath(location.pathname);
 
@@ -34,10 +38,18 @@ const Header = () => {
                     <Link className="nav__links_item" to={"contact"}>Contact</Link>
                     <Link className="nav__links_item" to={"reservation"}>Réservation</Link>
                 </div>
-                <Link className="nav__links_item" to={"connexion"}>
-                    <img className="nav__icon" src={Avatar} alt="" />
-                </Link>
-                <LogoutButton />
+                <div>
+                    {token ? (
+                        <Link className="nav__links_item" to={"profil"}>
+                            <img className="nav__icon" src={Avatar} alt="" />
+                        </Link>
+                    ) : (
+                        <Link className="nav__links_item" to={"connexion"}>
+                            <img className="nav__icon" src={Avatar} alt="" />
+                        </Link>
+                    )}
+                    {token && <LogoutButton />}
+                </div>
             </nav>
             <div className="banner">
                 <img src={Banner} alt="" />
