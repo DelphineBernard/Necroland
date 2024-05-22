@@ -25,4 +25,8 @@ router.get('/tags', mainController.getTags);
 router.get('/categories', mainController.getCategories);
 router.get('/photos', mainController.getPhotos);
 
+router.post('/inscription', authController.register);
+router.post('/connexion', authController.login);
+router.post('/deconnexion', authController.logout);
+
 export default router;

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { AllPricesContext } from '../../components/Layout';
+import { Context } from '../../components/Context';
 
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -11,6 +11,18 @@ const Reservation = () => {
     const [endDate, setEndDate] = useState("");
     const [stringStartDate, setStringStartDate] = useState(null);
     const [stringEndDate, setStringEndDate] = useState(null);
+
+    // On récupère le tableau des tarifs de la BDD avec le contexte
+    const { allPrices, setAllPrices } = useContext(Context);
+
+    useEffect(() => {
+        const fetchPrices = async () => {
+            const response = await fetch("http://localhost:3000/api/prices");
+            const data = await response.json();
+            setAllPrices(data.prices);
+        };
+        fetchPrices();
+    }, []);
 
     // Si on passe de "sans hôtel" à "avec hôtel" alors que le séjour sélectionnée est de 1 jour, on défini par défaut la durée de séjour à 2 jours (durée minimum)
     useEffect(() => {
@@ -25,9 +37,6 @@ const Reservation = () => {
             updateEndDate(startDate, durationSelected);
         }
     }, [hotelSelected, durationSelected, startDate]);
-
-    // On récupère le tableau des tarifs de la BDD avec le contexte
-    const allPrices = useContext(AllPricesContext);
 
     // Fonction pour récupérer le bon tarif selon le choix de réservation (avec ou sans hôtel + durée du séjour)
     const calculeTotalPrice = () => {

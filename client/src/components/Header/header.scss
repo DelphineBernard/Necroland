@@ -8,13 +8,15 @@
 
 .logo {
     width: 100px;
+    margin-left: 28px;
 }
 
 .nav {
     position: relative;
     background-color: #000000;
     display: flex;
-    justify-content: space-around;
+    justify-content: space-between;
+    padding: 1rem;
     align-items: center;
 
     &__icon {
@@ -24,6 +26,7 @@
     &__links {
         position: absolute;
         top: 100%;
+        left: 0;
         background-color: var.$color_black;
         padding: 10px;
         z-index: 1000;
