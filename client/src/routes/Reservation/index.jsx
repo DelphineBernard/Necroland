@@ -105,18 +105,46 @@ const Reservation = () => {
         }
     }
 
+    const handleSubmit = async(event) => {
+        event.preventDefault();
+        try {
+            const formData = new FormData(event.target)
+            const reservationData = Object.fromEntries(formData.entries());
+            reservationData.user_id = 1
+
+        console.log(reservationData)
+        const response = await fetch('/api/reservation', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(reservationData),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            window.location.href = result.redirectTo;
+        } else {
+            alert('Erreur lors de la réservation.');
+        }
+
+        } catch (error) {
+            console.log(error)
+        }
+    };    
+
     return (
         <main>
         <h2>Choix des options</h2>
-        <form action="http://localhost:3000/api/reservation" method="post">
+        <form action="/api/reservation" method="post" onSubmit={handleSubmit}>
             <fieldset>
                 <legend>Hôtel</legend>
                 <div>
-                    <input type="radio" name="type" id="true" value="true" onChange={handleHotelChange}/>
+                    <input type="radio" name="hotel" id="true" value="true" onChange={handleHotelChange}/>
                     <label htmlFor="true">Avec hôtel</label>
                 </div>
                 <div>
-                    <input type="radio" name="type" id="false" value="false" onChange={handleHotelChange}/>
+                    <input type="radio" name="hotel" id="false" value="false" onChange={handleHotelChange}/>
                     <label htmlFor="false">Sans hôtel</label>
                 </div>
             </fieldset> 
