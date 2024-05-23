@@ -1,4 +1,5 @@
 import {Attraction, Tag, Category, Photo, Status } from "../models/index.js";
+import slugify from 'slugify';
 
 const mainController = {
 
@@ -37,14 +38,57 @@ const mainController = {
         } 
     },
 
+    addAttraction: async (req, res) => {
+        try {
+            const data = req.body;
+            const attraction = await Attraction.create({
+                name: data.name,
+                description: data.description,
+                category_id: data.category_id,
+            })
+            res.status(201).json({ message: "Attraction créée avec succès" });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Erreur lors de la création de l'attraction" });
+        }
+    },
+
     getTags: async (req, res) => {
         const tags = await Tag.findAll();
         res.json({tags});
     },
 
+    addTag: async (req, res) => {
+        try {
+            const data = req.body;
+            const tag = await Tag.create({
+                name: data.name,
+                slug: slugify(data.name, { remove: /[*+~.()'"!:@]/g, lower: true })
+            })
+            res.status(201).json({ message: "Tag créé avec succès" });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Erreur lors de la création du tag" });
+        }
+    },
+
     getCategories: async (req, res) => {
         const categories = await Category.findAll()
         res.json({categories})
+    },
+
+    addCategory: async (req, res) => {
+        try {
+            const data = req.body;
+            const category = await Category.create({
+                name: data.name,
+                slug: slugify(data.name, { remove: /[*+~.()'"!:@]/g, lower: true })
+            })
+            res.status(201).json({ message: "Catégorie créée avec succès" });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Erreur lors de la création de la catégorie" });
+        }
     },
 
     getPhotos: async (req, res) => {
