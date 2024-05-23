@@ -15,6 +15,7 @@ import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
 import Erreur from "./routes/Erreur";
+import Backoffice from "./routes/Backoffice";
 import { ContextProvider } from "./components/Context";
 import { useSelector } from "react-redux";
 
@@ -66,10 +67,11 @@ const router = createBrowserRouter([
             path: "/reservation",
             element: <IsLogged element={Reservation} />,
         },
-        // {
-        //     path: "/gestion-admin",
-        //     element: <IsAdmin element={Backoffice} />,
-        // },
+        {
+            path: "/gestion-admin",
+            // element: <IsAdmin element={Backoffice} />,
+            element: <Backoffice />,
+        },
         {
             path: "/connexion",
             element: <Connexion />,

@@ -1,4 +1,4 @@
-import {Attraction, Tag, Category, Photo } from "../models/index.js";
+import {Attraction, Tag, Category, Photo, Status } from "../models/index.js";
 
 const mainController = {
 
@@ -50,6 +50,11 @@ const mainController = {
     getPhotos: async (req, res) => {
         const photos = await Photo.findAll()
         res.json({photos})
+    },
+
+    getStatus: async (req, res) => {
+        const status = await Status.findAll();
+        res.json({status});
     },
 }
 

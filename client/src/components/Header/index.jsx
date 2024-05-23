@@ -78,6 +78,8 @@ const getTitleForPath = (path) => {
         return "Mentions légales";
       case '/erreur':
         return "Erreur";
+      case '/gestion-admin':
+        return "Gestion administrateur";
       default:
         return "Necroland";
     }
