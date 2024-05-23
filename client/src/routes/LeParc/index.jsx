@@ -1,3 +1,6 @@
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
 import Alerte from "../../assets/icons/alerte.png";
 import Plan from "../../assets/img/plan-du-parc.png";
 import Securite from "../../assets/img/securite.jpg";
@@ -7,6 +10,17 @@ import Attractions from "../../assets/img/attractions.png";
 
 
 const LeParc = () => {
+    const { hash } = useLocation(); // Extraction de la propriété `hash` de l'objet location
+
+    useEffect(() => {
+      if (hash) { // Si hash est présent dans l'URL
+        const element = document.querySelector(hash); // Rechercher l'élément correspondant au hash
+        if (element) { // Si l'élément existe
+          element.scrollIntoView({ behavior: 'smooth' });// Scroller vers l'élément avec une animation douce
+        }
+      }
+    }, [hash]);// Exécuter cet effet chaque fois que le hash change
+
     return (
         <main>
             <section>
@@ -20,7 +34,7 @@ const LeParc = () => {
                 </div>
             </section>
             <section>
-                <h2>Franchissez les portes de Necroland pour une expérience inoubliable !</h2>
+                <h2 id="presentation">Franchissez les portes de Necroland pour une expérience inoubliable !</h2>
                 <article>
                     <div>
                         <img src={Horreur} alt="" />
@@ -67,7 +81,7 @@ const LeParc = () => {
                 </article>
             </section>
             <section>
-                <h2>Plan du parc</h2>
+                <h2 id="plan-du-parc">Plan du parc</h2>
                 <div>
                     <img src={Plan} alt="" />
                 </div>
