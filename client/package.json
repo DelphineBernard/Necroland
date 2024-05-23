@@ -4,8 +4,9 @@
   "description": "NecroLand est un parc d'attraction horrifique sur le thème zombie.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel src/index.html --no-cache"
+    "start": "parcel src/index.html --no-cache",
+    "test": "jest",
+    "test:watch": "jest --watchAll"
   },
   "keywords": [],
   "author": "",

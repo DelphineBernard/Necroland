@@ -16,6 +16,7 @@ router.post('/message', messagesController.addMessage);
 router.get('/users', userController.getUsers);
 
 router.get('/reservations', reservationsController.getReservations);
+router.get('/reservations/:userId', reservationsController.getUserReservations);
 router.post('/reservation', reservationsController.addReservation);
 
 router.get('/roles', userController.getRoles);
