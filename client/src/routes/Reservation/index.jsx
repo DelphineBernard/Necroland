@@ -1,5 +1,8 @@
 import { useEffect, useState, useContext } from "react";
 import { Context } from '../../components/Context';
+import { useSelector } from 'react-redux';
+import decodeJWT from '../../utils/jwtUtils.js';
+import formatDate from '../../utils/dateUtils.js';
 
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -15,6 +18,10 @@ const Reservation = () => {
     // On récupère le tableau des tarifs de la BDD avec le contexte
     const { allPrices, setAllPrices } = useContext(Context);
 
+    // Je récupère mon token stocké dans le store
+    const token = useSelector((state) => state.auth.token);
+    const [decodedToken, setDecodedToken] = useState(null);
+
     useEffect(() => {
         const fetchPrices = async () => {
             const response = await fetch("http://localhost:3000/api/prices");
@@ -23,6 +30,15 @@ const Reservation = () => {
         };
         fetchPrices();
     }, []);
+
+    useEffect(() => {
+        if (token) {
+            const decoded = decodeJWT(token);
+            if (decoded) {
+                setDecodedToken(decoded);
+            }
+        }
+    }, [token]);
 
     // Si on passe de "sans hôtel" à "avec hôtel" alors que le séjour sélectionnée est de 1 jour, on défini par défaut la durée de séjour à 2 jours (durée minimum)
     useEffect(() => {
@@ -93,11 +109,6 @@ const Reservation = () => {
         setEndDate(formEndDate);
     }
 
-    // Formate la date pour l'afficher dans la partie sélection en string avec le format demandé (string pour la sélection ou date pour le form)
-    const formatDate = (date, options) => {
-        return new Intl.DateTimeFormat('fr-FR', options).format(date);
-    }
-
     const handleReservation = (event) => {
         if (!cgvChecked){
             event.preventDefault();
@@ -110,10 +121,10 @@ const Reservation = () => {
         try {
             const formData = new FormData(event.target)
             const reservationData = Object.fromEntries(formData.entries());
-            reservationData.user_id = 1
+            reservationData.user_id = decodedToken.userId
 
         console.log(reservationData)
-        const response = await fetch('/api/reservation', {
+        const response = await fetch('http://localhost:3000/api/reservation', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -136,7 +147,7 @@ const Reservation = () => {
     return (
         <main>
         <h2>Choix des options</h2>
-        <form action="/api/reservation" method="post" onSubmit={handleSubmit}>
+        <form method="post" onSubmit={handleSubmit}>
             <fieldset>
                 <legend>Hôtel</legend>
                 <div>
@@ -195,7 +206,6 @@ const Reservation = () => {
             <ul>
                 <li>
                     {!stringStartDate && "Dates ?"}
-                    {/* {stringStartDate && stringEndDate && `Du ${formatDate(startDate)} au ${formatDate(endDate)}`} */}
                     {stringStartDate && stringEndDate && `Du ${stringStartDate} au ${stringEndDate}`}
                 </li>
                 <li>
