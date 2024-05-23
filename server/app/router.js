@@ -9,7 +9,10 @@ import userController from './controllers/usersController.js';
 const router = express.Router();
 
 router.get('/prices', pricesController.getPrices);
+
 router.get('/messages', messagesController.getMessages);
+router.post('/message', messagesController.addMessage);
+
 router.get('/users', userController.getUsers);
 
 router.get('/reservations', reservationsController.getReservations);
