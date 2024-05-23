@@ -1,5 +1,5 @@
-
-import React, { useEffect, useState } from "react";
+import { useLocation } from 'react-router-dom';
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents} from 'react-leaflet';
 import "leaflet/dist/leaflet.css"
@@ -50,7 +50,7 @@ const InfosPratiques=() => {
            // Intégration de l'icone selon la position du marqueur
             const customIcon = new Icon({
                 iconUrl: require("../../assets/icons/markerIcon.png"),
-                iconSize: [38,38] //size of the icon
+                iconSize: [38,38] //définition de la taille de l'icone
             });
             // utilisation du hook 'useMapEvents' de 'react-leaflet' pour écouter sur la carte
             const MapClickHandler = () => {
@@ -65,7 +65,16 @@ const InfosPratiques=() => {
                 return null;
             };
 
-            
+            const { hash } = useLocation(); // Extraction de la propriété `hash` de l'objet location
+
+            useEffect(() => {
+              if (hash) { // Si hash est présent dans l'URL
+                const element = document.querySelector(hash); // Rechercher l'élément correspondant au hash
+                if (element) { // Si l'élément existe
+                  element.scrollIntoView({ behavior: 'smooth' });// Scroller vers l'élément avec une animation douce
+                }
+              }
+            }, [hash]);// Exécuter cet effet chaque fois que le hash change
             
             return(
                 <main>
@@ -77,7 +86,7 @@ const InfosPratiques=() => {
                     <p> Pour satisfaire toutes vos envies de frayeur, nous sommes ouverts 7/7j de 9h00 à 18h00</p>
                     
                     <section>
-                    <h2> Des tarifs tout aussi surprenants </h2>
+                    <h2 id="tarifs"> Des tarifs tout aussi surprenants </h2>
                     <div>
                     <article>
                     <h3>Sans hôtel</h3>
@@ -89,7 +98,7 @@ const InfosPratiques=() => {
                     </article>
 
                     <button>
-                    <Link to={"reservation"}>Réserver</Link>
+                    <Link to="/reservation">Réserver</Link>
                     </button>
 
                     <article>
@@ -104,7 +113,7 @@ const InfosPratiques=() => {
                     </section>
                     
                     <section>
-                    <h2>Notre Hôtel</h2>
+                    <h2 id="hotel">Notre Hôtel</h2>
                     <div> 
                     <p>Nos chambres, conçues avec un souci du détail morbide, 
                     offrent un refuge confortable au milieu du chaos extérieur. 
@@ -118,9 +127,9 @@ const InfosPratiques=() => {
                     </div>
 
                     </section>
-                    <h2>Venir au parc</h2>
+                    <h2 id="itineraire">Venir au parc</h2>
             
-                    <MapContainer center={[48.38756, 3.08915]} zoom={13} scrollWheelZoom={13}>// Initialise la crate avec les coordonnées spécifiés,
+                    <MapContainer center={[48.38756, 3.08915]} zoom={13} scrollWheelZoom={13}>// Initialise la carte avec les coordonnées spécifiés,
                      un zoom sur la carte, en utilisant la molette de la souris
                     <TileLayer //Ajoute les tuiles de la carte à partir d'OpenStreetMap, permettant ainsi d'afficher une carte visuelle.
                      attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -149,7 +158,7 @@ const InfosPratiques=() => {
                         <img src={autobus} alt="icone bus" />
                         <p>Zombieland de Paris en bus, prendre la  ligne de BUS 3202</p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Arrêt Mairie</p>
+                        <p>Arrêt Mairie La Tombe</p>
                         <button><a href="https://me-deplacer.iledefrance-mobilites.fr/fiches-horaires/bus/line%3AIDFM%3AC01464/horaires?date=2024-05-17T07%3A19&direction=1&line&stopAreaId=stop_area%3AIDFM%3A61465&stopId=stop_point%3AIDFM%3A7104" target="_blank" rel="noopener noreferrer">Voir les horaires</a></button>
                         <img src={train} alt="icone train" />
                         </div>
