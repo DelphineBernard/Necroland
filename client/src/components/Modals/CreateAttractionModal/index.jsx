@@ -1,7 +1,7 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
 
-const CreateUserModal = ({ isOpen, onRequestClose }) => {
+const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -132,10 +132,10 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         <option value="2">Administrateur</option>
                     </select>
                 </div>
-                <button type="submit">Créer le membre</button>
+                <button type="submit">Créer l'attraction</button>
             </form>
         </Modal>
     )
 }
 
-export default CreateUserModal;
+export default CreateAttractionModal;

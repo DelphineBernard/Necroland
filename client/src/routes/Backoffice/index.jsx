@@ -1,5 +1,6 @@
 import { useState } from "react";
 import CreateUserModal from "../../components/Modals/CreateUserModal";
+import CreateAttractionModal from "../../components/Modals/CreateAttractionModal";
 import UserItem from "../../components/Items/UserItem";
 import AttractionItem from "../../components/Items/AttractionItem";
 import PriceItem from "../../components/Items/PriceItem";
@@ -55,6 +56,7 @@ const Backoffice = () => {
                 <button value={"categories"} onClick={handleClick}>Gestion catégories</button>
             </div>
             {selection === "users" && <CreateUserModal isOpen={isModalOpen} onRequestClose={closeModal} />}
+            {selection === "attractions" && <CreateAttractionModal isOpen={isModalOpen} onRequestClose={closeModal} />}
 
             <div>
                 {data && (

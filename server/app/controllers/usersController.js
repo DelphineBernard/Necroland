@@ -14,12 +14,12 @@ const usersController = {
                 firstname: data.firstname,
                 lastname: data.lastname,
                 address: data.address,
-                postal_code: data.postal_code,
+                postal_code: data.postalCode,
                 city: data.city,
                 country: data.country,
                 email: data.email,
                 password: data.password,
-                role_id: data.role_id,
+                role_id: Number(data.role_id),
             })
             res.status(201).json({ message: "Membre créé avec succès" });
         } catch (error) {
