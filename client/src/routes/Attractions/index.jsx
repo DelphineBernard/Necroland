@@ -16,7 +16,7 @@ SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 const Attractions = () => {
     const { attractions, setAttractions } = useContext(Context);
-    const { category } = useParams();
+    const { category } = useParams();// Récupère le paramètre de catégorie de l'URL
 
     const fetchAttractions = async () => {
         try {
@@ -30,10 +30,10 @@ const Attractions = () => {
             console.log(error);
         }
     };
-
+     // Par défaut, au chargement de la page Attractions, j'affiche toutes les attractions
     useEffect(() => {
         fetchAttractions();
-    }, [category]);
+    }, [category]);// Re-fetch les attractions chaque fois que la catégorie change
 
     return (
         <main>
