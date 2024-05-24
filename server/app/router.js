@@ -20,6 +20,7 @@ router.post('/user', userController.addUser);
 router.get('/reservations', reservationsController.getReservations);
 router.get('/reservations/:userId', reservationsController.getUserReservations);
 router.post('/reservation', reservationsController.addReservation);
+router.patch('/reservation/:id', reservationsController.changeStatusReservation);
 
 router.get('/roles', userController.getRoles);
 
