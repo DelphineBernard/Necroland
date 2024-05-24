@@ -1,11 +1,21 @@
-// import { Reservation } from "../models/index.js";
-import Reservation from "../models/Reservation.js";
+import { Reservation, Status } from "../models/index.js";
+// import Reservation from "../models/Reservation.js";
 import Price from "../models/Price.js";
+// import Status from "../models/Status.js";
 
 const reservationsController = {
     getReservations: async (req, res) => {
         const reservations = await Reservation.findAll();
         res.json({reservations});
+    },
+
+    getUserReservations: async (req, res) => {
+        const userId = req.params.userId
+        const userReservations = await Reservation.findAll({
+            where: { user_id: userId },
+            include: { model: Status, as: 'reservationStatus', attributes: ['label'] },
+        });
+        res.json(userReservations)
     },
 
     addReservation: async (req, res) => {

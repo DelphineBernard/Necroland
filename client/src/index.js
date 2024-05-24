@@ -14,10 +14,14 @@ import Connexion from "./routes/Connexion";
 import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
+import CGV from "./routes/CGV";
 import Erreur from "./routes/Erreur";
 import Backoffice from "./routes/Backoffice";
+import InfosPratiques from "./routes/InfosPratiques";
+import PlanDuSite from "./routes/PlanDuSite";
 import { ContextProvider } from "./components/Context";
 import { useSelector } from "react-redux";
+
 
 const IsLogged = ({ element: Element}) => {
     const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
@@ -48,17 +52,17 @@ const router = createBrowserRouter([
             element: <Accueil />,
         },
         {
-            path: "/attractions",
+            path: "/attractions/:category?",
             element: <Attractions />,
         },
         {
             path: "/le-parc",
             element: <LeParc />,
         },
-        // {
-        //     path: "/infos-pratiques",
-        //     element: <InfosPratiques />,
-        // },
+        {
+            path: "/infos-pratiques",
+            element: <InfosPratiques />,
+        },
         {
             path: "/contact",
             element: <Contact />,
@@ -84,18 +88,18 @@ const router = createBrowserRouter([
             path: "/profil",
             element: <IsLogged element={Profil} />,
         },
-        //   {
-        //     path: "/cgv",
-        //     element: <CGV />,
-        //   },
+        {
+            path: "/cgv",
+            element: <CGV />,
+        },
         {
             path: "/mentions-legales",
             element: <MentionsLegales />,
         },
-        //   {
-        //     path: "/plan-du-site",
-        //     element: <PlanDuSite />,
-        //   },
+        {
+            path: "/plan-du-site",
+            element: <PlanDuSite />,
+        },
         {
             path: "/erreur",
             element: <Erreur />,
