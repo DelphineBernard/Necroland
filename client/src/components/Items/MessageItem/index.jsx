@@ -31,8 +31,7 @@ const MessageItem = ({ element }) => {
                 }</p>
             </div>
             <div>
-                <button>Modifier</button>
-                <button>Supprimer</button>
+                <button>Marquer comme classé</button>
             </div>
         </article>
     )
