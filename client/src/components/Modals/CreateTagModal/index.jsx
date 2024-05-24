@@ -1,25 +1,23 @@
 import Modal from 'react-modal';
-import { useState, useContext } from 'react';
-import { Context } from '../../Context';
+import { useState } from 'react';
 
-const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
+const CreateTagModal = ({ isOpen, onRequestClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const { categories } = useContext(Context);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const attractionData = Object.fromEntries(formData.entries());
+        const priceData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:3000/api/attraction', {
+            const response = await fetch('http://localhost:3000/api/tag', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(attractionData)
+                body: JSON.stringify(priceData)
             });
 
             const result = await response.json();
@@ -52,32 +50,14 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Nom de l'attraction"
+                        placeholder="Nom du tag"
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="description">Description *</label>
-                    <input
-                        type="text"
-                        name="description"
-                        id="description"
-                        placeholder="Description de l'attraction"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="lastname">Catégorie *</label>
-                    <select name="category_id" id="category_id" required>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Créer l'attraction</button>
+                <button type="submit">Créer le tag</button>
             </form>
         </Modal>
     )
 }
 
-export default CreateAttractionModal;
+export default CreateTagModal;

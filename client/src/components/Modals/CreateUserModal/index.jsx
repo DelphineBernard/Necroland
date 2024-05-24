@@ -50,7 +50,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="email"
                         name="email"
                         id="email"
-                        placeholder="Votre adresse e-mail"
+                        placeholder="Adresse e-mail du membre"
                         required
                     />
                 </div>
@@ -61,7 +61,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="password"
                         name="password"
                         id="password"
-                        placeholder="Votre mot de passe"
+                        placeholder="Mot de passe du membre"
                         required
                     />
                 </div>
@@ -71,7 +71,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="lastname"
                         id="lastname"
-                        placeholder="Votre nom"
+                        placeholder="Nom du membre"
                         required
                     />
                 </div>
@@ -81,7 +81,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="firstname"
                         id="firstname"
-                        placeholder="Votre prénom"
+                        placeholder="Prénom du membre"
                         required
                     />
                 </div>
@@ -91,7 +91,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="address"
                         id="address"
-                        placeholder="Votre adresse"
+                        placeholder="Adresse du membre"
                         required
                     />
                 </div>
@@ -101,7 +101,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="postalCode"
                         id="postalCode"
-                        placeholder="Votre code postal"
+                        placeholder="Code postal du membre"
                         required
                     />
                 </div>
@@ -111,7 +111,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="city"
                         id="city"
-                        placeholder="La ville où vous habitez"
+                        placeholder="Ville du membre"
                         required
                     />
                 </div>
