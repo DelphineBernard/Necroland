@@ -90,6 +90,8 @@ const getTitleForPath = (path) => {
         return "Le parc";
       case '/erreur':
         return "Erreur";
+      case '/gestion-admin':
+        return "Gestion administrateur";
       default:
         return "Necroland";
     }
