@@ -16,6 +16,7 @@ import LeParc from "./routes/LeParc";
 import MentionsLegales from "./routes/MentionsLegales";
 import CGV from "./routes/CGV";
 import Erreur from "./routes/Erreur";
+import Backoffice from "./routes/Backoffice";
 import InfosPratiques from "./routes/InfosPratiques";
 import PlanDuSite from "./routes/PlanDuSite";
 import { ContextProvider } from "./components/Context";
@@ -51,7 +52,7 @@ const router = createBrowserRouter([
             element: <Accueil />,
         },
         {
-            path: "/attractions",
+            path: "/attractions/:category?",
             element: <Attractions />,
         },
         {
@@ -70,10 +71,11 @@ const router = createBrowserRouter([
             path: "/reservation",
             element: <IsLogged element={Reservation} />,
         },
-        // {
-        //     path: "/gestion-admin",
-        //     element: <IsAdmin element={Backoffice} />,
-        // },
+        {
+            path: "/gestion-admin",
+            // element: <IsAdmin element={Backoffice} />,
+            element: <Backoffice />,
+        },
         {
             path: "/connexion",
             element: <Connexion />,
