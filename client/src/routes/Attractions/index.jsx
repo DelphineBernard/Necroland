@@ -64,6 +64,7 @@ const Attractions = () => {
                                 //image={}
                                 description={attraction.description}
                                 // category={}
+                                
                             />
                         </SwiperSlide>
                     ))}
