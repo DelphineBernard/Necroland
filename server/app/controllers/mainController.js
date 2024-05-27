@@ -44,7 +44,7 @@ const mainController = {
             const attraction = await Attraction.create({
                 name: data.name,
                 description: data.description,
-                category_id: data.category_id,
+                category_id: Number(data.category_id),
             })
             res.status(201).json({ message: "Attraction créée avec succès" });
         } catch (error) {

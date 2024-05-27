@@ -1,23 +1,27 @@
 import Modal from 'react-modal';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const CreateUserModal = ({ isOpen, onRequestClose }) => {
+const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
+    const [formData, setFormData] = useState(initialValues);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        const userData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:3000/api/user', {
-                method: 'POST',
+            const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
+                method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(userData)
+                body: JSON.stringify(formData)
             });
 
             const result = await response.json();
@@ -25,6 +29,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
+                onUpdate();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);
@@ -32,6 +37,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
 
         } catch (error) {
             console.error('Erreur:', error);
+            console.log(formData)
         }
     };
 
@@ -50,7 +56,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="email"
                         name="email"
                         id="email"
-                        placeholder="Adresse e-mail du membre"
+                        value={formData.email}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -61,7 +68,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="password"
                         name="password"
                         id="password"
-                        placeholder="Mot de passe du membre"
+                        value={formData.password}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -71,7 +79,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="lastname"
                         id="lastname"
-                        placeholder="Nom du membre"
+                        value={formData.lastname}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -81,7 +90,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="firstname"
                         id="firstname"
-                        placeholder="Prénom du membre"
+                        value={formData.firstname}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -91,7 +101,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="address"
                         id="address"
-                        placeholder="Adresse du membre"
+                        value={formData.address}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -101,7 +112,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="postalCode"
                         id="postalCode"
-                        placeholder="Code postal du membre"
+                        value={formData.postal_code}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -111,7 +123,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="city"
                         id="city"
-                        placeholder="Ville du membre"
+                        value={formData.city}
+                        onChange={handleChange}
                         required
                     />
                 </div>
@@ -121,21 +134,22 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="country"
                         id="country"
-                        placeholder="France"
+                        value={formData.country}
+                        onChange={handleChange}
                         required
                     />
                 </div>
                 <div>
                     <label htmlFor="role_id">Role *</label>
-                    <select name="role_id" id="role_id" required>
+                    <select name="role_id" id="role_id" required value={formData.role_id} onChange={handleChange}>
                         <option value="1">Membre</option>
                         <option value="2">Administrateur</option>
                     </select>
                 </div>
-                <button type="submit">Créer le membre</button>
+                <button type="submit">Modifier les informations</button>
             </form>
         </Modal>
     )
 }
 
-export default CreateUserModal;
+export default EditUserModal;

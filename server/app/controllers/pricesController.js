@@ -12,7 +12,7 @@ const pricesController = {
             const price = await Price.create({
                 duration: data.duration,
                 price: data.price,
-                hotel: data.hotel,
+                hotel: Boolean(data.hotel),
             })
             res.status(201).json({ message: "Prix ajouté avec succès" });
         } catch (error) {
