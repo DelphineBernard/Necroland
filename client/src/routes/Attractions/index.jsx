@@ -1,35 +1,44 @@
+import React, { useContext, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
 import Alerte from "../../assets/icons/alerte.png";
 import Card from "../../components/Card";
-import { useContext, useEffect } from "react";
 import SearchForm from "../../components/SearchForm";
 import CategoryTabs from "../../components/CategoryTabs";
 import { Context } from "../../components/Context";
-import { useParams } from "react-router-dom";
+
+
+// Initialize Swiper modules
+SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 const Attractions = () => {
-    // Je récupère les données du Context dont j'ai besoin
     const { attractions, setAttractions } = useContext(Context);
-    const { category } = useParams(); // Récupère le paramètre de catégorie de l'URL
+    const { category } = useParams();// Récupère le paramètre de catégorie de l'URL
 
     const fetchAttractions = async () => {
         try {
             let response;
-            category ? response = await fetch(`http://localhost:3000/api/attractions/${category}`) : response = await fetch(`http://localhost:3000/api/attractions`);
+            category 
+                ? response = await fetch(`http://localhost:3000/api/attractions/${category}`) 
+                : response = await fetch(`http://localhost:3000/api/attractions`);
             const data = await response.json();
             setAttractions(data.attractions);
         } catch (error) {
             console.log(error);
         }
     };
-    // Par défaut, au chargement de la page Attractions, j'affiche toutes les attractions
+     // Par défaut, au chargement de la page Attractions, j'affiche toutes les attractions
     useEffect(() => {
         fetchAttractions();
-    }, [category]); // Re-fetch les attractions chaque fois que la catégorie change
-    
+    }, [category]);// Re-fetch les attractions chaque fois que la catégorie change
+
     return (
         <main>
             <div>
-                <img src={Alerte} alt="" />
+                <img src={Alerte} alt="Alerte" />
                 <p>Le parc est interdit au moins de 16 ans</p>
             </div>
             <div>
@@ -38,17 +47,28 @@ const Attractions = () => {
             </div>
             <section>
                 <h2>Des attractions à couper le souffle</h2>
-                <div>
+                <Swiper
+                    spaceBetween={30}
+                    slidesPerView={3}
+                    autoplay={{
+                        delay: 3000,
+                        disableOnInteraction: false,
+                    }}
+                    navigation
+                    pagination={{ clickable: true }}
+                >
                     {attractions.map((attraction) => (
-                        <Card
-                            key={attraction.id}
-                            name={attraction.name}
-                            // img={}
-                            description={attraction.description}
-                            // category={}
-                        />
+                        <SwiperSlide key={attraction.id}>
+                            <Card
+                                name={attraction.name}
+                                //image={}
+                                description={attraction.description}
+                                // category={}
+                                
+                            />
+                        </SwiperSlide>
                     ))}
-                </div>
+                </Swiper>
             </section>
         </main>
     );
