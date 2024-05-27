@@ -2,7 +2,8 @@ import { Link } from "react-router-dom";
 
 const PlanDuSite = () => {
     return (
-        <section className="site-map">
+       <main>
+         <section className="site-map">
             <h2 className="site-map__title">Que recherchez vous ?</h2>
 
             <div className="site-map__block">
@@ -63,6 +64,7 @@ const PlanDuSite = () => {
                 <Link to="/mentions-legales" className="site-map__link">Mentions Légales</Link>
             </div>
         </section>
+       </main>
     );
 };
 
