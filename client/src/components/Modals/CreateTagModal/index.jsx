@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
+import API_URL from '../../../config.js';
 
 const CreateTagModal = ({ isOpen, onRequestClose }) => {
 
@@ -12,7 +13,7 @@ const CreateTagModal = ({ isOpen, onRequestClose }) => {
         const priceData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:3000/api/tag', {
+            const response = await fetch(`${API_URL}/tag`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

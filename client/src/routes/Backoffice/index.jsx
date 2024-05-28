@@ -11,6 +11,7 @@ import TagItem from "../../components/Items/TagItem";
 import MessageItem from "../../components/Items/MessageItem";
 import ReservationItem from "../../components/Items/ReservationItem";
 import CategoryItem from "../../components/Items/CategoryItem";
+import API_URL from '../../config.js';
 
 const Backoffice = () => {
 
@@ -30,7 +31,7 @@ const Backoffice = () => {
         try {
             const selection = event.target.value;
             updateUrl(selection);
-            const response = await fetch(`http://localhost:3000/api/${selection}`);
+            const response = await fetch(`${API_URL}/${selection}`);
             const result = await response.json();
             setData(result[selection]);
             setSelection(selection);

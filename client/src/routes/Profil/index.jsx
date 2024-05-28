@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import decodeJWT from '../../utils/jwtUtils.js';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
+import API_URL from '../../config.js';
 
 const Profil = () => {
 
@@ -16,7 +17,7 @@ const Profil = () => {
     const fetchUserReservations = async () => {
         if (decodedToken){
             try {
-                const response = await fetch(`http://localhost:3000/api/reservations/${decodedToken.userId}`);
+                const response = await fetch(`${API_URL}/reservations/${decodedToken.userId}`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -54,7 +55,7 @@ const Profil = () => {
 
     const handleCancel = async (reservationId) => {
         try {
-            await fetch(`http://localhost:3000/api/reservation/${reservationId}`, {
+            await fetch(`${API_URL}/reservation/${reservationId}`, {
                 method: 'PATCH',
                 headers: {
                     'Content-Type': 'application/json'

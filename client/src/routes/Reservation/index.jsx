@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import decodeJWT from '../../utils/jwtUtils.js';
 import formatDate from '../../utils/dateUtils.js';
 import { useNavigate } from "react-router-dom";
+import API_URL from '../../config.js';
 
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -26,7 +27,7 @@ const Reservation = () => {
 
     useEffect(() => {
         const fetchPrices = async () => {
-            const response = await fetch("http://localhost:3000/api/prices");
+            const response = await fetch(`${API_URL}/prices`);
             const data = await response.json();
             setAllPrices(data.prices);
         };
@@ -125,7 +126,7 @@ const Reservation = () => {
             const reservationData = Object.fromEntries(formData.entries());
             reservationData.user_id = decodedToken.userId
 
-        const response = await fetch('http://localhost:3000/api/reservation', {
+        const response = await fetch(`${API_URL}/reservation`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
