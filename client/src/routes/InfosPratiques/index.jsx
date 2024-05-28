@@ -9,9 +9,9 @@ import train from "../../assets/icons/train.png";
 import voiture from "../../assets/icons/voiture.png";
 import fleche from "../../assets/icons/fleche.png";
 import telephone from "../../assets/icons/telephone.png";
-import "Leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
 import logo from "../../assets/img/logo.png";
+import API_URL from '../../config.js';
 
 
 
@@ -21,7 +21,7 @@ const InfosPratiques=() => {
             useEffect(() => {
                 const fetchPrices = async () => {
                     try {
-                        let url = "http://localhost:3000/api/prices";
+                        let url = `${API_URL}/prices`;
                         const response = await fetch(url);
                         if (!response.ok) {
                             throw new Error('Network response was not ok');

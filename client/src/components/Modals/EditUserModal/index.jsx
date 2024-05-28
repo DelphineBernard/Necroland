@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
+import API_URL from '../../../config.js';
 
 const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
 
@@ -16,7 +17,7 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
         event.preventDefault();
 
         try {
-            const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
+            const response = await fetch(`${API_URL}/user/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json'

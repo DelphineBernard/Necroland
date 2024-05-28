@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState, useRef } from "react";
 import { Context } from "../Context";
 import slugify from 'slugify';
+import API_URL from '../../config.js';
 
 const SearchForm = () => {
     // Récupère les données nécessaires du Context
@@ -13,7 +14,7 @@ const SearchForm = () => {
     // Fonction asynchrone pour récupérer les tags depuis l'API
     const fetchTags = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/tags");
+            const response = await fetch(`${API_URL}/tags`);
             const data = await response.json();
             setTags(data.tags); // Met à jour les tags dans le Context
         } catch (error) {
@@ -29,7 +30,7 @@ const SearchForm = () => {
             const tag = slugify(event.target[0].value, { remove: /[*+~.()'"!:@]/g, lower: true });
             if (tag) {
                 // Requête API pour récupérer les attractions associées au tag
-                const response = await fetch(`http://localhost:3000/api/attractions/tags/${tag}`);
+                const response = await fetch(`${API_URL}/attractions/tags/${tag}`);
                 const data = await response.json();
                 setAttractions(data.attractions.Attractions); // Met à jour les attractions dans le Context
                 setFilteredTags([]); // Vide les suggestions après la recherche
@@ -44,7 +45,7 @@ const SearchForm = () => {
     // Fonction pour récupérer toutes les attractions
     const fetchAllAttractions = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/attractions");
+            const response = await fetch(`${API_URL}/attractions`);
             const data = await response.json();
             setAttractions(data.attractions); // Met à jour les attractions dans le Context
         } catch (error) {
@@ -75,7 +76,7 @@ const SearchForm = () => {
 
         // Requête API pour récupérer les attractions associées à la suggestion sélectionnée
         const tag = slugify(suggestion.name, { remove: /[*+~.()'"!:@]/g, lower: true });
-        const response = await fetch(`http://localhost:3000/api/attractions/tags/${tag}`);
+        const response = await fetch(`${API_URL}/attractions/tags/${tag}`);
         const data = await response.json();
         setAttractions(data.attractions.Attractions); // Met à jour les attractions dans le Context
     };

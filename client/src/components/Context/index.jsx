@@ -1,4 +1,5 @@
 import React, { createContext, useState, useEffect } from 'react';
+import API_URL from '../../config.js';
 
 const Context = createContext();
 // Le Context va permettre de rendre disponibles tous les states initialisés ici à tous les composants enfants
@@ -13,7 +14,7 @@ const ContextProvider = ({ children }) => {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/categories");
+            const response = await fetch(`${API_URL}/categories`);
             const data = await response.json();
             setCategories(data.categories);
         } catch (error) {
@@ -22,7 +23,7 @@ const ContextProvider = ({ children }) => {
     };
 
     const fetchPrices = async () => {
-        const response = await fetch("http://localhost:3000/api/prices");
+        const response = await fetch(`${API_URL}/prices`);
         const data = await response.json();
         setAllPrices(data.prices);
     };
