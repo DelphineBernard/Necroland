@@ -10,7 +10,8 @@ import { useSelector } from 'react-redux';
 
 const Header = () => {
 
-    const token = useSelector((state) => state.auth.token);
+    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const isAdmin = useSelector(state => state.auth.isAdmin);
 
     const location = useLocation();
     const title = getTitleForPath(location.pathname);
@@ -18,7 +19,7 @@ const Header = () => {
     const [menuVisible, setMenuVisible] = useState(false);
 
     const toggleMenu = () => {
-        setMenuVisible(!menuVisible);
+      setMenuVisible(!menuVisible);
     };
 
     return (
@@ -37,9 +38,10 @@ const Header = () => {
                     
                     <Link className="nav__links_item" to={"contact"}>Contact</Link>
                     <Link className="nav__links_item" to={"reservation"}>Réservation</Link>
+                    {isAdmin && <Link className="nav__links_item" to={"gestion-admin"}>Admin</Link>}
                 </div>
                 <div>
-                    {token ? (
+                    {isAuthenticated ? (
                         <Link className="nav__links_item" to={"profil"}>
                             <img className="nav__icon" src={Avatar} alt="" />
                         </Link>
@@ -48,7 +50,7 @@ const Header = () => {
                             <img className="nav__icon" src={Avatar} alt="" />
                         </Link>
                     )}
-                    {token && <LogoutButton />}
+                    {isAuthenticated && <LogoutButton />}
                 </div>
             </nav>
             <div className="banner">

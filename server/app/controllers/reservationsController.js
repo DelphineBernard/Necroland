@@ -45,6 +45,18 @@ const reservationsController = {
             console.log(error)
         };
     },
+
+    changeStatusReservation: async (req, res) => {
+        try {
+            const reservationId = req.params.id
+            const reservation = await Reservation.update( 
+                {status_id: 2},
+                {where: {id: reservationId}})
+            res.json(reservation)
+        } catch (error) {
+            console.log(error)
+        }
+    },
 };
 
 export default reservationsController;

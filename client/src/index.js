@@ -35,6 +35,7 @@ const IsLogged = ({ element: Element}) => {
 
 const IsAdmin = ({ element: Element}) => {
     const isAdmin = useSelector(state => state.auth.isAdmin);
+    console.log(isAdmin)
 
     return isAdmin ? (
         <Element />
@@ -73,8 +74,7 @@ const router = createBrowserRouter([
         },
         {
             path: "/gestion-admin",
-            // element: <IsAdmin element={Backoffice} />,
-            element: <Backoffice />,
+            element: <IsAdmin element={Backoffice} />,
         },
         {
             path: "/connexion",

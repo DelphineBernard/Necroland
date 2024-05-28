@@ -18,9 +18,8 @@ const Reservation = () => {
     // On récupère le tableau des tarifs de la BDD avec le contexte
     const { allPrices, setAllPrices } = useContext(Context);
 
-    // Je récupère mon token stocké dans le store
-    const token = useSelector((state) => state.auth.token);
-    const [decodedToken, setDecodedToken] = useState(null);
+    // Je récupère mon userId stocké dans le store
+    const userId = useSelector((state) => state.auth.userId);
 
     useEffect(() => {
         const fetchPrices = async () => {
@@ -31,14 +30,6 @@ const Reservation = () => {
         fetchPrices();
     }, []);
 
-    useEffect(() => {
-        if (token) {
-            const decoded = decodeJWT(token);
-            if (decoded) {
-                setDecodedToken(decoded);
-            }
-        }
-    }, [token]);
 
     // Si on passe de "sans hôtel" à "avec hôtel" alors que le séjour sélectionnée est de 1 jour, on défini par défaut la durée de séjour à 2 jours (durée minimum)
     useEffect(() => {
@@ -121,12 +112,14 @@ const Reservation = () => {
         try {
             const formData = new FormData(event.target)
             const reservationData = Object.fromEntries(formData.entries());
-            reservationData.user_id = decodedToken.userId
+            reservationData.user_id = userId
 
         console.log(reservationData)
+        const token = localStorage.getItem('token');
         const response = await fetch('http://localhost:3000/api/reservation', {
             method: 'POST',
             headers: {
+                'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify(reservationData),

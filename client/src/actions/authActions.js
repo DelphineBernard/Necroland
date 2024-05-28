@@ -17,16 +17,18 @@ const login = (userData) => async dispatch => {
         }
 
         const result = await response.json();
+        localStorage.setItem('token', result.token);
 
-        // L'objet passé à dispatch est une action, le type indique au reducer ce qu'il doit faire en réponse à cette action et le payload contient notre token
         dispatch({
             type: 'LOGIN_SUCCESS',
             payload: result.token,
         });
+        // L'objet passé à dispatch est une action, le type indique au reducer ce qu'il doit faire en réponse à cette action et le payload contient notre token
+        
     } catch (error) {
-        dispatch({ 
-            type: 'LOGIN_FAIL', 
-            payload: error.message 
+        dispatch({
+            type: 'LOGIN_FAIL',
+            payload: error.message
         });
     }
 }
@@ -47,15 +49,16 @@ const register = (userData) => async dispatch => {
         }
 
         const result = await response.json();
-
+        localStorage.setItem('token', result.token);
+        
         dispatch({
             type: 'REGISTER_SUCCESS',
             payload: result.token,
         });
 
     } catch (error) {
-        dispatch({ 
-            type: 'REGISTER_FAIL', 
+        dispatch({
+            type: 'REGISTER_FAIL',
             payload: error.message,
         });
     }
@@ -63,14 +66,20 @@ const register = (userData) => async dispatch => {
 
 const logout = () => async dispatch => {
     try {
+        const token = localStorage.getItem('token');
         await fetch("http://localhost:3000/api/deconnexion", {
             method: "POST",
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
         });
+        localStorage.removeItem('token');
         dispatch({ type: 'LOGOUT' });
     } catch (error) {
-        dispatch({ 
-            type: 'LOGOUT_FAILED', 
-            payload: error.message, 
+        dispatch({
+            type: 'LOGOUT_FAILED',
+            payload: error.message,
         });
     }
 }
