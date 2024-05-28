@@ -39,12 +39,24 @@ const reservationsController = {
                 user_id: data.user_id
             });
 
-            res.json({ redirectTo: '/profil'})
+            res.json({message: "Réservation confirmée."})
         }
         catch(error){
             console.log(error)
         };
     },
+
+    changeStatusReservation: async (req, res) => {
+        try {
+            const reservationId = req.params.id
+            const reservation = await Reservation.update( 
+                {status_id: 2},
+                {where: {id: reservationId}})
+            res.json(reservation)
+        } catch (error) {
+            console.log(error)
+        }
+    }
 };
 
 export default reservationsController;

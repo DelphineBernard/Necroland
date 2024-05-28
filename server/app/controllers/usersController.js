@@ -28,6 +28,22 @@ const usersController = {
         }
     },
 
+    updateUser: async (req, res) => {
+        
+        try {
+            const userId = req.params.id;
+            const userDataToUpdate = { ...req.body };
+            delete userDataToUpdate.id;
+            const user = await User.update(userDataToUpdate, {
+                where: { id: userId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour des informations du membre" });
+        }
+    },
+
     getRoles: async (req, res) => {
         const roles = await Role.findAll()
         res.json({roles})

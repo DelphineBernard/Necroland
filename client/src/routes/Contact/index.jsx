@@ -1,4 +1,5 @@
 import { useState } from "react";
+import API_URL from '../../config.js';
 
 const Contact = () => {
 
@@ -11,7 +12,7 @@ const Contact = () => {
         const messageData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch('http://localhost:3000/api/message', {
+            const response = await fetch(`${API_URL}/message`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

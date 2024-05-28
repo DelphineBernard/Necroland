@@ -11,6 +11,7 @@ import Card from "../../components/Card";
 import SearchForm from "../../components/SearchForm";
 import CategoryTabs from "../../components/CategoryTabs";
 import { Context } from "../../components/Context";
+import API_URL from '../../config.js';
 
 
 // Initialize Swiper modules
@@ -26,8 +27,8 @@ const Attractions = () => {
         try {
             let response;
             category 
-                ? response = await fetch(`http://localhost:3000/api/attractions/${category}`) 
-                : response = await fetch(`http://localhost:3000/api/attractions`);
+                ? response = await fetch(`${API_URL}/attractions/${category}`) 
+                : response = await fetch(`${API_URL}/attractions`);
             const data = await response.json();
             setAttractions(data.attractions);
         } catch (error) {

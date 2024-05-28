@@ -16,10 +16,12 @@ router.post('/message', messagesController.addMessage);
 
 router.get('/users', userController.getUsers);
 router.post('/user', userController.addUser);
+router.put('/user/:id', userController.updateUser);
 
 router.get('/reservations', reservationsController.getReservations);
 router.get('/reservations/:userId', reservationsController.getUserReservations);
 router.post('/reservation', reservationsController.addReservation);
+router.patch('/reservation/:id', reservationsController.changeStatusReservation);
 
 router.get('/roles', userController.getRoles);
 
