@@ -35,31 +35,21 @@ button {
 .mySwiper {
     width: 100%;
     height: 100%;
+    padding: 42px;
   }
   
-  .autoplay-progress {
-    position: absolute;
-    right: 10px;
-    bottom: 10px;
-    width: 48px;
-    height: 48px;
-    z-index: 10;
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, z-index 0.3s;
+   
   }
   
-  .autoplay-progress svg {
-    transform: rotate(-90deg);
-    fill: none;
-    stroke-width: 4;
-    stroke: #000;
-    stroke-dasharray: 125.6;
-    stroke-dashoffset: var(--progress);
-  }
+
   
-  .autoplay-progress span {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 12px;
-    color: #000;
-  }
+  .card-content {
+    width: 100%;
+    transition: transform 0.3s ease-in-out, z-index 0.3s;
+  }  
+  

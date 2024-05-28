@@ -1,13 +1,21 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import rollercoaster from "../../assets/img/rollercoaster.png"
+import rollercoaster from "../../assets/img/rollercoaster.png";
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/components/pagination/pagination.min.css';
 
+
+SwiperCore.use([Autoplay, Navigation, Pagination]);
 
 const Accueil = () => {
     const [attractions, setAttractions] = useState([]);
     const [lowestPrice, setLowestPrice] = useState(null);
+    const [activeSlide, setActiveSlide] = useState(null);  // Ajouté l'état pour le slide actif
+    const swiperRef = useRef(null);  // Ajouté la référence pour Swiper
 
     useEffect(() => {
         const fetchAttractions = async () => {
@@ -47,6 +55,16 @@ const Accueil = () => {
         fetchPrices();
     }, []);
 
+    const handleSlideClick = (index) => {
+        if (index === activeSlide) {
+            setActiveSlide(null);
+            swiperRef.current.swiper.autoplay.start();
+        } else {
+            setActiveSlide(index);
+            swiperRef.current.swiper.autoplay.stop();
+        }
+    };
+
     return (
         <main>
             <section>
@@ -79,21 +97,28 @@ const Accueil = () => {
             <section>
                 <h2>Des attractions aussi terrifiantes les unes que les autres</h2>
                 <Swiper
+                    ref={swiperRef}
                     spaceBetween={30}
-                    slidesPerView={1}
+                    slidesPerView={3}
                     autoplay={{
                         delay: 3000,
                         disableOnInteraction: false,
                     }}
                     navigation
                     pagination={{ clickable: true }}
+                    className="mySwiper"
                 >
-                    {attractions.map((attraction) => (
-                        <SwiperSlide key={attraction.id}>
-                           <div>
-                           <img src={rollercoaster} alt={attraction.name} />
-                           {attraction.name}
-                           </div>
+                    {attractions.map((attraction, index) => (
+                        <SwiperSlide 
+                            key={attraction.id} 
+                            onClick={() => handleSlideClick(index)}
+                            className={index === activeSlide ? "swiper-slide-active" : ""}
+                            style={index === activeSlide ? { transform: 'scale(1.1)', zIndex: 999 } : {}}
+                        >
+                            <div className="card-content">
+                                <img src={rollercoaster} alt={attraction.name} />
+                                {attraction.name}
+                            </div>
                         </SwiperSlide>
                     ))}
                 </Swiper>
