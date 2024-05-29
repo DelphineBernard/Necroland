@@ -138,6 +138,7 @@ const Accueil = () => {
                         </SwiperSlide>
                     ))}
                 </Swiper>
+                <button><Link to="/infos-pratiques#itineraire">Venir au parc</Link></button>
             </section>
         </main>
     );
