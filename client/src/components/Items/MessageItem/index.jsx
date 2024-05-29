@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from '../../../config.js';
 
 const MessageItem = ({ element }) => {
 
@@ -6,7 +7,7 @@ const MessageItem = ({ element }) => {
 
     const fetchStatus = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/status");
+            const response = await fetch(`${API_URL}/status`);
             const data = await response.json();
             setStatus(data.status);
         } catch (error) {
@@ -31,8 +32,7 @@ const MessageItem = ({ element }) => {
                 }</p>
             </div>
             <div>
-                <button>Modifier</button>
-                <button>Supprimer</button>
+                <button>Marquer comme classé</button>
             </div>
         </article>
     )

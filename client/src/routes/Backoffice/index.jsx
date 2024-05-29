@@ -1,6 +1,9 @@
 import { useState } from "react";
 import CreateUserModal from "../../components/Modals/CreateUserModal";
 import CreateAttractionModal from "../../components/Modals/CreateAttractionModal";
+import CreatePriceModal from "../../components/Modals/CreatePriceModal";
+import CreateTagModal from "../../components/Modals/CreateTagModal";
+import CreateCategoryModal from "../../components/Modals/CreateCategoryModal";
 import UserItem from "../../components/Items/UserItem";
 import AttractionItem from "../../components/Items/AttractionItem";
 import PriceItem from "../../components/Items/PriceItem";
@@ -8,6 +11,7 @@ import TagItem from "../../components/Items/TagItem";
 import MessageItem from "../../components/Items/MessageItem";
 import ReservationItem from "../../components/Items/ReservationItem";
 import CategoryItem from "../../components/Items/CategoryItem";
+import API_URL from '../../config.js';
 
 const Backoffice = () => {
 
@@ -27,7 +31,7 @@ const Backoffice = () => {
         try {
             const selection = event.target.value;
             updateUrl(selection);
-            const response = await fetch(`http://localhost:3000/api/${selection}`);
+            const response = await fetch(`${API_URL}/${selection}`);
             const result = await response.json();
             setData(result[selection]);
             setSelection(selection);
@@ -57,12 +61,15 @@ const Backoffice = () => {
             </div>
             {selection === "users" && <CreateUserModal isOpen={isModalOpen} onRequestClose={closeModal} />}
             {selection === "attractions" && <CreateAttractionModal isOpen={isModalOpen} onRequestClose={closeModal} />}
+            {selection === "prices" && <CreatePriceModal isOpen={isModalOpen} onRequestClose={closeModal} />}
+            {selection === "tags" && <CreateTagModal isOpen={isModalOpen} onRequestClose={closeModal} />}
+            {selection === "categories" && <CreateCategoryModal isOpen={isModalOpen} onRequestClose={closeModal} />}
 
             <div>
                 {data && (
                     <>
                         {/* Au clic sur le bouton, j'ouvre mon modal */}
-                        <button onClick={openModal}>Créer</button>
+                        {(selection !== "reservations" && selection !== "messages") && <button onClick={openModal}>Créer</button>}
                         <ul>
                             {data.map((element, index) => (
                                 <li key={index}>

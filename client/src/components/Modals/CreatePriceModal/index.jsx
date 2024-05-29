@@ -1,26 +1,24 @@
 import Modal from 'react-modal';
-import { useState, useContext } from 'react';
-import { Context } from '../../Context';
+import { useState } from 'react';
 import API_URL from '../../../config.js';
 
-const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
+const CreatePriceModal = ({ isOpen, onRequestClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const { categories } = useContext(Context);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const formData = new FormData(event.target);
-        const attractionData = Object.fromEntries(formData.entries());
+        const priceData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch(`${API_URL}/attraction`, {
+            const response = await fetch(`${API_URL}/price`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(attractionData)
+                body: JSON.stringify(priceData)
             });
 
             const result = await response.json();
@@ -48,37 +46,39 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
                 {errorMessage && <p>{errorMessage}</p>}
                 <p>* Champs obligatoires</p>
                 <div>
-                    <label htmlFor="name">Nom *</label>
+                    <label htmlFor="duration">Durée (en jours) *</label>
                     <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Nom de l'attraction"
+                        type="number"
+                        name="duration"
+                        id="duration"
+                        placeholder="Durée"
                         required
                     />
                 </div>
                 <div>
-                    <label htmlFor="description">Description *</label>
+                    <label htmlFor="price">Montant (au format XX.XX)*</label>
                     <input
                         type="text"
-                        name="description"
-                        id="description"
-                        placeholder="Description de l'attraction"
+                        // Pattern autorisant uniquement les chiffres et 2 chiffres après la virgule
+                        pattern="\d+(\.\d{2})?"
+                        title="Le montant doit être au format XX.XX"
+                        name="price"
+                        id="price"
+                        placeholder="Montant"
                         required
                     />
                 </div>
                 <div>
-                    <label htmlFor="lastname">Catégorie *</label>
-                    <select name="category_id" id="category_id" required>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        ))}
+                    <label htmlFor="hotel">Hôtel inclus ? *</label>
+                    <select name="hotel" id="hotel" required>
+                        <option value="true">Oui</option>
+                        <option value="false">Non</option>
                     </select>
                 </div>
-                <button type="submit">Créer l'attraction</button>
+                <button type="submit">Créer le prix</button>
             </form>
         </Modal>
     )
 }
 
-export default CreateAttractionModal;
+export default CreatePriceModal;

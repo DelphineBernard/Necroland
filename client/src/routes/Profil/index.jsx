@@ -2,6 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import decodeJWT from '../../utils/jwtUtils.js';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
+import API_URL from '../../config.js';
 
 const Profil = () => {
 
@@ -13,40 +14,59 @@ const Profil = () => {
     const [currentReservations, setCurrentReservations] = useState([]);
     const [passedReservations, setPassedReservations] = useState([]);
 
-    // A chaque fois que mon token change, je recharge le composant et décode le token, je stocke mon token décodé dans un state
-    useEffect(() => {
-        if (token) {
-            const decoded = decodeJWT(token);
-            if (decoded) {
-                setDecodedToken(decoded);
+    const fetchUserReservations = async () => {
+        if (decodedToken){
+            try {
+                const response = await fetch(`${API_URL}/reservations/${decodedToken.userId}`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                const sortedData = data.sort((a,b) => new Date(a.start_date) - new Date(b.start_date));
+                setUserReservations(sortedData);
+                setDataLoaded(true);
+
+                const current = data.filter(reservation => reservation.reservationStatus.label === "Confirmée" && new Date(reservation.end_date) >= Date.now());
+                const passed = data.filter(reservation => reservation.reservationStatus.label === "Annulée" || new Date(reservation.end_date) < Date.now());
+
+                setCurrentReservations(current);
+                setPassedReservations(passed);
+
+            } catch (error) {
+                console.error('Error fetching reservations:', error);
             }
         }
-    }, [token]);
+    };
 
-    useEffect(() => {
-        const fetchUserReservations = async () => {
-            if (decodedToken){
-                try {
-                    const response = await fetch(`http://localhost:3000/api/reservations/${decodedToken.userId}`);
-                    if (!response.ok) {
-                        throw new Error('Network response was not ok');
-                    }
-                    const data = await response.json();
-                    setUserReservations(data);
-                    setDataLoaded(true);
-
-                    const current = data.filter(reservation => reservation.reservationStatus.label === "Confirmée");
-                    const passed = data.filter(reservation => reservation.reservationStatus.label === "Annulée");
-                    setCurrentReservations(current);
-                    setPassedReservations(passed);
-
-                } catch (error) {
-                    console.error('Error fetching reservations:', error);
+        // A chaque fois que mon token change, je recharge le composant et décode le token, je stocke mon token décodé dans un state
+        useEffect(() => {
+            if (token) {
+                const decoded = decodeJWT(token);
+                if (decoded) {
+                    setDecodedToken(decoded);
                 }
             }
-        };
-        fetchUserReservations();
-    }, [decodedToken]);
+        }, [token]);
+    
+        useEffect(() => {
+            fetchUserReservations();
+        }, [decodedToken]);
+
+
+    const handleCancel = async (reservationId) => {
+        try {
+            await fetch(`${API_URL}/reservation/${reservationId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status_id: 2 }), // Mets à jour le statut à "Annulée" (id 2)
+            });
+            fetchUserReservations();
+        } catch (error) {
+            console.error("Erreur lors de l'annulation de la réservation:", error);
+        }
+    };
 
     return(
         <main>
@@ -84,7 +104,8 @@ const Profil = () => {
                         nb_people={reservation.nb_people}
                         hotel={reservation.hotel}
                         total_price={reservation.total_price}
-                        status={reservation.reservationStatus.label} />
+                        status={reservation.reservationStatus.label}
+                        handleCancel={handleCancel} />
                         ))}
                     </div>
                 </div>
@@ -101,7 +122,8 @@ const Profil = () => {
                         nb_people={reservation.nb_people}
                         hotel={reservation.hotel}
                         total_price={reservation.total_price}
-                        status={reservation.reservationStatus.label} />
+                        status={reservation.reservationStatus.label}
+                        handleCancel={handleCancel} />
                         ))}
                 </div>
             </section>

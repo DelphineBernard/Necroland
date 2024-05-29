@@ -3,6 +3,8 @@ import { Context } from '../../components/Context';
 import { useSelector } from 'react-redux';
 import decodeJWT from '../../utils/jwtUtils.js';
 import formatDate from '../../utils/dateUtils.js';
+import { useNavigate } from "react-router-dom";
+import API_URL from '../../config.js';
 
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -21,10 +23,11 @@ const Reservation = () => {
     // Je récupère mon token stocké dans le store
     const token = useSelector((state) => state.auth.token);
     const [decodedToken, setDecodedToken] = useState(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         const fetchPrices = async () => {
-            const response = await fetch("http://localhost:3000/api/prices");
+            const response = await fetch(`${API_URL}/prices`);
             const data = await response.json();
             setAllPrices(data.prices);
         };
@@ -123,8 +126,7 @@ const Reservation = () => {
             const reservationData = Object.fromEntries(formData.entries());
             reservationData.user_id = decodedToken.userId
 
-        console.log(reservationData)
-        const response = await fetch('http://localhost:3000/api/reservation', {
+        const response = await fetch(`${API_URL}/reservation`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -132,13 +134,11 @@ const Reservation = () => {
             body: JSON.stringify(reservationData),
         });
 
-        const result = await response.json();
         if (response.ok) {
-            window.location.href = result.redirectTo;
+            navigate('/profil');
         } else {
             alert('Erreur lors de la réservation.');
         }
-
         } catch (error) {
             console.log(error)
         }
@@ -192,9 +192,9 @@ const Reservation = () => {
                 <legend>Dates</legend>
                     <div>
                         <label htmlFor="start_date">Du</label>
-                        <input type="date" min="2024-06-15" name="start_date" onChange={handleStartDateChange}/>
+                        <input type="date"  name="start_date" onChange={handleStartDateChange}/>
                         <label htmlFor="end_date">au</label>
-                        <input type="date" min="2024-06-15" name="end_date" value={endDate} readOnly />
+                        <input type="date" name="end_date" value={endDate} readOnly />
                     </div>
             </fieldset>
 

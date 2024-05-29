@@ -3,11 +3,13 @@ import { Link } from "react-router-dom";
 import rollercoaster from "../../assets/img/rollercoaster.png";
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
+
 import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 
+import API_URL from '../../config.js';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -20,7 +22,7 @@ const Accueil = () => {
     useEffect(() => {
         const fetchAttractions = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/attractions");
+                const response = await fetch(`${API_URL}/attractions`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
@@ -33,7 +35,7 @@ const Accueil = () => {
 
         const fetchPrices = async () => {
             try {
-                const response = await fetch("http://localhost:3000/api/prices");
+                const response = await fetch(`${API_URL}/prices`);
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
                 }
