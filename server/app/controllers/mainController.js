@@ -53,6 +53,21 @@ const mainController = {
         }
     },
 
+    updateAttraction: async (req, res) => {
+        try {
+            const attractionId = req.params.id;
+            const attractionDataToUpdate = { ...req.body };
+            delete attractionDataToUpdate.id;
+            const attraction = await Attraction.update(attractionDataToUpdate, {
+                where: { id: attractionId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour des informations de l'attraction" });
+        }
+    },
+
     getTags: async (req, res) => {
         const tags = await Tag.findAll();
         res.json({tags});

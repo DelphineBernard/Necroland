@@ -32,6 +32,7 @@ router.get('/attractions', mainController.getAttractions);
 router.get('/attractions/:category', mainController.getAttractionsByCategory);
 router.get('/attractions/tags/:tag', mainController.getAttractionsByTag);
 router.post('/attraction', isAuthenticated, isAdmin, mainController.addAttraction);
+router.put('/attraction/:id', isAuthenticated, mainController.updateAttraction);
 
 router.get('/tags', mainController.getTags);
 router.post('/tag', isAuthenticated, isAdmin, mainController.addTag);
