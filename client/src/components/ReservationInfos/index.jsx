@@ -1,4 +1,5 @@
 import formatDate from '../../utils/dateUtils.js';
+import "./style.scss";
 
 const ReservationInfos = ({id, start_date, end_date, nb_people, hotel, total_price, status, handleCancel}) => {
 

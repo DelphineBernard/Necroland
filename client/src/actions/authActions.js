@@ -1,9 +1,11 @@
+import API_URL from '../config.js';
+
 // La fonction Login fait une requête sur l'endpoint API correspondante, elle récupère le token généré côté back-end dans le authController.login
 // Si la requête aboutit, la fonction dispatch permet d'envoyer l'action au store Redux
 const login = (userData) => async dispatch => {
 
     try {
-        const response = await fetch("http://localhost:3000/api/connexion", {
+        const response = await fetch(`${API_URL}/connexion`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -35,7 +37,7 @@ const login = (userData) => async dispatch => {
 
 const register = (userData) => async dispatch => {
     try {
-        const response = await fetch("http://localhost:3000/api/inscription", {
+        const response = await fetch(`${API_URL}/inscription`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -67,7 +69,7 @@ const register = (userData) => async dispatch => {
 const logout = () => async dispatch => {
     try {
         const token = localStorage.getItem('token');
-        await fetch("http://localhost:3000/api/deconnexion", {
+        await fetch(`${API_URL}/deconnexion`, {
             method: "POST",
             headers: {
                 'Authorization': `Bearer ${token}`,

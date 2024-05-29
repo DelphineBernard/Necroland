@@ -39,7 +39,7 @@ const reservationsController = {
                 user_id: data.user_id
             });
 
-            res.json({ redirectTo: '/profil'})
+            res.json({message: "Réservation confirmée."})
         }
         catch(error){
             console.log(error)

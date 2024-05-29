@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import { useState, useContext } from 'react';
 import { Context } from '../../Context';
+import API_URL from '../../../config.js';
 
 const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
@@ -15,7 +16,7 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:3000/api/attraction', {
+            const response = await fetch(`${API_URL}/attraction`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -1,6 +1,7 @@
 import { useEffect, useContext } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
+import API_URL from '../../config.js';
 
 const CategoryTabs = () => {
     const { categories, setCategories, setAttractions } = useContext(Context);
@@ -9,7 +10,7 @@ const CategoryTabs = () => {
 
     const fetchCategories = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/categories");
+            const response = await fetch(`${API_URL}/categories`);
             const data = await response.json();
             setCategories(data.categories);
         } catch (error) {
@@ -20,7 +21,7 @@ const CategoryTabs = () => {
     const fetchAttractions = async (category) => {
         try {
             let response;
-            category === "all" || !category ? response = await fetch(`http://localhost:3000/api/attractions`) : response = await fetch(`http://localhost:3000/api/attractions/${category}`);
+            category === "all" || !category ? response = await fetch(`${API_URL}/attractions`) : response = await fetch(`${API_URL}/attractions/${category}`);
             const data = await response.json();
             setAttractions(data.attractions);
         } catch (error) {

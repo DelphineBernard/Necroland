@@ -2,7 +2,7 @@ import { useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
-import decodeJWT from '../../utils/jwtUtils.js';
+import API_URL from '../../config.js';
 
 const Profil = () => {
 
@@ -27,7 +27,7 @@ const Profil = () => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
+            const response = await fetch(`${API_URL}/user/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -47,10 +47,9 @@ const Profil = () => {
     };
 
     const fetchUserReservations = async () => {
-
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`http://localhost:3000/api/reservations/${userId}`, {
+            const response = await fetch(`${API_URL}/reservations/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -86,7 +85,7 @@ const Profil = () => {
     const handleCancel = async (reservationId) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`http://localhost:3000/api/reservation/${reservationId}`, {
+            await fetch(`${API_URL}/reservation/${reservationId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

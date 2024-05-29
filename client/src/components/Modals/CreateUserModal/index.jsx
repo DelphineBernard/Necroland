@@ -1,5 +1,6 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
+import API_URL from '../../../config.js';
 
 const CreateUserModal = ({ isOpen, onRequestClose }) => {
 
@@ -13,7 +14,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch('http://localhost:3000/api/user', {
+            const response = await fetch(`${API_URL}/user`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

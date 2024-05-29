@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import API_URL from '../../../config.js';
 
 const ReservationItem = ({ element }) => {
 
@@ -8,7 +9,7 @@ const ReservationItem = ({ element }) => {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch("http://localhost:3000/api/users", {
+            const response = await fetch(`${API_URL}/users`);
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -24,7 +25,7 @@ const ReservationItem = ({ element }) => {
 
     const fetchStatus = async () => {
         try {
-            const response = await fetch("http://localhost:3000/api/status");
+            const response = await fetch(`${API_URL}/status`);
             const data = await response.json();
             setStatus(data.status);
         } catch (error) {

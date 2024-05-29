@@ -1,8 +1,11 @@
+import rollercoaster from "../../assets/img/rollercoaster.png"
+
 const Card = ({name, img, description, category}) => {
     return (
-        <article>
+        <article className="card-content">
+            
+            <img src={rollercoaster} alt="" />
             <h3>{name}</h3>
-            <img src={img} alt="" />
             <div>
                 <p>{description}</p>
                 <p>{category}</p>

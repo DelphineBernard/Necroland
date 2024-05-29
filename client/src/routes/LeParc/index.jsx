@@ -6,7 +6,7 @@ import Plan from "../../assets/img/plan-du-parc.png";
 import Securite from "../../assets/img/securite.jpg";
 import Horreur from "../../assets/img/horreur-epique.jpg";
 import Spectacles from "../../assets/img/spectacles.jpg";
-import Attractions from "../../assets/img/attractions.png";
+import rollercoaster from "../../assets/img/rollercoaster.png";
 
 
 const LeParc = () => {
@@ -48,7 +48,7 @@ const LeParc = () => {
                 </article>
                 <article>
                     <div>
-                        <img src={Attractions} alt="" />
+                        <img src={rollercoaster} alt="" />
                     </div>
                     <div>
                         <h3>Des attractions à couper le souffle</h3>
