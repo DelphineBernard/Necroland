@@ -56,7 +56,7 @@ const reservationsController = {
         } catch (error) {
             console.log(error)
         }
-    }
+    },
 };
 
 export default reservationsController;

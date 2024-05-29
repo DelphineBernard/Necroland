@@ -31,7 +31,14 @@ const Backoffice = () => {
         try {
             const selection = event.target.value;
             updateUrl(selection);
-            const response = await fetch(`${API_URL}/${selection}`);
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/${selection}`, {
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
             const result = await response.json();
             setData(result[selection]);
             setSelection(selection);

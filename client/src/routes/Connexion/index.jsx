@@ -10,7 +10,6 @@ const Connexion = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const formData = new FormData(event.target);
         const userData = Object.fromEntries(formData.entries());
         dispatch(login(userData));

@@ -8,6 +8,10 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
     const [errorMessage, setErrorMessage] = useState('');
     const [formData, setFormData] = useState(initialValues);
 
+    useEffect(() => {
+        setFormData(initialValues);
+    }, [initialValues]);
+
     const handleChange = (event) => {
         const { name, value } = event.target;
         setFormData({ ...formData, [name]: value });
@@ -17,9 +21,11 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
         event.preventDefault();
 
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/user/${userId}`, {
                 method: 'PUT',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(formData)
@@ -30,7 +36,6 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues }) => {
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
-                onUpdate();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);

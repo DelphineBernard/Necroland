@@ -13,9 +13,11 @@ const CreatePriceModal = ({ isOpen, onRequestClose }) => {
         const priceData = Object.fromEntries(formData.entries());
 
         try {
+            const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/price`, {
                 method: 'POST',
                 headers: {
+                    'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(priceData)

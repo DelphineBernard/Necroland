@@ -12,7 +12,6 @@ const Inscription = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-
         const formData = new FormData(event.target);
         const userData = Object.fromEntries(formData.entries());
         if (userData.password !== userData.passwordConfirm) {

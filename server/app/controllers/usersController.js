@@ -7,6 +7,17 @@ const usersController = {
         res.json({users})
     },
 
+    getOneUser: async (req, res) => {
+        try {
+            const userId = req.params.id;
+            const user = await User.findByPk(userId);
+            res.status(201).json({ user, message: "Informations du membre récupérées avec succès" });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: "Erreur lors de la récupération des informations du membre" });
+        }
+    },
+
     addUser: async (req, res) => {
         try {
             const data = req.body;
