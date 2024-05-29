@@ -87,6 +87,21 @@ const mainController = {
         }
     },
 
+    updateTag: async (req, res) => {
+        try {
+            const tagId = req.params.id;
+            const tagDataToUpdate = { ...req.body };
+            delete tagDataToUpdate.id;
+            const tag = await Tag.update(tagDataToUpdate, {
+                where: { id: tagId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour des informations du tag" });
+        }
+    },
+
     getCategories: async (req, res) => {
         const categories = await Category.findAll()
         res.json({categories})
