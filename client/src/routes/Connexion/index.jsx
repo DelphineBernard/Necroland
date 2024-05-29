@@ -42,7 +42,6 @@ const Connexion = () => {
                         placeholder="Votre mot de passe"
                         required
                     />
-                    <a href="#">Mot de passe oublié ?</a>
                 </div>
                 <button type="submit">Se connecter</button>
             </form>

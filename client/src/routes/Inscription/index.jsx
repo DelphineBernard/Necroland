@@ -9,6 +9,18 @@ const Inscription = () => {
     const navigate = useNavigate();
     const error = useSelector((state) => state.auth.error);
     const [errorMessage, setErrorMessage] = useState('');
+    const [legalTermsChecked, setLegalTermsChecked] = useState(false);
+
+    const handleCheckboxChange = (event) => {
+        setLegalTermsChecked(event.target.checked);
+    }
+
+    const handleRegistration = (event) => {
+        if (!legalTermsChecked){
+            event.preventDefault();
+            alert("Veuillez accepter la politique de confidentialité des données personnelles pour confirmer votre inscription.");
+        }
+    }
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -122,7 +134,11 @@ const Inscription = () => {
                         required 
                     />
                 </div>
-                <button type="submit">S'inscrire</button>
+                <div>
+                    <input type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
+                    <label htmlFor="legalTerms">J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles</a>.</label>
+                </div>
+                <button type="submit" onClick={handleRegistration}>S'inscrire</button>
             </form>
             <div>
                 <div></div>
