@@ -52,4 +52,23 @@ button {
     width: 100%;
     transition: transform 0.3s ease-in-out, z-index 0.3s;
   }  
+  /* Styles pour les flèches de navigation */
+.swiper-button-next, .swiper-button-prev {
+    color: white; /* Change la couleur des flèches */
+    width: 50px; /* Change la taille des flèches */
+    height: 50px; /* Change la taille des flèches */
+  }
+  
+  /* Styles pour les points de pagination */
+  .swiper-pagination-bullet {
+    background: white; /* Change la couleur des points de pagination */
+    width: 12px; /* Change la taille des points de pagination */
+    height: 12px; /* Change la taille des points de pagination */
+    opacity: 1; /* Assure que les points sont complètement visibles */
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: white; /* Assure que le point actif est également blanc */
+    opacity: 1; /* Assure que le point actif est complètement visible */
+  }
   

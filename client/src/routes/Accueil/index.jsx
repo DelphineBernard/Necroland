@@ -107,6 +107,20 @@ const Accueil = () => {
                     navigation
                     pagination={{ clickable: true }}
                     className="mySwiper"
+                    breakpoints={{
+                        320: {
+                            slidesPerView: 1, // Mobile
+                            spaceBetween: 10,
+                        },
+                        640: {
+                            slidesPerView: 2, // Tablette
+                            spaceBetween: 20,
+                        },
+                        1024: {
+                            slidesPerView: 3, // Desktop
+                            spaceBetween: 30,
+                        },
+                    }}
                 >
                     {attractions.map((attraction, index) => (
                         <SwiperSlide 
