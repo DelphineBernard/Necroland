@@ -12,10 +12,11 @@ const router = express.Router();
 
 router.get('/prices', pricesController.getPrices);
 router.post('/price', isAuthenticated, isAdmin, pricesController.addPrice);
-router.put('/price/:id', isAuthenticated, pricesController.updatePrice);
+router.put('/price/:id', isAuthenticated, isAdmin, pricesController.updatePrice);
 
 router.get('/messages', isAuthenticated, isAdmin, messagesController.getMessages);
 router.post('/message', messagesController.addMessage);
+router.patch('/message/:id', isAuthenticated, isAdmin, messagesController.changeStatusMessage);
 
 router.get('/users', isAuthenticated, isAdmin, userController.getUsers);
 router.get('/user/:id', isAuthenticated, userController.getOneUser);
@@ -33,11 +34,11 @@ router.get('/attractions', mainController.getAttractions);
 router.get('/attractions/:category', mainController.getAttractionsByCategory);
 router.get('/attractions/tags/:tag', mainController.getAttractionsByTag);
 router.post('/attraction', isAuthenticated, isAdmin, mainController.addAttraction);
-router.put('/attraction/:id', isAuthenticated, mainController.updateAttraction);
+router.put('/attraction/:id', isAuthenticated, isAdmin, mainController.updateAttraction);
 
 router.get('/tags', mainController.getTags);
 router.post('/tag', isAuthenticated, isAdmin, mainController.addTag);
-router.put('/tag/:id', isAuthenticated, mainController.updateTag);
+router.put('/tag/:id', isAuthenticated, isAdmin, mainController.updateTag);
 
 router.get('/categories', mainController.getCategories);
 router.post('/category', isAuthenticated, isAdmin, mainController.addCategory);
