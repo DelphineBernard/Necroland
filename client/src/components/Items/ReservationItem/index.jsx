@@ -9,7 +9,7 @@ const ReservationItem = ({ element }) => {
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/users`);
+            const response = await fetch(`${API_URL}/users`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
