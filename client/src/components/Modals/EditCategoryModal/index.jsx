@@ -2,7 +2,7 @@ import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import API_URL from '../../../config.js';
 
-const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues }) => {
+const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues, onClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -36,6 +36,7 @@ const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues }
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
+                onClose();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);

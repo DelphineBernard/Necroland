@@ -4,7 +4,7 @@ import { Context } from '../../Context/index.jsx';
 import formatDate from '../../../utils/dateUtils.js';
 import API_URL from '../../../config.js';
 
-const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialValues }) => {
+const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialValues, onClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -118,6 +118,7 @@ const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialVa
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
+                onClose();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);

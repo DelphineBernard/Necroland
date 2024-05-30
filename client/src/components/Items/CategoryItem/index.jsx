@@ -1,7 +1,7 @@
 import EditCategoryModal from "../../Modals/EditCategoryModal";
 import { useState } from "react";
 
-const CategoryItem = ({ element }) => {
+const CategoryItem = ({ element, onClose }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +24,7 @@ const CategoryItem = ({ element }) => {
                     <button>Supprimer</button>
                 </div>
             </article>
-            <EditCategoryModal categoryId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditCategoryModal categoryId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }

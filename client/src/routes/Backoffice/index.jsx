@@ -15,16 +15,14 @@ import API_URL from '../../config.js';
 
 const Backoffice = () => {
 
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [selection, setSelection] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Au clic sur un des boutons, je mets à jour les données affichées
-    const handleClick = async (event) => {
+    const fetchData = async (selectedValue) => {
         try {
-            const selection = event.target.value;
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/${selection}`, {
+            const response = await fetch(`${API_URL}/${selectedValue}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -32,11 +30,17 @@ const Backoffice = () => {
                 },
             });
             const result = await response.json();
-            setData(result[selection]);
-            setSelection(selection);
+            setData(result[selectedValue]);
+            setSelection(selectedValue);
         } catch (error) {
             console.log(error);
         }
+    };
+
+    // Au clic sur un des boutons, je mets à jour les données affichées
+    const handleClick = async (event) => {
+        const selectedValue = event.target.value;
+        fetchData(selectedValue);
     };
 
     const openModal = () => {
@@ -45,6 +49,7 @@ const Backoffice = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        fetchData(selection);
     };
 
     return (
@@ -72,13 +77,13 @@ const Backoffice = () => {
                         <ul>
                             {data.map((element, index) => (
                                 <li key={index}>
-                                    {selection === "users" && <UserItem element={element} />}
-                                    {selection === "attractions" && <AttractionItem element={element} />}
-                                    {selection === "prices" && <PriceItem element={element} />}
-                                    {selection === "tags" && <TagItem element={element} />}
+                                    {selection === "users" && <UserItem element={element} onClose={closeModal} />}
+                                    {selection === "attractions" && <AttractionItem element={element} onClose={closeModal} />}
+                                    {selection === "prices" && <PriceItem element={element} onClose={closeModal} />}
+                                    {selection === "tags" && <TagItem element={element} onClose={closeModal} />}
                                     {selection === "messages" && <MessageItem element={element} />}
-                                    {selection === "reservations" && <ReservationItem element={element} />}
-                                    {selection === "categories" && <CategoryItem element={element} />}
+                                    {selection === "reservations" && <ReservationItem element={element} onClose={closeModal} />}
+                                    {selection === "categories" && <CategoryItem element={element} onClose={closeModal} />}
                                 </li>
                             ))}
                         </ul>

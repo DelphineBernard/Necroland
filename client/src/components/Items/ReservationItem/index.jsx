@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import API_URL from '../../../config.js';
 import EditReservationModal from "../../Modals/EditReservationModal/index.jsx";
 
-const ReservationItem = ({ element }) => {
+const ReservationItem = ({ element, onClose }) => {
 
     const [users, setUsers] = useState();
     const [status, setStatus] = useState();
@@ -71,7 +71,7 @@ const ReservationItem = ({ element }) => {
                     <button>Supprimer</button>
                 </div>
             </article>
-            <EditReservationModal reservationId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditReservationModal reservationId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }

@@ -1,7 +1,7 @@
 import EditTagModal from "../../Modals/EditTagModal";
 import { useState } from "react";
 
-const TagItem = ({ element }) => {
+const TagItem = ({ element, onClose }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -24,7 +24,7 @@ const TagItem = ({ element }) => {
                     <button>Supprimer</button>
                 </div>
             </article>
-            <EditTagModal tagId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditTagModal tagId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }

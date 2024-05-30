@@ -1,7 +1,7 @@
 import EditPriceModal from "../../Modals/EditPriceModal";
 import { useState } from "react";
 
-const PriceItem = ({ element }) => {
+const PriceItem = ({ element, onClose }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,7 +26,7 @@ const PriceItem = ({ element }) => {
                     <button>Supprimer</button>
                 </div>
             </article>
-            <EditPriceModal priceId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditPriceModal priceId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }
