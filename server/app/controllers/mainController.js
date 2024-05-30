@@ -121,6 +121,21 @@ const mainController = {
         }
     },
 
+    updateCategory: async (req, res) => {
+        try {
+            const categoryId = req.params.id;
+            const categoryDataToUpdate = { ...req.body };
+            delete categoryDataToUpdate.id;
+            const category = await Category.update(categoryDataToUpdate, {
+                where: { id: categoryId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour de la catégorie" });
+        }
+    },
+
     getPhotos: async (req, res) => {
         const photos = await Photo.findAll()
         res.json({photos})
