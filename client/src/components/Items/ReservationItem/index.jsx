@@ -16,6 +16,27 @@ const ReservationItem = ({ element, onClose }) => {
         setIsModalOpen(false);
     };
 
+    const handleDelete = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/reservation/delete/${element.id}`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                console.error('Erreur lors de la suppression de la catégorie:', errorMessage);
+            }
+            onClose();
+        } catch (error) {
+            console.error('Erreur lors de la suppression de la catégorie:', error);
+        }
+    };
+
     const fetchUsers = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -52,6 +73,7 @@ const ReservationItem = ({ element, onClose }) => {
         <>
             <article style={{ marginBottom: '2rem' }}>
                 <div>
+                    <p>N° de réservation : {element.id}</p>
                     <p>Date de début : {element.start_date}</p>
                     <p>Date de fin : {element.end_date}</p>
                     <p>Nombre de personnes : {element.nb_people}</p>
@@ -68,7 +90,7 @@ const ReservationItem = ({ element, onClose }) => {
                 </div>
                 <div>
                     <button onClick={openModal}>Modifier</button>
-                    <button>Supprimer</button>
+                    <button onClick={handleDelete}>Supprimer</button>
                 </div>
             </article>
             <EditReservationModal reservationId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
