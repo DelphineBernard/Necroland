@@ -155,34 +155,39 @@ const InfosPratiques=() => {
 
                     <section>
                         <div>
+                        <h3>Venir en Bus</h3>
                         <img src={autobus} alt="icone bus" />
-                        <p>Zombieland de Paris en bus, prendre la  ligne de BUS 3202</p>
+                        <p>De Paris, prendre la  ligne de BUS 3202</p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Arrêt Mairie La Tombe</p>
+                        <p>Arrêt Mairie La Tombe, suivre nos panneaux et préparez-vous à frisonnez</p>
                         <button><a href="https://me-deplacer.iledefrance-mobilites.fr/fiches-horaires/bus/line%3AIDFM%3AC01464/horaires?date=2024-05-17T07%3A19&direction=1&line&stopAreaId=stop_area%3AIDFM%3A61465&stopId=stop_point%3AIDFM%3A7104" target="_blank" rel="noopener noreferrer">Voir les horaires</a></button>
-                        <img src={train} alt="icone train" />
                         </div>
                         
                         <div>
-                        <p>Zombieland de Paris  en train prendre le TER Gare de Lyon</p>
+                        <h3>Venir en train</h3>
+                        <img src={train} alt="icone train" />
+                        <p>De Paris prendre le TER Gare de Lyon</p>
                         <img src={fleche} alt="icone flèche de direction" />
                         <p>Arrivée Gare SNCF de Montreaul</p>
                         <img src={fleche} alt="icone flèche de direction" />
                         <p>Prendre le Bus 3202</p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Arrêt Mairie</p>
+                        <p>Arrêt Mairie, suivre nos panneaux et préparez-vous à frisonnez</p>
                         <button><a href="https://www.ter.sncf.com/sud-provence-alpes-cote-d-azur/offers?search=N4Ig9gTglg5lB2BJAJiAXCA8gYQKIA4B2QgVnzIEYQAacaOedEABQENoBnAAgHF2BTLskEAZAJ5hGtSLASIOAZQAuYAA7MANqwDG-dEogBXfrWEclCVhckomOAoQBs%2BAEwBmAAwuaIMxfhWUJJMALKSSvwQ-KyGPn6W1kiKKupauvpGJiCqrBwc-PAwkRzoANqgUKgYACwu-CT8AJwkjQC0JKzErdXVAGbarY0U1Y6txI29FKwARqye-Pg%2BrEXo8IYaGrTa7MgKhtMc2tDTkavrmyDbEMgASvxwkgAq9BCsALZnGwC%2BALqm-DkIEpDFEACJWPRoCiECgtdxeQguRyNWhQDiIN5vfjIKAQ0EA9jAqIZYy0VRRABuQUMHAAqhANEwAPQcQzIVrksAUgq6VqsDSqfgcVraMARVrs1gALxBLP4EoBaUiTIAFpBWFAoiUvkA" target="_blank" rel="noopener noreferrer">Voir les horaires</a></button>
                         </div>
                         
                         <div>
+                        <h3>Venir en voiture</h3>
                         <img src={voiture} alt="icone voiture" />
-                        <p>Zombieland de paris  en voiture prendre l’autoroute A4 </p>
+                        <p>De Paris, prendre Quai de l'Hôtel de ville, 
+                           Quai Henri IV, Quai de la Rapée et Quai de Bercy en direction de A4 à Charenton-le-Pont. </p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Suivre Autoroute A 86 vers Bobigny</p>
+                        <p>Continuer sur A4. Prendre N104 et A5 en direction de RD 411/D411 à Marolles-sur-Seine. 
+                           Prendre la sortie 18-Marolles-sur-Seine et quitter A5</p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Suivre l'Autoroute A5 vers Montereault</p>
+                        <p>Suivre D411 en direction de D75 vers La Tombe</p>
                         <img src={fleche} alt="icone flèche de direction" />
-                        <p>Prendre la sortie 18 vers La Tombe</p>
+                        <p>Entrer dans La tombe, suivre nos panneaux et préparez-vous à frisonnez.</p>
                         <button><a href="https://www.blablacar.fr/search-car-sharing " target="_blank" rel="noopener noreferrer">Covoiturage</a></button>
                         </div>
             
