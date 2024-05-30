@@ -44,6 +44,7 @@ router.put('/tag/:id', isAuthenticated, isAdmin, mainController.updateTag);
 router.get('/categories', mainController.getCategories);
 router.post('/category', isAuthenticated, isAdmin, mainController.addCategory);
 router.put('/category/:id', isAuthenticated, isAdmin, mainController.updateCategory);
+router.delete('/category/delete/:id', isAuthenticated, isAdmin, mainController.deleteCategory);
 
 router.get('/photos', mainController.getPhotos);
 
