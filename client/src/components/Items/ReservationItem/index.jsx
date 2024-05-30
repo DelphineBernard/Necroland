@@ -29,11 +29,11 @@ const ReservationItem = ({ element, onClose }) => {
 
             if (!response.ok) {
                 const errorMessage = await response.json();
-                console.error('Erreur lors de la suppression de la catégorie:', errorMessage);
+                console.error('Erreur lors de la suppression de la réservation:', errorMessage);
             }
             onClose();
         } catch (error) {
-            console.error('Erreur lors de la suppression de la catégorie:', error);
+            console.error('Erreur lors de la suppression de la réservation:', error);
         }
     };
 

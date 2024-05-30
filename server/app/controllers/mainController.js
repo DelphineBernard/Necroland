@@ -1,25 +1,27 @@
-import {Attraction, Tag, Category, Photo, Status } from "../models/index.js";
+import { Attraction, Tag, Category, Photo, Status } from "../models/index.js";
 import slugify from 'slugify';
+import sequelize from "../database.js";
+import { QueryTypes } from "sequelize";
 
 const mainController = {
 
     getAttractions: async (req, res) => {
         const attractions = await Attraction.findAll();
-        res.json({attractions});
+        res.json({ attractions });
     },
 
     getAttractionsByCategory: async (req, res) => {
         try {
             const category = req.params.category;
-            const foundCategory = await Category.findOne({where: { slug: category }});
+            const foundCategory = await Category.findOne({ where: { slug: category } });
             if (foundCategory) {
                 const categoryId = foundCategory.id;
-                const attractions = await Attraction.findAll({where: { category_id: categoryId} });
-                res.json({attractions});
+                const attractions = await Attraction.findAll({ where: { category_id: categoryId } });
+                res.json({ attractions });
             }
         } catch (error) {
             console.log(error);
-        } 
+        }
     },
 
     getAttractionsByTag: async (req, res) => {
@@ -31,11 +33,11 @@ const mainController = {
             });
             if (foundTag) {
                 const attractions = foundTag;
-                res.json({attractions});
+                res.json({ attractions });
             }
         } catch (error) {
             console.log(error);
-        } 
+        }
     },
 
     addAttraction: async (req, res) => {
@@ -70,7 +72,7 @@ const mainController = {
 
     getTags: async (req, res) => {
         const tags = await Tag.findAll();
-        res.json({tags});
+        res.json({ tags });
     },
 
     addTag: async (req, res) => {
@@ -104,9 +106,34 @@ const mainController = {
         }
     },
 
+    deleteTag: async (req, res) => {
+        try {
+            const tagId = req.params.id;
+            // Vérifier s'il existe des attractions liées à ce tag en effectuant une jointure
+            const attractionsCount = await sequelize.query(
+                `SELECT COUNT(*) AS count FROM attraction_has_tag WHERE tag_id = :tagId`,
+                {
+                    replacements: { tagId },
+                    type: QueryTypes.SELECT
+                }
+            );
+            if (attractionsCount[0].count > 0) {
+                // Si des attractions sont liées à ce tag, renvoyer un message d'erreur
+                res.status(400).json({ message: "Ce tag est lié à des attractions et ne peut pas être supprimé" });
+            }
+            await Tag.destroy({
+                where: { id: tagId }
+            });
+            res.status(200).json({ message: "Tag supprimé avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de la suppression du tag :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression du tag." });
+        }
+    },
+
     getCategories: async (req, res) => {
         const categories = await Category.findAll()
-        res.json({categories})
+        res.json({ categories })
     },
 
     addCategory: async (req, res) => {
@@ -149,7 +176,7 @@ const mainController = {
                 }
             });
             if (attractionCount > 0) {
-                res.status(400).json({ message: "Impossible de supprimer la catégorie car elle est associée à des attractions"})
+                res.status(400).json({ message: "Cette catégorie est liée à des attractions et ne peut pas être supprimée" })
             }
             await Category.destroy({
                 where: {
@@ -165,12 +192,12 @@ const mainController = {
 
     getPhotos: async (req, res) => {
         const photos = await Photo.findAll()
-        res.json({photos})
+        res.json({ photos })
     },
 
     getStatus: async (req, res) => {
         const status = await Status.findAll();
-        res.json({status});
+        res.json({ status });
     },
 }
 

@@ -41,6 +41,7 @@ router.put('/attraction/:id', isAuthenticated, isAdmin, mainController.updateAtt
 router.get('/tags', mainController.getTags);
 router.post('/tag', isAuthenticated, isAdmin, mainController.addTag);
 router.put('/tag/:id', isAuthenticated, isAdmin, mainController.updateTag);
+router.delete('/tag/delete/:id', isAuthenticated, isAdmin, mainController.deleteTag);
 
 router.get('/categories', mainController.getCategories);
 router.post('/category', isAuthenticated, isAdmin, mainController.addCategory);
