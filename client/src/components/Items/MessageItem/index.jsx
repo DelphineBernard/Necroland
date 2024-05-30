@@ -19,6 +19,22 @@ const MessageItem = ({ element }) => {
         fetchStatus();
     }, []);
 
+    const updateMessageStatus = async (messageId) => {
+        try {
+            const token = localStorage.getItem('token');
+            await fetch(`${API_URL}/message/${messageId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status_id: 4 }),
+            });
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <article style={{ marginBottom: '2rem' }}>
             <div>
@@ -32,7 +48,7 @@ const MessageItem = ({ element }) => {
                 }</p>
             </div>
             <div>
-                <button>Marquer comme classé</button>
+                <button onClick={() => updateMessageStatus(element.id)}>Marquer comme classé</button>
             </div>
         </article>
     )

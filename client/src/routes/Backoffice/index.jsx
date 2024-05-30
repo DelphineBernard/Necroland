@@ -19,18 +19,10 @@ const Backoffice = () => {
     const [selection, setSelection] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Au clic sur un des boutons, je mets à jour l'url du navigateur
-    const updateUrl = (selection) => {
-        let url = '/management';
-        url += '/' + selection;
-        window.history.pushState({}, '', url);
-    };
-
     // Au clic sur un des boutons, je mets à jour les données affichées
     const handleClick = async (event) => {
         try {
             const selection = event.target.value;
-            updateUrl(selection);
             const token = localStorage.getItem('token');
             const response = await fetch(`${API_URL}/${selection}`, {
                 method: 'GET',

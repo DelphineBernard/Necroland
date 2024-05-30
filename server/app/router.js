@@ -27,6 +27,7 @@ router.get('/reservations', isAuthenticated, isAdmin, reservationsController.get
 router.get('/reservations/:userId', isAuthenticated, reservationsController.getUserReservations);
 router.post('/reservation', isAuthenticated, reservationsController.addReservation);
 router.patch('/reservation/:id', isAuthenticated, reservationsController.changeStatusReservation);
+router.patch('/reservation/update/:id', isAuthenticated, isAdmin, reservationsController.updateReservation);
 
 router.get('/roles', userController.getRoles);
 
