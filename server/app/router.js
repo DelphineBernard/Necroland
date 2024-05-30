@@ -13,6 +13,7 @@ const router = express.Router();
 router.get('/prices', pricesController.getPrices);
 router.post('/price', isAuthenticated, isAdmin, pricesController.addPrice);
 router.put('/price/:id', isAuthenticated, isAdmin, pricesController.updatePrice);
+router.delete('/price/delete/:id', isAuthenticated, isAdmin, pricesController.deletePrice);
 
 router.get('/messages', isAuthenticated, isAdmin, messagesController.getMessages);
 router.post('/message', messagesController.addMessage);
