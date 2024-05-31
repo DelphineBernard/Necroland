@@ -12,12 +12,35 @@
     color: var.$color_white;
 }
 
-img {
-    max-width: 100%;
-}
 
 main {
-    background-color: var.$dark_gray;
+  font-family: "Roboto", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  background-color: var.$dark_gray;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: stretch;
+  padding: 1.5rem 0.5rem;
+  row-gap: 1.5rem;
+  width: 100%;
+}
+
+.form {
+    width: 80%;
+}
+
+// .selection {
+//   display: flex;
+//   flex-direction: column;
+//   border: 1px solid white;
+//   padding: 2rem;
+//   border-radius: 1rem;
+// }
+
+img {
+    max-width: 100%;
 }
 
 .hidden {
@@ -30,6 +53,12 @@ input {
 
 button {
     color: black;
+}
+
+.info {
+  font-size: 0.8rem;
+  font-style: italic;
+  padding-top: 1rem;
 }
 
 .mySwiper {
@@ -69,4 +98,3 @@ button {
     background: white; /* Assure que le point actif est également blanc */
     opacity: 1; /* Assure que le point actif est complètement visible */
   }
-  

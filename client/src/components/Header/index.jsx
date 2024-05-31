@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import Logo from "../../assets/img/logo.png";
 import Avatar from "../../assets/icons/avatar.png";
-import Banner from "../../assets/img/banner.jpg";
+import Banner from "../../assets/img/banner3.jpg";
 import Menu from "../../assets/icons/menu.png";
 import { useLocation } from 'react-router-dom';
 import { useState } from "react";
