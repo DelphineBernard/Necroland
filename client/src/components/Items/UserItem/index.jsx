@@ -1,7 +1,7 @@
 import { useState } from "react";
 import EditUserModal from "../../Modals/EditUserModal";
 
-const UserItem = ({ element }) => {
+const UserItem = ({ element, onClose }) => {
 
     const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -31,7 +31,7 @@ const UserItem = ({ element }) => {
                     <button>Supprimer</button>
                 </div>
             </article>
-            <EditUserModal userId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditUserModal userId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }

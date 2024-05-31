@@ -24,6 +24,8 @@ import { useSelector } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
 import { grey, red } from "@mui/material/colors";
+import { Provider } from "react-redux";
+import store from "./store/store";
 
 
 const IsLogged = ({ element: Element}) => {
@@ -38,7 +40,6 @@ const IsLogged = ({ element: Element}) => {
 
 const IsAdmin = ({ element: Element}) => {
     const isAdmin = useSelector(state => state.auth.isAdmin);
-    console.log(isAdmin)
 
     return isAdmin ? (
         <Element />
@@ -172,9 +173,11 @@ const theme = createTheme({
 
 ReactDOM.createRoot(document.getElementById("app")).render(
     <ContextProvider>
+      <Provider store={store}>
         <ThemeProvider theme={theme}>
             <RouterProvider router={router} />
         </ThemeProvider>
+      </Provider>
     </ContextProvider>
 );
 // En enveloppant le router avec la balise ContextProvider je rends disponibles à tous les composants enfants, les valeurs de mon Context

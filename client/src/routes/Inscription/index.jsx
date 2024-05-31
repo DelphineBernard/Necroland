@@ -35,8 +35,15 @@ const Inscription = () => {
             return;
         }
         setErrorMessage('');
-        dispatch(register(userData));
-        navigate('/profil');
+
+        dispatch(register(userData))
+            .then(() => {
+                // Redirection après une inscription réussie
+                navigate('/profil');
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la connexion :", error);
+            });
     };
 
     return (

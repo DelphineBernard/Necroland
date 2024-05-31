@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import API_URL from '../../../config.js';
 
-const MessageItem = ({ element }) => {
+const MessageItem = ({ element, onClose }) => {
 
-    const [status, setStatus] = useState();
+    const [status, setStatus] = useState([]);
 
     const fetchStatus = async () => {
         try {
@@ -19,6 +19,25 @@ const MessageItem = ({ element }) => {
         fetchStatus();
     }, []);
 
+    const updateMessageStatus = async (messageId) => {
+        try {
+            const token = localStorage.getItem('token');
+            await fetch(`${API_URL}/message/${messageId}`, {
+                method: 'PATCH',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ status_id: 4 }),
+            });
+            onClose();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const currentStatus = status.find(status => status.id === element.status_id);
+
     return (
         <article style={{ marginBottom: '2rem' }}>
             <div>
@@ -27,12 +46,12 @@ const MessageItem = ({ element }) => {
                 <p>Email : {element.email}</p>
                 <p>Objet : {element.object}</p>
                 <p>Contenu : {element.content}</p>
-                <p>Statut : {
-                    status && status.find(status => status.id === element.status_id).label
-                }</p>
+                <p>Statut : {currentStatus ? currentStatus.label : 'Loading...'}</p>
             </div>
             <div>
-                <button>Marquer comme classé</button>
+                {currentStatus && currentStatus.label !== 'Traité' && (
+                    <button onClick={() => updateMessageStatus(element.id)}>Marquer comme classé</button>
+                )}
             </div>
         </article>
     )
