@@ -1,5 +1,6 @@
 import { useState } from "react";
 import EditUserModal from "../../Modals/EditUserModal";
+import API_URL from "../../../config";
 
 const UserItem = ({ element, onClose }) => {
 
@@ -12,6 +13,26 @@ const UserItem = ({ element, onClose }) => {
     const closeModal = () => {
         setIsModalOpen(false);
     };
+
+    const deleteUser = async () => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/user/${element.id}/delete`, {
+                method: 'DELETE',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json'
+                },
+            });
+            if (!response.ok) {
+                const errorMessage = await response.json();
+                console.error('Erreur lors de la suppression de l\'utilisateur:', errorMessage);
+            }
+            onClose();
+        } catch (error) {
+            console.error('Erreur lors de la suppression de l\'utilisateur:', error);
+        }
+    }
 
     return (
         <>
@@ -28,7 +49,7 @@ const UserItem = ({ element, onClose }) => {
                 </div>
                 <div>
                     <button onClick={openModal}>Modifier</button>
-                    <button>Supprimer</button>
+                    <button onClick={deleteUser}>Supprimer</button>
                 </div>
             </article>
             <EditUserModal userId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
