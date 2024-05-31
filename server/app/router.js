@@ -36,8 +36,10 @@ router.get('/roles', userController.getRoles);
 router.get('/attractions', mainController.getAttractions);
 router.get('/attractions/:category', mainController.getAttractionsByCategory);
 router.get('/attractions/tags/:tag', mainController.getAttractionsByTag);
+router.get('/attraction/tags/:id', mainController.getAttractionsTags);
 router.post('/attraction', isAuthenticated, isAdmin, mainController.addAttraction);
 router.put('/attraction/:id', isAuthenticated, isAdmin, mainController.updateAttraction);
+router.delete('/attraction/:attractionId/tag/:tagId', isAuthenticated, isAdmin, mainController.removeTagFromAttraction);
 
 router.get('/tags', mainController.getTags);
 router.post('/tag', isAuthenticated, isAdmin, mainController.addTag);

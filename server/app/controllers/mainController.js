@@ -40,6 +40,58 @@ const mainController = {
         }
     },
 
+    getAttractionsTags: async (req, res) => {
+        try {
+            const attractionId = req.params.id;
+            const attraction = await Attraction.findByPk(attractionId, {
+                include: {
+                    model: Tag,
+                    through: {
+                        attributes: []
+                    }
+                }
+            });
+    
+            if (!attraction) {
+                return res.status(404).json({ message: 'Attraction non trouvée' });
+            }
+            res.status(200).json(attraction.Tags);
+        } catch (error) {
+            console.error('Erreur lors de la récupération des tags de l\'attraction :', error);
+            res.status(500).json({ message: 'Erreur lors de la récupération des tags de l\'attraction.' });
+        }
+    },
+
+    removeTagFromAttraction: async (req, res) => {
+        try {
+            const { attractionId, tagId } = req.params;
+            const association = await sequelize.query(
+                `SELECT * FROM attraction_has_tag WHERE attraction_id = :attractionId AND tag_id = :tagId`,
+                {
+                    replacements: { attractionId, tagId },
+                    type: QueryTypes.SELECT
+                }
+            );
+    
+            if (association.length === 0) {
+                return res.status(404).json({ message: "Association tag/attraction non trouvée." });
+            }
+
+            await sequelize.query(
+                `DELETE FROM attraction_has_tag WHERE attraction_id = :attractionId AND tag_id = :tagId`,
+                {
+                    replacements: { attractionId, tagId },
+                    type: QueryTypes.DELETE
+                }
+            );
+    
+            res.status(200).json({ message: "Association tag/attraction supprimée avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'association :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression de l'association." });
+        }
+    },
+
     addAttraction: async (req, res) => {
         try {
             const data = req.body;
@@ -119,7 +171,7 @@ const mainController = {
             );
             if (attractionsCount[0].count > 0) {
                 // Si des attractions sont liées à ce tag, renvoyer un message d'erreur
-                res.status(400).json({ message: "Ce tag est lié à des attractions et ne peut pas être supprimé" });
+                return res.status(400).json({ message: "Ce tag est lié à des attractions et ne peut pas être supprimé" });
             }
             await Tag.destroy({
                 where: { id: tagId }

@@ -81,7 +81,7 @@ const Backoffice = () => {
                                     {selection === "attractions" && <AttractionItem element={element} onClose={closeModal} />}
                                     {selection === "prices" && <PriceItem element={element} onClose={closeModal} />}
                                     {selection === "tags" && <TagItem element={element} onClose={closeModal} />}
-                                    {selection === "messages" && <MessageItem element={element} />}
+                                    {selection === "messages" && <MessageItem element={element} onClose={closeModal} />}
                                     {selection === "reservations" && <ReservationItem element={element} onClose={closeModal} />}
                                     {selection === "categories" && <CategoryItem element={element} onClose={closeModal} />}
                                 </li>
