@@ -51,7 +51,7 @@ const mainController = {
                     }
                 }
             });
-    
+
             if (!attraction) {
                 return res.status(404).json({ message: 'Attraction non trouvée' });
             }
@@ -59,6 +59,38 @@ const mainController = {
         } catch (error) {
             console.error('Erreur lors de la récupération des tags de l\'attraction :', error);
             res.status(500).json({ message: 'Erreur lors de la récupération des tags de l\'attraction.' });
+        }
+    },
+
+    addTagToAttraction: async (req, res) => {
+        try {
+            const { attractionId } = req.params;
+            const { tagId } = req.body;
+
+            const association = await sequelize.query(
+                `SELECT * FROM attraction_has_tag WHERE attraction_id = :attractionId AND tag_id = :tagId`,
+                {
+                    replacements: { attractionId, tagId },
+                    type: QueryTypes.SELECT
+                }
+            );
+
+            if (association.length > 0) {
+                return res.status(400).json({ message: "L'association existe déjà." });
+            }
+
+            await sequelize.query(
+                `INSERT INTO attraction_has_tag (attraction_id, tag_id) VALUES (:attractionId, :tagId)`,
+                {
+                    replacements: { attractionId, tagId },
+                    type: QueryTypes.INSERT
+                }
+            );
+
+            res.status(201).json({ message: "Tag associé avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de l'ajout de l'association :", error);
+            res.status(500).json({ message: "Erreur lors de l'ajout de l'association." });
         }
     },
 
@@ -72,7 +104,7 @@ const mainController = {
                     type: QueryTypes.SELECT
                 }
             );
-    
+
             if (association.length === 0) {
                 return res.status(404).json({ message: "Association tag/attraction non trouvée." });
             }
@@ -84,7 +116,7 @@ const mainController = {
                     type: QueryTypes.DELETE
                 }
             );
-    
+
             res.status(200).json({ message: "Association tag/attraction supprimée avec succès." });
         } catch (error) {
             console.error("Erreur lors de la suppression de l'association :", error);
@@ -119,6 +151,38 @@ const mainController = {
         } catch (error) {
             console.log("Erreur", error);
             res.status(500).json({ message: "Erreur lors de la mise à jour des informations de l'attraction" });
+        }
+    },
+
+    deleteAttraction: async (req, res) => {
+        try {
+            const attractionId = req.params.id;
+            const attraction = await Attraction.findByPk(attractionId, {
+                include: [
+                    { model: Photo, as: 'photos' },
+                    { model: Tag, through: 'attraction_has_tag' }
+                ]
+            });
+    
+            if (!attraction) {
+                return res.status(404).json({ message: "Attraction non trouvée." });
+            }
+    
+            // Vérifier si l'attraction a des photos associées
+            if (attraction.photos.length > 0) {
+                return res.status(400).json({ message: "L'attraction a des photos associées et ne peut pas être supprimée." });
+            }
+    
+            // Vérifier si l'attraction a des tags associés
+            if (attraction.Tags.length > 0) {
+                return res.status(400).json({ message: "L'attraction a des tags associés et ne peut pas être supprimée." });
+            }
+    
+            await attraction.destroy();
+            res.status(200).json({ message: "Attraction supprimée avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'attraction :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression de l'attraction." });
         }
     },
 
@@ -245,6 +309,62 @@ const mainController = {
     getPhotos: async (req, res) => {
         const photos = await Photo.findAll()
         res.json({ photos })
+    },
+
+    getAttractionsPhotos: async (req, res) => {
+        try {
+            const { attractionId } = req.params;
+            const attraction = await Attraction.findByPk(attractionId, {
+                include: {
+                    model: Photo,
+                    as: 'photos'
+                }
+            });
+
+            if (!attraction) {
+                return res.status(404).json({ message: "Attraction non trouvée." });
+            }
+
+            res.status(200).json(attraction.photos);
+        } catch (error) {
+            console.error("Erreur lors de la récupération des photos associées :", error);
+            res.status(500).json({ message: "Erreur lors de la récupération des photos associées." });
+        }
+    },
+
+    addPhoto: async (req, res) => {
+        try {
+            const { attractionId } = req.params;
+
+            const attraction = await Attraction.findByPk(attractionId);
+            if (!attraction) {
+                return res.status(404).json({ message: "Attraction non trouvée." });
+            }
+            const { name } = req.body;
+            const photo = await Photo.create({
+                name: name,
+                attraction_id: attractionId
+            });
+            res.status(201).json(photo);
+        } catch (error) {
+            console.error("Erreur lors de l'ajout de la photo :", error);
+            res.status(500).json({ message: "Erreur lors de l'ajout de la photo." });
+        }
+    },
+
+    deletePhoto: async (req, res) => {
+        try {
+            const { photoId } = req.params;
+            const photo = await Photo.findByPk(photoId);
+            if (!photo) {
+                return res.status(404).json({ message: "Photo non trouvée." });
+            }
+            await photo.destroy();
+            res.status(200).json({ message: "Photo supprimée avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de la photo :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression de la photo." });
+        }
     },
 
     getStatus: async (req, res) => {

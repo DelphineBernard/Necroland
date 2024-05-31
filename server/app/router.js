@@ -7,8 +7,10 @@ import mainController from './controllers/mainController.js';
 import userController from './controllers/usersController.js';
 import isAuthenticated from './middlewares/isAuthenticated.js';
 import isAdmin from './middlewares/isAdmin.js';
+import multer from 'multer';
 
 const router = express.Router();
+const upload = multer({ dest: 'uploads/' });
 
 router.get('/prices', pricesController.getPrices);
 router.post('/price', isAuthenticated, isAdmin, pricesController.addPrice);
@@ -38,8 +40,10 @@ router.get('/attractions/:category', mainController.getAttractionsByCategory);
 router.get('/attractions/tags/:tag', mainController.getAttractionsByTag);
 router.get('/attraction/tags/:id', mainController.getAttractionsTags);
 router.post('/attraction', isAuthenticated, isAdmin, mainController.addAttraction);
+router.post('/attraction/:attractionId/addtag', isAuthenticated, isAdmin, mainController.addTagToAttraction);
 router.put('/attraction/:id', isAuthenticated, isAdmin, mainController.updateAttraction);
 router.delete('/attraction/:attractionId/tag/:tagId', isAuthenticated, isAdmin, mainController.removeTagFromAttraction);
+router.delete('/attraction/delete/:id', isAuthenticated, isAdmin, mainController.deleteAttraction);
 
 router.get('/tags', mainController.getTags);
 router.post('/tag', isAuthenticated, isAdmin, mainController.addTag);
@@ -52,6 +56,9 @@ router.put('/category/:id', isAuthenticated, isAdmin, mainController.updateCateg
 router.delete('/category/delete/:id', isAuthenticated, isAdmin, mainController.deleteCategory);
 
 router.get('/photos', mainController.getPhotos);
+router.get('/photos/:attractionId', mainController.getAttractionsPhotos);
+router.post('/photo/:attractionId', isAuthenticated, isAdmin, upload.single('photo'), mainController.addPhoto); // 'photo' est le nom du champ dans le formulaire où le fichier est téléchargé
+router.delete('/photo/:photoId', isAuthenticated, isAdmin, mainController.deletePhoto);
 
 router.get('/status', mainController.getStatus);
 

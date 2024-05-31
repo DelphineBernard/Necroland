@@ -74,6 +74,8 @@ const Backoffice = () => {
                     <>
                         {/* Au clic sur le bouton, j'ouvre mon modal */}
                         {(selection !== "reservations" && selection !== "messages") && <button onClick={openModal}>Créer</button>}
+                        {selection === "tags" && <p>Attention : Pour être supprimé, le tag ne doit être associé à aucune attraction.</p>}
+                        {selection === "attractions" && <p>Attention : Pour être supprimée, l'attraction ne doit être associée à aucun tag et à aucune photo.</p>}
                         <ul>
                             {data.map((element, index) => (
                                 <li key={index}>
