@@ -8,6 +8,7 @@ import userController from './controllers/usersController.js';
 import isAuthenticated from './middlewares/isAuthenticated.js';
 import isAdmin from './middlewares/isAdmin.js';
 import multer from 'multer';
+import usersController from './controllers/usersController.js';
 
 const router = express.Router();
 const upload = multer({ dest: 'uploads/' });
@@ -25,6 +26,8 @@ router.get('/users', isAuthenticated, isAdmin, userController.getUsers);
 router.get('/user/:id', isAuthenticated, userController.getOneUser);
 router.post('/user', userController.addUser);
 router.put('/user/:id', isAuthenticated, userController.updateUser);
+router.patch('/user/delete/:userId', isAuthenticated, usersController.removeAccount);
+router.delete('/user/:userId/delete', isAuthenticated, isAdmin, userController.deleteUser);
 
 router.get('/reservations', isAuthenticated, isAdmin, reservationsController.getReservations);
 router.get('/reservations/:userId', isAuthenticated, reservationsController.getUserReservations);
