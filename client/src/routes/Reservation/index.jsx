@@ -4,6 +4,16 @@ import { useSelector } from 'react-redux';
 import formatDate from '../../utils/dateUtils.js';
 import { useNavigate } from "react-router-dom";
 import API_URL from '../../config.js';
+import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, List, ListItem, ListItemText, Typography, Button } from "@mui/material";
+import FormField from "../../components/FormField/index.jsx";
+import Divider from '@mui/material/Divider';
+import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
+import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
+import HotelIcon from '@mui/icons-material/Hotel';
+import LocalActivityIcon from '@mui/icons-material/LocalActivity';
+import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
+import EuroIcon from '@mui/icons-material/Euro';
+import { grey, red } from "@mui/material/colors";
 
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -138,95 +148,135 @@ const Reservation = () => {
 
     return (
         <main>
-        <h2>Choix des options</h2>
+
+        <Typography variant="h2">Choix des options</Typography>
+
         <form method="post" onSubmit={handleSubmit}>
-            <fieldset>
-                <legend>Hôtel</legend>
-                <div>
-                    <input type="radio" name="hotel" id="true" value="true" onChange={handleHotelChange}/>
-                    <label htmlFor="true">Avec hôtel</label>
-                </div>
-                <div>
-                    <input type="radio" name="hotel" id="false" value="false" onChange={handleHotelChange}/>
-                    <label htmlFor="false">Sans hôtel</label>
-                </div>
-            </fieldset> 
+        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white'}}>
+            <FormControl component="fieldset">
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400],  } }}>
+                    <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
+                    Hôtel
+                    </FormLabel>
+                </Divider>
+                <RadioGroup row name="hotel" value={hotelSelected} onChange={handleHotelChange} sx= {{ display: 'flex', justifyContent: "space-around"}} required>
+                    <FormControlLabel value="true" control={<Radio  id="true" />} label="Avec hôtel" />
+                    <FormControlLabel value="false" control={<Radio id="false" />} label="Sans hôtel" />
+                </RadioGroup>
+            </FormControl>
 
-            <div>
-                <label htmlFor="nb_people">Nombre de personnes</label>
-                <input type="number" name="nb_people" min={1} defaultValue={1} onChange={handleNbPeopleChange}/>
-            </div>
-
-            <fieldset>
-                <legend>Durée du séjour</legend>
+            <FormControl sx= {{ display: 'flex', rowGap: '1rem'}}>
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                    <FormLabel sx={{ color: "white" }} component="label">
+                    Nombre de personnes
+                    </FormLabel>
+                </Divider>
+                <FormField sx={{ color: "white", maxWidth: '80%', mx:'auto' }}
+                    id="nb_people"
+                    type="number"
+                    name="nb_people"
+                    htmlFor="nb_people"
+                    inputProps={{ min: 1 }}
+                    defaultValue={1} 
+                    onChange={handleNbPeopleChange}
+                    />  
+            </FormControl>
+                
+            <FormControl component="fieldset">
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                    <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
+                        Durée du séjour
+                    </FormLabel>
+                </Divider>
+                
                 {/* La durée du séjour 1 jour est affichée uniquement si on ne prend pas d'hôtel (avec hôtel le séjour sera de 2 jours minimum) */}
-                {hotelSelected !== "true" &&
-                <div>
-                    <input type="radio" name="duration" id="1" value="1" onChange={handleDurationChange}/>
-                    <label htmlFor="1">1 jour</label>
-                </div>
-                }
-                <div>
-                    <input type="radio" name="duration" id="2" value="2" onChange={handleDurationChange}/>
-                    <label htmlFor="2">2 jours</label>
-                </div>
-                <div>
-                    <input type="radio" name="duration" id="3" value="3" onChange={handleDurationChange}/>
-                    <label htmlFor="3">3 jours</label>
-                </div>
-                <div>
-                    <input type="radio" name="duration" id="4" value="4" onChange={handleDurationChange}/>
-                    <label htmlFor="4">4 jours</label>
-                </div>
-            </fieldset>
+                <RadioGroup sx={{ mx: 'auto' }}row name="duration" value={durationSelected} onChange={handleDurationChange}>
+                    {hotelSelected !== "true" && <FormControlLabel value="1" control={<Radio id="1" />} label="1 jour" />}
+                    <FormControlLabel value="2" control={<Radio id="2" />} label="2 jours" />
+                    <FormControlLabel value="3" control={<Radio id="3" />} label="3 jours" />
+                    <FormControlLabel value="4" control={<Radio id="4" />} label="4 jours" />
+                </RadioGroup>
+            </FormControl>  
             
-            <fieldset>
-                <legend>Dates</legend>
-                    <div>
-                        <label htmlFor="start_date">Du</label>
-                        <input type="date"  name="start_date" onChange={handleStartDateChange}/>
-                        <label htmlFor="end_date">au</label>
-                        <input type="date" name="end_date" value={endDate} readOnly />
-                    </div>
-            </fieldset>
+            <FormControl component="fieldset">
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400],  } }}>
+                    <FormLabel sx={{ color: "white" }} component="legend">
+                        Dates
+                    </FormLabel>
+                </Divider>
+                <Box sx= {{ display: 'flex', justifyContent: "space-around", textAlign: 'center'}}>
+                    <Box sx= {{ display: 'flex', flexDirection: 'column'}}>
+                        <FormLabel sx= {{ color: 'white'}}htmlFor="start_date">Du</FormLabel>
+                        <FormField type="date"  name="start_date" onChange={handleStartDateChange}/>
+                    </Box>
+                    <Box sx= {{ display: 'flex', flexDirection: 'column', justifyContent: "center"}}>
+                        <FormLabel sx= {{ color: 'white'}}htmlFor="end_date">au</FormLabel>
+                        <FormField sx= {{ color: 'white'}} type="date" name="end_date" value={endDate} 
+                        InputProps={{ readOnly: true }} />
+                    </Box>                  
+                </Box>
+            </FormControl>
 
-            <h2>Votre sélection</h2>
-            {/* Si l'hôtel et la durée ne sont pas sélectionnés */}
-            {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
-            {/* Si l'hôtel ou la durée sont sélectionnés on affiche la sélection */}
-            {(hotelSelected || durationSelected) &&
-            <ul>
-                <li>
-                    {!stringStartDate && "Dates ?"}
-                    {stringStartDate && stringEndDate && `Du ${stringStartDate} au ${stringEndDate}`}
-                </li>
-                <li>
-                    {!hotelSelected && "Hôtel ?"}
+            <Box sx= {{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem'}}>
+                <Typography variant="h2">Votre sélection</Typography>
+                {/* Si l'hôtel et la durée ne sont pas sélectionnés */}
+                {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
+                {/* Si l'hôtel ou la durée sont sélectionnés on affiche la sélection */}
+                {(hotelSelected || durationSelected) &&
+                <List>
+                    <ListItem><CalendarMonthIcon />
+                        {!stringStartDate && 
+                        <>
+                            <Typography>Dates</Typography>
+                            <HelpOutlineIcon/>
+                        </>}
+                        {stringStartDate && stringEndDate && 
+                        `Du ${stringStartDate} au ${stringEndDate}`}
+                    </ListItem>
+                    <Divider component="li" />
+                    <ListItem><HotelIcon />
+                        {!hotelSelected && 
+                        <>
+                            <Typography>Hôtel</Typography>
+                            <HelpOutlineIcon/>
+                        </>}
+                        {/* Si la durée du séjour n'est pas sélectionnée, on affiche juste "hôtel compris" */}
+                        {hotelSelected && hotelSelected === "true" && "Hôtel compris" }
 
-                    {/* Si la durée du séjour n'est pas sélectionnée, on affiche juste "hôtel compris" */}
-                    {hotelSelected && hotelSelected === "true" && "Hôtel compris" }
+                        {/* Si la durée est sélectionnée, on affiche le nombre de nuits (1 jour de moins que la durée du séjour) */}
+                        {/* La durée étant une string dans le form, on la transforme en nombre avec parseInt */}
+                        {/* Pour l'affichage du "s" de nuit : si la durée du séjour est égale à 2 jours il n'y aura qu'une nuit, si supérieure à 2, il y aura plusieurs nuits. */}
+                        {hotelSelected && hotelSelected === "true" && durationSelected && parseInt(durationSelected) >= 2 && ` pour ${durationSelected -1} ${parseInt(durationSelected) > 2 ? "nuits" : "nuit"}`}
+                        {hotelSelected && hotelSelected === "false" && "Sans hôtel"}
+                    </ListItem>
+                    <Divider component="li" />
+                    <ListItem><LocalActivityIcon />
+                        {!durationSelected &&
+                        <>
+                            <Typography>Durée du séjour</Typography>
+                            <HelpOutlineIcon/>
+                        </>}
+                        {durationSelected && `Parc ${durationSelected} ${parseInt(durationSelected) > 1 ? "jours" : "jour"}`}
+                    </ListItem>
+                    <Divider component="li" />
+                    <ListItem><EmojiPeopleIcon />
+                        Nombre de personnes: {nbPeopleSelected}
+                    </ListItem>
+                    <Divider component="li" />
+                    <ListItem><EuroIcon />
+                        Prix total: {totalPrice === 0 ? <HelpOutlineIcon/> : (totalPrice * nbPeopleSelected) + ' € TTC'}
+                    </ListItem>
+                    <p className="info">Le paiement s'effectuera sur place lors de votre arrivée.</p>
+                </List>}          
+            </Box>
 
-                    {/* Si la durée est sélectionnée, on affiche le nombre de nuits (1 jour de moins que la durée du séjour) */}
-                    {/* La durée étant une string dans le form, on la transforme en nombre avec parseInt */}
-                    {/* Pour l'affichage du "s" de nuit : si la durée du séjour est égale à 2 jours il n'y aura qu'une nuit, si supérieure à 2, il y aura plusieurs nuits. */}
-                    {hotelSelected && hotelSelected === "true" && durationSelected && parseInt(durationSelected) >= 2 && ` pour ${durationSelected -1} ${parseInt(durationSelected) > 2 ? "nuits" : "nuit"}`}
-                    {hotelSelected && hotelSelected === "false" && "Sans hôtel"}
-                </li>
-                <li>
-                    {!durationSelected && "Durée du séjour ?"}
-                    {durationSelected && `Parc ${durationSelected} ${parseInt(durationSelected) > 1 ? "jours" : "jour"}`}
-                </li>
-                <li>Nombre de personnes: {nbPeopleSelected}</li>
-                <li>Prix total: {totalPrice * nbPeopleSelected} € TTC</li>
-            </ul>}
+            <Box sx={{mx: 'auto'}}>
+                <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
+                <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
+            </Box>
 
-            <div>
-                <input type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
-                <label htmlFor="cgv">J'accepte les conditions générales de vente.</label><a href="/cgv" target="_blank">Voir les CGV</a>
-            </div>
-
-            <button onClick={handleReservation}>Confirmer la réservation</button>
-            
+            <Button sx={{ mx:'auto'}} onClick={handleReservation}>Confirmer la réservation</Button>
+            </Box>
         </form>
     </main>
     )

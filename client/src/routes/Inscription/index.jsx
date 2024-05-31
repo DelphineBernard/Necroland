@@ -1,7 +1,11 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../actions/authActions.js";
 import { useState } from "react";
+import { Box } from "@mui/material";
+import Button from '@mui/material/Button';
+import { red } from '@mui/material/colors';
+import FormField from "../../components/FormField/index.jsx";
 
 const Inscription = () => {
 
@@ -39,113 +43,148 @@ const Inscription = () => {
     
         <main>
             <p>Indiquez ci-dessous vos informations personnelles pour créer un compte.</p>
-            <form method="post" onSubmit={handleSubmit}>
-                <p>* Champs obligatoires</p>
+            <form method="post" onSubmit={handleSubmit} className="form">
+                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
+                <p>Tous les champs sont obligatoires.</p>
                 {error && <p className="message message--error">{error}</p>}
                 {errorMessage && <p className="message message--error">{errorMessage}</p>}
-                <div>
-                    <label htmlFor="email">Adresse e-mail *</label>
-                    <input 
+
+                    {/* <label htmlFor="email">Adresse e-mail *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Adresse e-mail"
+                        size="small" 
+                        fullWidth 
                         type="email" 
                         name="email" 
                         id="email" 
                         placeholder="Votre adresse e-mail" 
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor="password">Mot de passe *</label>
+
+                    {/* <label htmlFor="password">Mot de passe *</label> */}
                     <p>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</p>
-                    <input 
+                   <FormField
+                        variant="filled" 
+                        label="Mot de passe"
+                        size="small"
+                        fullWidth  
                         type="password" 
                         name="password" 
-                        id="password" 
+                        id="password"
                         placeholder="Votre mot de passe" 
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor="passwordConfirm">Confirmation mot de passe *</label>
-                    <input 
+
+                    {/* <label htmlFor="passwordConfirm">Confirmation mot de passe *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Confirmer le mot de passe"
+                        size="small"
+                        fullWidth   
                         type="password" 
                         name="passwordConfirm" 
                         id="passwordConfirm" 
                         placeholder="Confirmez votre mot de passe"
                         required
                     />
-                </div>
-                <div>
-                    <label htmlFor="lastname">Nom *</label>
-                    <input 
-                        type="text" 
+                    {/* <label htmlFor="lastname">Nom *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Nom"
+                        size="small"
+                        fullWidth   
+                        type="text"  
                         name="lastname" 
                         id="lastname" 
                         placeholder="Votre nom" 
                         required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="firstname">Prénom *</label>
-                    <input 
+                    /> 
+                    {/* <label htmlFor="firstname">Prénom *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Prénom"
+                        size="small" 
+                        fullWidth  
                         type="text" 
                         name="firstname" 
                         id="firstname" 
                         placeholder="Votre prénom" 
                         required 
                     />
-                </div>
-                <div>
-                    <label htmlFor="address">Adresse *</label>
-                    <input 
+
+                    {/* <label htmlFor="address">Adresse *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Adresse"
+                        size="small"  
+                        fullWidth 
                         type="text" 
                         name="address" 
                         id="address" 
                         placeholder="Votre adresse" 
                         required 
                     />
-                </div>
-                <div>
-                    <label htmlFor="postalCode">Code postal *</label>
-                    <input 
+                    {/* <label htmlFor="postalCode">Code postal *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Code postal"
+                        size="small"  
+                        fullWidth 
                         type="text" 
                         name="postalCode" 
                         id="postalCode" 
                         placeholder="Votre code postal" 
                         required 
                     />
-                </div>
-                <div>
-                    <label htmlFor="city">Ville *</label>
-                    <input 
+                    {/* <label htmlFor="city">Ville *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Ville"
+                        size="small" 
+                        fullWidth  
                         type="text" 
                         name="city" 
                         id="city" 
                         placeholder="La ville où vous habitez" 
                         required 
                     />
-                </div>
-                <div>
-                    <label htmlFor="country">Pays *</label>
-                    <input 
+                    {/* <label htmlFor="country">Pays *</label> */}
+                    <FormField
+                        variant="filled" 
+                        label="Pays"
+                        size="small"  
+                        fullWidth 
                         type="text" 
                         name="country" 
                         id="country" 
                         placeholder="France"
                         required 
                     />
-                </div>
-                <div>
-                    <input type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
-                    <label htmlFor="legalTerms">J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles</a>.</label>
-                </div>
-                <button type="submit" onClick={handleRegistration}>S'inscrire</button>
+                    <Box>
+                        <input type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
+                        <label htmlFor="legalTerms">J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles</a>.</label>
+                    </Box>
+                    
+                <Button 
+                    type="submit" 
+                    variant="contained"
+                    onClick={handleRegistration}>
+                    S'inscrire
+                </Button>
+                </Box>
             </form>
             <div>
                 <div></div>
                 <p>ou</p>
                 <div></div>
             </div>
-            <Link to={"/connexion"}>Se connecter</Link>
+            <Button 
+                sx={{ backgroundColor: 'white', color: red[900], border: red[900], "&:hover": { backgroundColor: red[600], color: 'white', border: red[900]} }}
+                variant="outlined" 
+                href="/connexion">
+                Se connecter
+            </Button>
         </main>
 
     )
