@@ -4,9 +4,8 @@ import { useSelector } from 'react-redux';
 import formatDate from '../../utils/dateUtils.js';
 import { useNavigate } from "react-router-dom";
 import API_URL from '../../config.js';
-import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, List, ListItem, ListItemText, Typography, Button } from "@mui/material";
+import { Box, Checkbox, FormControl, FormControlLabel, FormLabel, RadioGroup, Radio, List, ListItem, Typography, Button, Divider } from "@mui/material";
 import FormField from "../../components/FormField/index.jsx";
-import Divider from '@mui/material/Divider';
 import HelpOutlineIcon from '@mui/icons-material/HelpOutline';
 import CalendarMonthIcon from '@mui/icons-material/CalendarMonth';
 import HotelIcon from '@mui/icons-material/Hotel';
@@ -26,10 +25,10 @@ const Reservation = () => {
     const [stringStartDate, setStringStartDate] = useState(null);
     const [stringEndDate, setStringEndDate] = useState(null);
 
-    // On récupère le tableau des tarifs de la BDD avec le contexte
+    // Fetch prices from bdd with Context
     const { allPrices, setAllPrices } = useContext(Context);
 
-    // Je récupère mon userId stocké dans le store
+    // Use userId from store
     const userId = useSelector((state) => state.auth.userId);
     const navigate = useNavigate();
 
@@ -43,7 +42,7 @@ const Reservation = () => {
     }, []);
 
 
-    // Si on passe de "sans hôtel" à "avec hôtel" alors que le séjour sélectionnée est de 1 jour, on défini par défaut la durée de séjour à 2 jours (durée minimum)
+    // If we switch from "sans hôtel" to "avec hôtel" althrough duration selected is 1 day, it define by default duration to 2 days (min duration with hostel)
     useEffect(() => {
         if (hotelSelected === "true" && durationSelected === "1"){
             setDurationSelected("2");
@@ -57,10 +56,10 @@ const Reservation = () => {
         }
     }, [hotelSelected, durationSelected, startDate]);
 
-    // Fonction pour récupérer le bon tarif selon le choix de réservation (avec ou sans hôtel + durée du séjour)
+    // Fonction to fetch price depending on reservation choices (with or without hostel + duration selected)
     const calculeTotalPrice = () => {
         try {
-            // Conversion de price.hotel(booleen dans la bdd) en string pour le comparer à hotelSelected (string)
+            // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
             const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
 
             if (selectedPrice){
@@ -93,20 +92,20 @@ const Reservation = () => {
     }
 
     const updateEndDate = () => {
-        // On récupère les dates complètes avec la methode Date(), on récupère la date de fin à partir de la date de début pour lui ajouter le nombre de jours nécessaires dans un second temps
+        // Create complete dates with method Date(), create end date from start date with adding number of days (duration selected)
         const fullStartDate = new Date(startDate);
         const fullEndDate = new Date(startDate);
 
-        // On ajoute à la date de fin la durée du séjour (durationSelected = string à transformer en int) - 1 jour (car sinon on obtient un jour de trop)
+        // Add duration to end date (durationSelected = string to transform in integer) less 1 day
         fullEndDate.setDate(fullStartDate.getDate() + parseInt(durationSelected) -1);
         
-        // Options permettant d'obtenir le format de date en string pour la partie sélection (jour de la semaine, date, mois, année)
+        // Options to obtain string date for selection part (day, date, month, year)
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
 
         setStringStartDate(formatDate(fullStartDate, options));
         setStringEndDate(formatDate(fullEndDate, options));
 
-        // On formate la date de fin pour l'intégrer dans le form (et on la transforme en format form soit YYYY-MM-JJ)
+        // Format end date to add it into form (format to YYYY-MM-JJ)
         const shortOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
         const formEndDate = formatDate(fullEndDate, shortOptions).split('/').reverse().join('-')
         setEndDate(formEndDate);
@@ -149,7 +148,7 @@ const Reservation = () => {
     return (
         <main>
 
-        <Typography variant="h2">Choix des options</Typography>
+        <Typography variant="h2" sx={{textAlign: "center", pb: '1.5rem'}}>Choix des options</Typography>
 
         <form method="post" onSubmit={handleSubmit}>
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white'}}>
@@ -159,7 +158,7 @@ const Reservation = () => {
                     Hôtel
                     </FormLabel>
                 </Divider>
-                <RadioGroup row name="hotel" value={hotelSelected} onChange={handleHotelChange} sx= {{ display: 'flex', justifyContent: "space-around"}} required>
+                <RadioGroup row name="hotel" value={hotelSelected} onChange={handleHotelChange} sx= {{ display: 'flex', justifyContent: "space-evenly"}} required>
                     <FormControlLabel value="true" control={<Radio  id="true" />} label="Avec hôtel" />
                     <FormControlLabel value="false" control={<Radio id="false" />} label="Sans hôtel" />
                 </RadioGroup>
@@ -189,8 +188,8 @@ const Reservation = () => {
                     </FormLabel>
                 </Divider>
                 
-                {/* La durée du séjour 1 jour est affichée uniquement si on ne prend pas d'hôtel (avec hôtel le séjour sera de 2 jours minimum) */}
-                <RadioGroup sx={{ mx: 'auto' }}row name="duration" value={durationSelected} onChange={handleDurationChange}>
+                {/* 1 day duration only showed if hostel not selected */}
+                <RadioGroup sx={{ display: 'flex', justifyContent: 'center' }}row name="duration" value={durationSelected} onChange={handleDurationChange}>
                     {hotelSelected !== "true" && <FormControlLabel value="1" control={<Radio id="1" />} label="1 jour" />}
                     <FormControlLabel value="2" control={<Radio id="2" />} label="2 jours" />
                     <FormControlLabel value="3" control={<Radio id="3" />} label="3 jours" />
@@ -198,13 +197,14 @@ const Reservation = () => {
                 </RadioGroup>
             </FormControl>  
             
+            {/* Input dates */}
             <FormControl component="fieldset">
                 <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400],  } }}>
                     <FormLabel sx={{ color: "white" }} component="legend">
                         Dates
                     </FormLabel>
                 </Divider>
-                <Box sx= {{ display: 'flex', justifyContent: "space-around", textAlign: 'center'}}>
+                <Box sx= {{ display: 'flex', justifyContent: "center", columnGap: '0.5rem',textAlign: 'center'}}>
                     <Box sx= {{ display: 'flex', flexDirection: 'column'}}>
                         <FormLabel sx= {{ color: 'white'}}htmlFor="start_date">Du</FormLabel>
                         <FormField type="date"  name="start_date" onChange={handleStartDateChange}/>
@@ -217,11 +217,12 @@ const Reservation = () => {
                 </Box>
             </FormControl>
 
+            {/* Resume selection */}
             <Box sx= {{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem'}}>
                 <Typography variant="h2">Votre sélection</Typography>
-                {/* Si l'hôtel et la durée ne sont pas sélectionnés */}
+                {/* If hostel and duration are not selected */}
                 {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
-                {/* Si l'hôtel ou la durée sont sélectionnés on affiche la sélection */}
+                {/* If hotel or duration are selected, show selection */}
                 {(hotelSelected || durationSelected) &&
                 <List>
                     <ListItem><CalendarMonthIcon />
@@ -240,12 +241,12 @@ const Reservation = () => {
                             <Typography>Hôtel</Typography>
                             <HelpOutlineIcon/>
                         </>}
-                        {/* Si la durée du séjour n'est pas sélectionnée, on affiche juste "hôtel compris" */}
+                        {/* If duration is not selected, show "hôtel compris" */}
                         {hotelSelected && hotelSelected === "true" && "Hôtel compris" }
 
-                        {/* Si la durée est sélectionnée, on affiche le nombre de nuits (1 jour de moins que la durée du séjour) */}
-                        {/* La durée étant une string dans le form, on la transforme en nombre avec parseInt */}
-                        {/* Pour l'affichage du "s" de nuit : si la durée du séjour est égale à 2 jours il n'y aura qu'une nuit, si supérieure à 2, il y aura plusieurs nuits. */}
+                        {/* If duration is selected, show number of nights (duration of stay less one day) */}
+                        {/* ParseInt duration (string in form to number) */}
+                        {/* Handle number of nights "s" de nuit : if duration équal 2 days = stay one "night", if more than 2, display "nights". */}
                         {hotelSelected && hotelSelected === "true" && durationSelected && parseInt(durationSelected) >= 2 && ` pour ${durationSelected -1} ${parseInt(durationSelected) > 2 ? "nuits" : "nuit"}`}
                         {hotelSelected && hotelSelected === "false" && "Sans hôtel"}
                     </ListItem>
@@ -275,7 +276,7 @@ const Reservation = () => {
                 <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
             </Box>
 
-            <Button sx={{ mx:'auto'}} onClick={handleReservation}>Confirmer la réservation</Button>
+            <Button sx={{ mx:'auto'}} onClick={handleReservation}  type="submit">Confirmer la réservation</Button>
             </Box>
         </form>
     </main>

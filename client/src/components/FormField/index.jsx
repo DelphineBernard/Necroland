@@ -10,7 +10,6 @@ const Field = styled(TextField)(({ theme }) => ({
       },
       '&.Mui-focused': {
         backgroundColor: 'white',
-        color: 'white',
       },
       '&.Mui-error': {
         backgroundColor: '#ffcccc',
