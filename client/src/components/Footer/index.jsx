@@ -14,10 +14,10 @@ const Footer = () => {
                 <Link className="footer__nav__link" to={"plan-du-site"}>Plan du site</Link>
             </nav>
             <div className="footer__social-networks">
-                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Twitter} alt="" /></a>
-                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Facebook} alt="" /></a>
-                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Instagram} alt="" /></a>
-                <a href="#" target="_blank"><img className="footer__social-networks__img" src={Tiktok} alt="" /></a>
+                <a href="https://x.com/NecrolandPark" target="_blank"><img className="footer__social-networks__img" src={Twitter} alt="" /></a>
+                <a href="https://www.facebook.com/profile.php?id=61560565133900" target="_blank"><img className="footer__social-networks__img" src={Facebook} alt="" /></a>
+                <a href="https://www.instagram.com/necrolandpark" target="_blank"><img className="footer__social-networks__img" src={Instagram} alt="" /></a>
+                <a href="https://www.tiktok.com/@necrolandpark" target="_blank"><img className="footer__social-networks__img" src={Tiktok} alt="" /></a>
             </div>
         </footer>
     )

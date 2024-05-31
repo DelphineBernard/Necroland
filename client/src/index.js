@@ -29,7 +29,7 @@ import store from "./store/store";
 
 
 const IsLogged = ({ element: Element}) => {
-    const isAuthenticated = useSelector(state => state.auth.isAuthenticated);
+    const isAuthenticated = localStorage.getItem('token');
 
     return isAuthenticated ? (
         <Element />
