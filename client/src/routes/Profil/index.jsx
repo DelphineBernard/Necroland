@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
@@ -8,6 +9,9 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Profil = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Je récupère mon token stocké dans le store
     const userId = useSelector((state) => state.auth.userId);
@@ -102,6 +106,39 @@ const Profil = () => {
         }
     };
 
+    const handleDeleteAccount = async (userId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/user/delete/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                lastname: "Utilisateur supprimé",
+                firstname: "Utilisateur supprimé",
+                email: "Utilisateur supprimé",
+                address: "Utilisateur supprimé"
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du compte');
+        }
+
+        localStorage.removeItem('token');
+        dispatch({ type: 'LOGOUT' });
+        navigate('/connexion');
+        } catch (error) {
+            console.log("Erreur lors de la suppression du compte", error);
+            dispatch({
+                type: 'LOGOUT_FAILED',
+                payload: error.message,
+            });
+        }
+    };
+
     return (
         <main className='center'>
                 
@@ -119,8 +156,10 @@ const Profil = () => {
                             <li>Email: {userInfos.email}</li>
                         </List>
                         <Button size="small" onClick={openModal}>Modifier vos informations</Button>
+                        <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
                     </Card>}
                 </Box>
+            </section>
 
             <section>
                 <Typography variant='h2'>Vos réservations</Typography>

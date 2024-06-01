@@ -57,6 +57,60 @@ const reservationsController = {
             console.log(error)
         }
     },
+
+    updateReservation: async (req, res) => {
+        try {
+            const reservationId = req.params.id;
+            const reservationDataToUpdate = { ...req.body };
+
+            const calculateDuration = (startDate, endDate) => {
+                const start = new Date(startDate);
+                const end = new Date(endDate);
+                const diffTime = end - start + 1;
+                const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+                return diffDays;
+            };
+
+            const duration = calculateDuration(reservationDataToUpdate.start_date, reservationDataToUpdate.end_date);
+
+            const calculateTotalPrice = async (duration, hotelStr, nb_people) => {
+                const hotelBool = Boolean(hotelStr === 'true');
+                let total_price = await Price.findOne({ where: { duration: duration, hotel: hotelBool }})
+                return total_price.price * parseInt(nb_people)
+            }
+
+            const totalPrice = await calculateTotalPrice(duration, reservationDataToUpdate.hotel, reservationDataToUpdate.nb_people);
+
+            const reservation = await Reservation.update({
+                start_date: reservationDataToUpdate.start_date,
+                end_date: reservationDataToUpdate.end_date,
+                nb_people: parseInt(reservationDataToUpdate.nb_people),
+                hotel: reservationDataToUpdate.hotel,
+                total_price: totalPrice,
+            }, {
+                where: { id: reservationId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour de la réservation" });
+        }
+    },
+
+    deleteReservation: async (req, res) => {
+        try {
+            const reservationId = req.params.id;
+            await Reservation.destroy({
+                where: {
+                    id: reservationId
+                }
+            });
+            res.status(200).json({ message: "Réservation supprimée avec succès" });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de la réservation:", error);
+            res.status(500).json({ message: "Erreur lors de la suppression de la réservation" });
+        }
+    },
 };
 
 export default reservationsController;

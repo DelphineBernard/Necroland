@@ -22,6 +22,19 @@ const messagesController = {
             res.status(500).json({ message: "Erreur lors de l'envoi du message" });
         }
     },
+
+    changeStatusMessage: async (req, res) => {
+        try {
+            const messageId = req.params.id
+            const message = await Message.update( 
+                {status_id: 4},
+                {where: {id: messageId}})
+                res.status(200).json({ message: "Message classé" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour du statut du message" });
+        }
+    },
 }
 
 export default messagesController;
