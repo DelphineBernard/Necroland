@@ -40,7 +40,7 @@ const Contact = () => {
     }
 
     return (
-        <main>
+        <main className="center">
             <p>Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.</p>
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>

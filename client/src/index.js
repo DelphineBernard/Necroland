@@ -164,6 +164,7 @@ const theme = createTheme({
             styleOverrides: {
                 root: {
                     width: "100%",
+                    rowGap: '1rem',
             }
         },
         },

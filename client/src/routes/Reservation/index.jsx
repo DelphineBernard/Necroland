@@ -42,7 +42,7 @@ const Reservation = () => {
     }, []);
 
 
-    // If we switch from "sans hôtel" to "avec hôtel" althrough duration selected is 1 day, it define by default duration to 2 days (min duration with hostel)
+    // If we switch from "sans hôtel" to "avec hôtel" althrough duration selected is 1 day, it define by default duration to 2 days (min duration with hotel)
     useEffect(() => {
         if (hotelSelected === "true" && durationSelected === "1"){
             setDurationSelected("2");
@@ -56,7 +56,7 @@ const Reservation = () => {
         }
     }, [hotelSelected, durationSelected, startDate]);
 
-    // Fonction to fetch price depending on reservation choices (with or without hostel + duration selected)
+    // Fonction to fetch price depending on reservation choices (with or without hotel + duration selected)
     const calculeTotalPrice = () => {
         try {
             // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
@@ -146,14 +146,16 @@ const Reservation = () => {
     };    
 
     return (
-        <main>
+        <main className="center">
 
-        <Typography variant="h2" sx={{textAlign: "center", pb: '1.5rem'}}>Choix des options</Typography>
+        <Typography variant="h2" sx={{textAlign: "center", p: '1rem'}}>Choix des options</Typography>
 
         <form method="post" onSubmit={handleSubmit}>
         <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white'}}>
+
+            {/* ------------------------- Input Hotel --------------------------- */}
             <FormControl component="fieldset">
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400],  } }}>
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                     <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
                     Hôtel
                     </FormLabel>
@@ -164,31 +166,34 @@ const Reservation = () => {
                 </RadioGroup>
             </FormControl>
 
-            <FormControl sx= {{ display: 'flex', rowGap: '1rem'}}>
+            {/* --------------------- Input number of people ---------------------- */}
+            <FormControl sx= {{ display: 'flex'}}>
                 <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                     <FormLabel sx={{ color: "white" }} component="label">
                     Nombre de personnes
                     </FormLabel>
                 </Divider>
-                <FormField sx={{ color: "white", maxWidth: '80%', mx:'auto' }}
+                <FormField sx={{ color: "white", maxWidth: '40%', mx:'auto' }}
                     id="nb_people"
                     type="number"
                     name="nb_people"
                     htmlFor="nb_people"
+                    size="small"
                     inputProps={{ min: 1 }}
                     defaultValue={1} 
                     onChange={handleNbPeopleChange}
                     />  
             </FormControl>
                 
-            <FormControl component="fieldset">
+            {/* -------------------------- Input duration ----------------------- */}
+            <FormControl component="fieldset" >
                 <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                     <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
                         Durée du séjour
                     </FormLabel>
                 </Divider>
                 
-                {/* 1 day duration only showed if hostel not selected */}
+                {/* 1 day duration only showed if hotel not selected */}
                 <RadioGroup sx={{ display: 'flex', justifyContent: 'center' }}row name="duration" value={durationSelected} onChange={handleDurationChange}>
                     {hotelSelected !== "true" && <FormControlLabel value="1" control={<Radio id="1" />} label="1 jour" />}
                     <FormControlLabel value="2" control={<Radio id="2" />} label="2 jours" />
@@ -197,30 +202,30 @@ const Reservation = () => {
                 </RadioGroup>
             </FormControl>  
             
-            {/* Input dates */}
+            {/*  ---------------------- Input dates ------------------------------ */}
             <FormControl component="fieldset">
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400],  } }}>
+                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                     <FormLabel sx={{ color: "white" }} component="legend">
                         Dates
                     </FormLabel>
                 </Divider>
-                <Box sx= {{ display: 'flex', justifyContent: "center", columnGap: '0.5rem',textAlign: 'center'}}>
-                    <Box sx= {{ display: 'flex', flexDirection: 'column'}}>
-                        <FormLabel sx= {{ color: 'white'}}htmlFor="start_date">Du</FormLabel>
-                        <FormField type="date"  name="start_date" onChange={handleStartDateChange}/>
+                <Box sx= {{ display: 'flex', flexDirection: 'column', alignItems: 'space-between', rowGap: '1rem', textAlign: 'center'}}>
+                    <Box sx= {{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem'}}>
+                        <FormLabel sx= {{ color: 'white'}} htmlFor="start_date">Du </FormLabel>
+                        <FormField sx= {{ maxWidth: '60%' }} type="date" name="start_date" size="small" onChange={handleStartDateChange}/>
                     </Box>
-                    <Box sx= {{ display: 'flex', flexDirection: 'column', justifyContent: "center"}}>
-                        <FormLabel sx= {{ color: 'white'}}htmlFor="end_date">au</FormLabel>
-                        <FormField sx= {{ color: 'white'}} type="date" name="end_date" value={endDate} 
+                    <Box sx= {{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem'}}>
+                        <FormLabel sx= {{ color: 'white'}} htmlFor="end_date">au</FormLabel>
+                        <FormField sx= {{ maxWidth: '60%', color: 'black' }} type="date" name="end_date" value={endDate} size="small"
                         InputProps={{ readOnly: true }} />
                     </Box>                  
                 </Box>
             </FormControl>
 
-            {/* Resume selection */}
+            {/* ------------------- Resume selection ---------------------------- */}
             <Box sx= {{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem'}}>
                 <Typography variant="h2">Votre sélection</Typography>
-                {/* If hostel and duration are not selected */}
+                {/* If hotel and duration are not selected */}
                 {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
                 {/* If hotel or duration are selected, show selection */}
                 {(hotelSelected || durationSelected) &&
@@ -271,12 +276,13 @@ const Reservation = () => {
                 </List>}          
             </Box>
 
-            <Box sx={{mx: 'auto'}}>
+            {/* --------------------------Checkbox CGV ------------------------- */}
+            <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
                 <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
                 <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
             </Box>
 
-            <Button sx={{ mx:'auto'}} onClick={handleReservation}  type="submit">Confirmer la réservation</Button>
+            <Button sx={{ mx:'auto' }} onClick={handleReservation}  type="submit">Confirmer la réservation</Button>
             </Box>
         </form>
     </main>

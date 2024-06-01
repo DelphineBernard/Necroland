@@ -41,7 +41,7 @@ const Inscription = () => {
 
     return (
     
-        <main>
+        <main className="center">
             <p>Indiquez ci-dessous vos informations personnelles pour créer un compte.</p>
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
