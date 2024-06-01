@@ -4,6 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
+import { Box, Button, Card, CardActions, CardContent, List, Typography } from '@mui/material';
+import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Profil = () => {
 
@@ -137,12 +140,13 @@ const Profil = () => {
     };
 
     return (
-        <main>
-            <section>
-                <h2>Vos informations</h2>
-                {dataLoaded &&
-                    <>
-                        <ul>
+        <main className='center'>
+                
+                <Box component='section'>
+                    <Typography variant='h2'>Vos informations</Typography>
+                    {dataLoaded &&
+                    <Card sx= {{ display: 'flex', flexDirection: "column", backgroundColor: 'black', p:2}}>
+                        <List >
                             <li>Nom: {userInfos.lastname}</li>
                             <li>Prénom: {userInfos.firstname}</li>
                             <li>Adresse: {userInfos.address}</li>
@@ -150,17 +154,23 @@ const Profil = () => {
                             <li>Ville: {userInfos.city}</li>
                             <li>Pays: {userInfos.country}</li>
                             <li>Email: {userInfos.email}</li>
-                        </ul>
-                        <button onClick={openModal}>Modifier vos informations</button>
-                        <button onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</button>
-                    </>}
+                        </List>
+                        <Button size="small" onClick={openModal}>Modifier vos informations</Button>
+                        <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
+                    </Card>}
+                </Box>
             </section>
 
             <section>
-                <h2>Vos réservations</h2>
+                <Typography variant='h2'>Vos réservations</Typography>
                 <div>
-                    <h3>En cours</h3>
-                    <p>Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</p>
+                    <Typography variant='h3'>En cours</Typography>
+                    
+                    <Box sx={{ display: 'flex',  border: '1px solid white', borderRadius: '0.5rem', p: "0.5rem", m:"1rem" }}>
+                        
+                        <Typography><InfoOutlinedIcon />Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Typography>
+                    </Box>
+                    
                     <div>
                         {dataLoaded && currentReservations.length === 0 &&
                             <p>Vous n'avez aucune réservation en cours.</p>}
@@ -179,7 +189,7 @@ const Profil = () => {
                     </div>
                 </div>
                 <div>
-                    <h3>Terminées</h3>
+                    <Typography variant='h3'>Terminées</Typography>
                     {dataLoaded && passedReservations.length === 0 &&
                         <p>Vous n'avez aucune réservation archivée.</p>}
                     {dataLoaded && passedReservations.map(reservation => (
