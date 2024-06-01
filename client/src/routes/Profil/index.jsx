@@ -141,25 +141,23 @@ const Profil = () => {
 
     return (
         <main className='center'>
-                
-                <Box component='section'>
-                    <Typography variant='h2'>Vos informations</Typography>
-                    {dataLoaded &&
-                    <Card sx= {{ display: 'flex', flexDirection: "column", backgroundColor: 'black', p:2}}>
-                        <List >
-                            <li>Nom: {userInfos.lastname}</li>
-                            <li>Prénom: {userInfos.firstname}</li>
-                            <li>Adresse: {userInfos.address}</li>
-                            <li>CP: {userInfos.postal_code}</li>
-                            <li>Ville: {userInfos.city}</li>
-                            <li>Pays: {userInfos.country}</li>
-                            <li>Email: {userInfos.email}</li>
-                        </List>
-                        <Button size="small" onClick={openModal}>Modifier vos informations</Button>
-                        <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
-                    </Card>}
-                </Box>
-            </section>
+            <Box component='section'>
+                <Typography variant='h2'>Vos informations</Typography>
+                {dataLoaded &&
+                <Card sx= {{ display: 'flex', flexDirection: "column", backgroundColor: 'black', p:2}}>
+                    <List >
+                        <li>Nom: {userInfos.lastname}</li>
+                        <li>Prénom: {userInfos.firstname}</li>
+                        <li>Adresse: {userInfos.address}</li>
+                        <li>CP: {userInfos.postal_code}</li>
+                        <li>Ville: {userInfos.city}</li>
+                        <li>Pays: {userInfos.country}</li>
+                        <li>Email: {userInfos.email}</li>
+                    </List>
+                    <Button size="small" onClick={openModal}>Modifier vos informations</Button>
+                    <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
+                </Card>}
+            </Box>
 
             <section>
                 <Typography variant='h2'>Vos réservations</Typography>
