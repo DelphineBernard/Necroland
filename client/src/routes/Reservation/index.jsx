@@ -44,7 +44,7 @@ const Reservation = () => {
 
     // If we switch from "sans hôtel" to "avec hôtel" althrough duration selected is 1 day, it define by default duration to 2 days (min duration with hotel)
     useEffect(() => {
-        if (hotelSelected === "true" && durationSelected === "1"){
+        if (hotelSelected === "true" && durationSelected === "1") {
             setDurationSelected("2");
         }
     }, [hotelSelected]);
@@ -62,12 +62,12 @@ const Reservation = () => {
             // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
             const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
 
-            if (selectedPrice){
+            if (selectedPrice) {
                 setTotalPrice(selectedPrice.price)
             }
         } catch (error) {
             return "Erreur le prix n'a pas pu être calculé"
-        } 
+        }
     }
 
     const handleHotelChange = (event) => {
@@ -97,8 +97,8 @@ const Reservation = () => {
         const fullEndDate = new Date(startDate);
 
         // Add duration to end date (durationSelected = string to transform in integer) less 1 day
-        fullEndDate.setDate(fullStartDate.getDate() + parseInt(durationSelected) -1);
-        
+        fullEndDate.setDate(fullStartDate.getDate() + parseInt(durationSelected) - 1);
+
         // Options to obtain string date for selection part (day, date, month, year)
         const options = { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' };
 
@@ -112,180 +112,192 @@ const Reservation = () => {
     }
 
     const handleReservation = (event) => {
-        if (!cgvChecked){
+        if (!cgvChecked) {
             event.preventDefault();
             alert("Veuillez accepter les conditions générales de vente pour confirmer votre réservation.");
         }
     }
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
         try {
             const formData = new FormData(event.target)
             const reservationData = Object.fromEntries(formData.entries());
             reservationData.user_id = userId
 
-        const token = localStorage.getItem('token');
-        const response = await fetch(`${API_URL}/reservation`, {
-            method: 'POST',
-            headers: {
-                'Authorization': `Bearer ${token}`,
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(reservationData),
-        });
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/reservation`, {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${token}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(reservationData),
+            });
 
-        if (response.ok) {
-            navigate('/profil');
-        } else {
-            alert('Erreur lors de la réservation.');
-        }
+            if (response.ok) {
+                navigate('/profil');
+            } else {
+                alert('Erreur lors de la réservation.');
+            }
         } catch (error) {
             console.log(error)
         }
-    };    
+    };
 
     return (
         <main className="center">
 
-        <Typography variant="h2" sx={{textAlign: "center", p: '1rem'}}>Choix des options</Typography>
+            <Typography variant="h2" sx={{ textAlign: "center", p: '1rem' }}>Choix des options</Typography>
 
-        <form method="post" onSubmit={handleSubmit}>
-        <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white'}}>
+            <form method="post" onSubmit={handleSubmit}>
+                <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white' }}>
 
-            {/* ------------------------- Input Hotel --------------------------- */}
-            <FormControl component="fieldset">
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
-                    <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
-                    Hôtel
-                    </FormLabel>
-                </Divider>
-                <RadioGroup row name="hotel" value={hotelSelected} onChange={handleHotelChange} sx= {{ display: 'flex', justifyContent: "space-evenly"}} required>
-                    <FormControlLabel value="true" control={<Radio  id="true" />} label="Avec hôtel" />
-                    <FormControlLabel value="false" control={<Radio id="false" />} label="Sans hôtel" />
-                </RadioGroup>
-            </FormControl>
+                    {/* ------------------------- Input Hotel --------------------------- */}
+                    <FormControl component="fieldset">
+                        <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                            <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
+                                Hôtel
+                            </FormLabel>
+                        </Divider>
+                        <RadioGroup row name="hotel" value={hotelSelected} onChange={handleHotelChange} sx={{ display: 'flex', justifyContent: "space-evenly" }} required>
+                            <FormControlLabel value="true" control={<Radio id="true" />} label="Avec hôtel" />
+                            <FormControlLabel value="false" control={<Radio id="false" />} label="Sans hôtel" />
+                        </RadioGroup>
+                    </FormControl>
 
-            {/* --------------------- Input number of people ---------------------- */}
-            <FormControl sx= {{ display: 'flex'}}>
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
-                    <FormLabel sx={{ color: "white" }} component="label">
-                    Nombre de personnes
-                    </FormLabel>
-                </Divider>
-                <FormField sx={{ color: "white", maxWidth: '40%', mx:'auto' }}
-                    id="nb_people"
-                    type="number"
-                    name="nb_people"
-                    htmlFor="nb_people"
-                    size="small"
-                    inputProps={{ min: 1 }}
-                    defaultValue={1} 
-                    onChange={handleNbPeopleChange}
-                    />  
-            </FormControl>
-                
-            {/* -------------------------- Input duration ----------------------- */}
-            <FormControl component="fieldset" >
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
-                    <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
-                        Durée du séjour
-                    </FormLabel>
-                </Divider>
-                
-                {/* 1 day duration only showed if hotel not selected */}
-                <RadioGroup sx={{ display: 'flex', justifyContent: 'center' }}row name="duration" value={durationSelected} onChange={handleDurationChange}>
-                    {hotelSelected !== "true" && <FormControlLabel value="1" control={<Radio id="1" />} label="1 jour" />}
-                    <FormControlLabel value="2" control={<Radio id="2" />} label="2 jours" />
-                    <FormControlLabel value="3" control={<Radio id="3" />} label="3 jours" />
-                    <FormControlLabel value="4" control={<Radio id="4" />} label="4 jours" />
-                </RadioGroup>
-            </FormControl>  
-            
-            {/*  ---------------------- Input dates ------------------------------ */}
-            <FormControl component="fieldset">
-                <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
-                    <FormLabel sx={{ color: "white" }} component="legend">
-                        Dates
-                    </FormLabel>
-                </Divider>
-                <Box sx= {{ display: 'flex', flexDirection: 'column', alignItems: 'space-between', rowGap: '1rem', textAlign: 'center'}}>
-                    <Box sx= {{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem'}}>
-                        <FormLabel sx= {{ color: 'white'}} htmlFor="start_date">Du </FormLabel>
-                        <FormField sx= {{ maxWidth: '60%' }} type="date" name="start_date" size="small" onChange={handleStartDateChange}/>
+                    {/* --------------------- Input number of people ---------------------- */}
+                    <FormControl sx={{ display: 'flex' }}>
+                        <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                            <FormLabel sx={{ color: "white" }} component="label">
+                                Nombre de personnes
+                            </FormLabel>
+                        </Divider>
+                        <FormField sx={{
+                            color: "white", maxWidth: '40%', mx: 'auto', '& .MuiInputBase-input': {
+                                color: 'white',
+                            },
+                        }}
+                            id="nb_people"
+                            type="number"
+                            name="nb_people"
+                            htmlFor="nb_people"
+                            size="small"
+                            inputProps={{ min: 1 }}
+                            defaultValue={1}
+                            onChange={handleNbPeopleChange}
+                        />
+                    </FormControl>
+
+                    {/* -------------------------- Input duration ----------------------- */}
+                    <FormControl component="fieldset" >
+                        <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                            <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
+                                Durée du séjour
+                            </FormLabel>
+                        </Divider>
+
+                        {/* 1 day duration only showed if hotel not selected */}
+                        <RadioGroup sx={{ display: 'flex', justifyContent: 'center' }} row name="duration" onChange={handleDurationChange}>
+                            {hotelSelected !== "true" && <FormControlLabel value="1" control={<Radio id="1" />} label="1 jour" />}
+                            <FormControlLabel value="2" control={<Radio id="2" />} label="2 jours" />
+                            <FormControlLabel value="3" control={<Radio id="3" />} label="3 jours" />
+                            <FormControlLabel value="4" control={<Radio id="4" />} label="4 jours" />
+                        </RadioGroup>
+                    </FormControl>
+
+                    {/*  ---------------------- Input dates ------------------------------ */}
+                    <FormControl component="fieldset">
+                        <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
+                            <FormLabel sx={{ color: "white" }} component="legend">
+                                Dates
+                            </FormLabel>
+                        </Divider>
+                        <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'space-between', rowGap: '1rem', textAlign: 'center' }}>
+                            <Box sx={{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem' }}>
+                                <FormLabel sx={{ color: 'white' }} htmlFor="start_date">Du </FormLabel>
+                                <FormField sx={{
+                                    maxWidth: '60%', '& .MuiInputBase-input': {
+                                        color: 'white',
+                                    }
+                                }} type="date" name="start_date" size="small" onChange={handleStartDateChange} />
+                            </Box>
+                            <Box sx={{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem' }}>
+                                <FormLabel sx={{ color: 'white' }} htmlFor="end_date">au</FormLabel>
+                                <FormField sx={{
+                                    maxWidth: '60%', color: 'black', '& .MuiInputBase-input': {
+                                        color: 'white',
+                                    }
+                                }} type="date" name="end_date" value={endDate} size="small"
+                                    InputProps={{ readOnly: true }} />
+                            </Box>
+                        </Box>
+                    </FormControl>
+
+                    {/* ------------------- Resume selection ---------------------------- */}
+                    <Box sx={{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
+                        <Typography variant="h2">Votre sélection</Typography>
+                        {/* If hotel and duration are not selected */}
+                        {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
+                        {/* If hotel or duration are selected, show selection */}
+                        {(hotelSelected || durationSelected) &&
+                            <List>
+                                <ListItem><CalendarMonthIcon />
+                                    {!stringStartDate &&
+                                        <>
+                                            <Typography>Dates</Typography>
+                                            <HelpOutlineIcon />
+                                        </>}
+                                    {stringStartDate && stringEndDate &&
+                                        `Du ${stringStartDate} au ${stringEndDate}`}
+                                </ListItem>
+                                <Divider component="li" />
+                                <ListItem><HotelIcon />
+                                    {!hotelSelected &&
+                                        <>
+                                            <Typography>Hôtel</Typography>
+                                            <HelpOutlineIcon />
+                                        </>}
+                                    {/* If duration is not selected, show "hôtel compris" */}
+                                    {hotelSelected && hotelSelected === "true" && "Hôtel compris"}
+
+                                    {/* If duration is selected, show number of nights (duration of stay less one day) */}
+                                    {/* ParseInt duration (string in form to number) */}
+                                    {/* Handle number of nights "s" de nuit : if duration équal 2 days = stay one "night", if more than 2, display "nights". */}
+                                    {hotelSelected && hotelSelected === "true" && durationSelected && parseInt(durationSelected) >= 2 && ` pour ${durationSelected - 1} ${parseInt(durationSelected) > 2 ? "nuits" : "nuit"}`}
+                                    {hotelSelected && hotelSelected === "false" && "Sans hôtel"}
+                                </ListItem>
+                                <Divider component="li" />
+                                <ListItem><LocalActivityIcon />
+                                    {!durationSelected &&
+                                        <>
+                                            <Typography>Durée du séjour</Typography>
+                                            <HelpOutlineIcon />
+                                        </>}
+                                    {durationSelected && `Parc ${durationSelected} ${parseInt(durationSelected) > 1 ? "jours" : "jour"}`}
+                                </ListItem>
+                                <Divider component="li" />
+                                <ListItem><EmojiPeopleIcon />
+                                    Nombre de personnes: {nbPeopleSelected}
+                                </ListItem>
+                                <Divider component="li" />
+                                <ListItem><EuroIcon />
+                                    Prix total: {totalPrice === 0 ? <HelpOutlineIcon /> : (totalPrice * nbPeopleSelected) + ' € TTC'}
+                                </ListItem>
+                                <p className="info">Le paiement s'effectuera sur place lors de votre arrivée.</p>
+                            </List>}
                     </Box>
-                    <Box sx= {{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem'}}>
-                        <FormLabel sx= {{ color: 'white'}} htmlFor="end_date">au</FormLabel>
-                        <FormField sx= {{ maxWidth: '60%', color: 'black' }} type="date" name="end_date" value={endDate} size="small"
-                        InputProps={{ readOnly: true }} />
-                    </Box>                  
+
+                    {/* --------------------------Checkbox CGV ------------------------- */}
+                    <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
+                        <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
+                        <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
+                    </Box>
+
+                    <Button sx={{ mx: 'auto' }} onClick={handleReservation} type="submit">Confirmer la réservation</Button>
                 </Box>
-            </FormControl>
-
-            {/* ------------------- Resume selection ---------------------------- */}
-            <Box sx= {{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem'}}>
-                <Typography variant="h2">Votre sélection</Typography>
-                {/* If hotel and duration are not selected */}
-                {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
-                {/* If hotel or duration are selected, show selection */}
-                {(hotelSelected || durationSelected) &&
-                <List>
-                    <ListItem><CalendarMonthIcon />
-                        {!stringStartDate && 
-                        <>
-                            <Typography>Dates</Typography>
-                            <HelpOutlineIcon/>
-                        </>}
-                        {stringStartDate && stringEndDate && 
-                        `Du ${stringStartDate} au ${stringEndDate}`}
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem><HotelIcon />
-                        {!hotelSelected && 
-                        <>
-                            <Typography>Hôtel</Typography>
-                            <HelpOutlineIcon/>
-                        </>}
-                        {/* If duration is not selected, show "hôtel compris" */}
-                        {hotelSelected && hotelSelected === "true" && "Hôtel compris" }
-
-                        {/* If duration is selected, show number of nights (duration of stay less one day) */}
-                        {/* ParseInt duration (string in form to number) */}
-                        {/* Handle number of nights "s" de nuit : if duration équal 2 days = stay one "night", if more than 2, display "nights". */}
-                        {hotelSelected && hotelSelected === "true" && durationSelected && parseInt(durationSelected) >= 2 && ` pour ${durationSelected -1} ${parseInt(durationSelected) > 2 ? "nuits" : "nuit"}`}
-                        {hotelSelected && hotelSelected === "false" && "Sans hôtel"}
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem><LocalActivityIcon />
-                        {!durationSelected &&
-                        <>
-                            <Typography>Durée du séjour</Typography>
-                            <HelpOutlineIcon/>
-                        </>}
-                        {durationSelected && `Parc ${durationSelected} ${parseInt(durationSelected) > 1 ? "jours" : "jour"}`}
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem><EmojiPeopleIcon />
-                        Nombre de personnes: {nbPeopleSelected}
-                    </ListItem>
-                    <Divider component="li" />
-                    <ListItem><EuroIcon />
-                        Prix total: {totalPrice === 0 ? <HelpOutlineIcon/> : (totalPrice * nbPeopleSelected) + ' € TTC'}
-                    </ListItem>
-                    <p className="info">Le paiement s'effectuera sur place lors de votre arrivée.</p>
-                </List>}          
-            </Box>
-
-            {/* --------------------------Checkbox CGV ------------------------- */}
-            <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
-                <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
-                <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
-            </Box>
-
-            <Button sx={{ mx:'auto' }} onClick={handleReservation}  type="submit">Confirmer la réservation</Button>
-            </Box>
-        </form>
-    </main>
+            </form>
+        </main>
     )
 }
 

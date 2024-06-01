@@ -124,6 +124,10 @@ const theme = createTheme({
         h2: {
             fontSize: "1.2rem",
         },
+        h3: {
+            fontSize: "1.1rem",
+            fontWeight: '800',
+        }
     },
     components: {
         MuiListItem: {
@@ -168,7 +172,14 @@ const theme = createTheme({
             }
         },
         },
+        MuiInputBase: {
+            styleOverrides: {
+                input: {
+                   color: 'black', 
+                }
+            },
     },
+},
 });
 
 ReactDOM.createRoot(document.getElementById("app")).render(
