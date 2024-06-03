@@ -124,37 +124,22 @@ const theme = createTheme({
     },
     typography: {
         h1: {
-            fontSize: "3rem",
+            fontSize: "2.5rem",
             '@media (max-width:1920px)': {
-                fontSize: '2.5rem',
-            },
-            '@media (max-width:1280px)': {
                 fontSize: '2.25rem',
             },
-            '@media (max-width:960px)': {
+            '@media (max-width:1280px)': {
                 fontSize: '2rem',
             },
-            '@media (max-width:600px)': {
+            '@media (max-width:960px)': {
                 fontSize: '1.75rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.5rem',
             },
         },
         h2: {
-            fontSize: "2.5rem",
-            '@media (max-width:1920px)': {
-                fontSize: '2rem',
-            },
-            '@media (max-width:1280px)': {
-                fontSize: '1.75rem',
-            },
-            '@media (max-width:960px)': {
-                fontSize: '1.5rem',
-            },
-            '@media (max-width:600px)': {
-                fontSize: '1.25rem',
-            },
-        },
-        h3: {
-            fontSize: '2rem',
+            fontSize: "2rem",
             '@media (max-width:1920px)': {
                 fontSize: '1.75rem',
             },
@@ -166,6 +151,21 @@ const theme = createTheme({
             },
             '@media (max-width:600px)': {
                 fontSize: '1rem',
+            },
+        },
+        h3: {
+            fontSize: '1.5rem',
+            '@media (max-width:1920px)': {
+                fontSize: '1.25rem',
+            },
+            '@media (max-width:1280px)': {
+                fontSize: '1rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '0.75rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '0.5rem',
             },
         },
         body1: {
