@@ -10,7 +10,6 @@ const Field = styled(TextField)(({ theme }) => ({
       },
       '&.Mui-focused': {
         backgroundColor: 'white',
-        color: 'white',
       },
       '&.Mui-error': {
         backgroundColor: '#ffcccc',
@@ -28,9 +27,9 @@ const Field = styled(TextField)(({ theme }) => ({
     '& .MuiFilledInputLabel-formControl': {
       color: grey[600],
     },
-    '& .MuiInputBase-input': {
-      color: 'white',
-    },
+    // '& .MuiInputBase-input': {
+    //   color: 'white',
+    // },
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: 'white',
     },
