@@ -220,7 +220,7 @@ const Reservation = () => {
                                     maxWidth: '60%', '& .MuiInputBase-input': {
                                         color: 'white',
                                     }
-                                }} type="date" name="start_date" size="small" onChange={handleStartDateChange} />
+                                }} type="date" name="start_date" id="start_date" size="small" onChange={handleStartDateChange} />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem' }}>
                                 <FormLabel sx={{ color: 'white' }} htmlFor="end_date">au</FormLabel>
@@ -228,7 +228,7 @@ const Reservation = () => {
                                     maxWidth: '60%', color: 'black', '& .MuiInputBase-input': {
                                         color: 'white',
                                     }
-                                }} type="date" name="end_date" value={endDate} size="small"
+                                }} type="date" name="end_date" id="end_date" value={endDate} size="small"
                                     InputProps={{ readOnly: true }} />
                             </Box>
                         </Box>
@@ -291,7 +291,7 @@ const Reservation = () => {
                     {/* --------------------------Checkbox CGV ------------------------- */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
                         <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
-                        <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
+                        <FormLabel htmlFor="cgv"> <a href="/cgv" target="_blank">J'accepte les conditions générales de vente</a>.</FormLabel>
                     </Box>
 
                     <Button sx={{ mx: 'auto' }} onClick={handleReservation} type="submit">Confirmer la réservation</Button>

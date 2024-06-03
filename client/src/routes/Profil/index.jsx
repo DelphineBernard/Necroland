@@ -3,9 +3,8 @@ import { useEffect, useState } from 'react';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
-import { Box, Button, Card, CardActions, CardContent, List, Typography } from '@mui/material';
+import { Box, Button, Card, List, ListItem, Typography } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
-import AccountBoxIcon from '@mui/icons-material/AccountBox';
 
 const Profil = () => {
 
@@ -103,38 +102,41 @@ const Profil = () => {
     };
 
     return (
-        <main className='center'>
+        <main className="center">
                 
-                <Box component='section'>
-                    <Typography variant='h2'>Vos informations</Typography>
-                    {dataLoaded &&
-                    <Card sx= {{ display: 'flex', flexDirection: "column", backgroundColor: 'black', p:2}}>
-                        <List >
-                            <li>Nom: {userInfos.lastname}</li>
-                            <li>Prénom: {userInfos.firstname}</li>
-                            <li>Adresse: {userInfos.address}</li>
-                            <li>CP: {userInfos.postal_code}</li>
-                            <li>Ville: {userInfos.city}</li>
-                            <li>Pays: {userInfos.country}</li>
-                            <li>Email: {userInfos.email}</li>
-                        </List>
-                        <Button size="small" onClick={openModal}>Modifier vos informations</Button>
-                    </Card>}
-                </Box>
+            <Box component="section">
+                <Typography variant="h2">Vos informations</Typography>
+                {dataLoaded &&
+                <Card sx= {{ display: { xs: "block", sm: "flex"},
+                    alignItems: "center", backgroundColor: "#00000070", p:2, borderRadius: "0.5rem", p:"1rem", m:"1rem"}}>
+                    <List sx={{display: "flex", flexDirection: "column", p:2}}>
+                        <ListItem><Typography variant="span">Nom:</Typography> {userInfos.lastname}</ListItem>
+                        <ListItem><Typography variant="span">Prénom: </Typography>{userInfos.firstname}</ListItem>
+                        <ListItem><Typography variant="span">Email:</Typography> {userInfos.email}</ListItem>
+                        <ListItem sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}><Typography variant="span">Adresse:</Typography>
+                        <Typography>{userInfos.address}</Typography> 
+                        <Typography>{userInfos.postal_code} {userInfos.city} {userInfos.country}</Typography> </ListItem>
+                    </List>
+                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", rowGap: "1rem"}}>
+                        <Button size="small" onClick={openModal}>Modifier mes informations</Button>
+                        <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
+                    </Box>
+                </Card>}
+            </Box>
 
-            <section>
-                <Typography variant='h2'>Vos réservations</Typography>
-                <div>
-                    <Typography variant='h3'>En cours</Typography>
+            <Box component="section">
+                <Typography variant="h2">Vos réservations</Typography>
+                <Box component="article">
+                    <Typography variant="h3">En cours</Typography>
                     
-                    <Box sx={{ display: 'flex',  border: '1px solid white', borderRadius: '0.5rem', p: "0.5rem", m:"1rem" }}>
+                    <Box sx={{ display: "flex",  border: "1px solid white", borderRadius: "0.5rem", p: "0.5rem", m:"1rem" }}>
                         
-                        <Typography><InfoOutlinedIcon />Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Typography>
+                        <Typography sx={{display: "flex", alignItems: "center", columnGap: "1rem"}}><InfoOutlinedIcon />Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Typography>
                     </Box>
                     
-                    <div>
+                    <Box sx={{display: "flex", flexDirection: "column"}}>
                         {dataLoaded && currentReservations.length === 0 &&
-                            <p>Vous n'avez aucune réservation en cours.</p>}
+                            <Typography>Vous n'avez aucune réservation en cours.</Typography>}
                         {dataLoaded && currentReservations.map(reservation => (
                             <ReservationInfos
                                 key={reservation.id}
@@ -147,12 +149,12 @@ const Profil = () => {
                                 status={reservation.reservationStatus.label}
                                 handleCancel={handleCancel} />
                         ))}
-                    </div>
-                </div>
-                <div>
+                    </Box>
+                </Box>
+                <Box component="article">
                     <Typography variant='h3'>Terminées</Typography>
                     {dataLoaded && passedReservations.length === 0 &&
-                        <p>Vous n'avez aucune réservation archivée.</p>}
+                        <Typography>Vous n'avez aucune réservation archivée.</Typography>}
                     {dataLoaded && passedReservations.map(reservation => (
                         <ReservationInfos
                             key={reservation.id}
@@ -165,8 +167,8 @@ const Profil = () => {
                             status={reservation.reservationStatus.label}
                             handleCancel={handleCancel} />
                     ))}
-                </div>
-            </section>
+                </Box>
+            </Box>
             <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} />
         </main>
     )

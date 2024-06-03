@@ -127,6 +127,9 @@ const theme = createTheme({
         h3: {
             fontSize: "1.1rem",
             fontWeight: '800',
+        },
+        span: {
+            fontWeight: "600",
         }
     },
     components: {
@@ -150,6 +153,7 @@ const theme = createTheme({
               root: {
                 backgroundColor: red[900],
                 color: 'white',
+                width: 'fit-content',
                 '&:hover': {
                   backgroundColor: red[600],
                   color: 'white',
