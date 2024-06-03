@@ -19,8 +19,15 @@ const Connexion = () => {
         event.preventDefault();
         const formData = new FormData(event.target);
         const userData = Object.fromEntries(formData.entries());
-        dispatch(login(userData));
-        navigate('/profil');
+
+        dispatch(login(userData))
+            .then(() => {
+                // Redirection après une connexion réussie
+                navigate('/profil');
+            })
+            .catch((error) => {
+                console.error("Erreur lors de la connexion :", error);
+            });
     };
 
     return (

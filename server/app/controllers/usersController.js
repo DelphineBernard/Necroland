@@ -1,5 +1,6 @@
 import User from "../models/User.js";
 import Role from "../models/Role.js";
+import { Reservation } from "../models/index.js";
 
 const usersController = {
     getUsers: async (req, res) => {
@@ -52,6 +53,62 @@ const usersController = {
         } catch (error) {
             console.log("Erreur", error);
             res.status(500).json({ message: "Erreur lors de la mise à jour des informations du membre" });
+        }
+    },
+
+    deleteUser: async (req, res) => {
+        const { userId } = req.params;
+
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).json({ message: "Utilisateur non trouvé" });
+            }
+
+            // Vérifier si l'utilisateur a des réservations associées
+            const reservations = await Reservation.findAll({
+                where: { user_id: userId }
+            });
+
+            if (reservations.length > 0) {
+                return res.status(400).json({ message: "L'utilisateur ne peut pas être supprimé car il est associé à des réservations" });
+            }
+
+            await User.destroy({
+                where: { id: userId }
+            });
+
+            res.status(200).json({ message: "Utilisateur supprimé avec succès." });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de l'utilisateur :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression de l'utilisateur" });
+        }
+    },
+
+    removeAccount: async (req, res) => {
+        const { userId } = req.params;
+        const { lastname, firstname, email, address } = req.body;
+
+        try {
+            const user = await User.findByPk(userId);
+            if (!user) {
+                return res.status(404).json({ message: "Utilisateur non trouvé" });
+            }
+            await User.update({
+                lastname: "Utilisateur supprimé",
+                firstname: "Utilisateur supprimé",
+                email: "Utilisateur supprimé",
+                address: "Utilisateur supprimé"
+            }, {
+                where: {
+                    id: userId
+                }
+            });
+    
+            res.status(200).json({ message: "Compte supprimé avec succès" });
+        } catch (error) {
+            console.error("Erreur lors de la suppression du compte :", error);
+            res.status(500).json({ message: "Erreur lors de la suppression du compte" });
         }
     },
 

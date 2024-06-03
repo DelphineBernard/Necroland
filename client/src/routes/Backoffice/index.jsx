@@ -15,24 +15,14 @@ import API_URL from '../../config.js';
 
 const Backoffice = () => {
 
-    const [data, setData] = useState();
+    const [data, setData] = useState([]);
     const [selection, setSelection] = useState();
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // Au clic sur un des boutons, je mets à jour l'url du navigateur
-    const updateUrl = (selection) => {
-        let url = '/management';
-        url += '/' + selection;
-        window.history.pushState({}, '', url);
-    };
-
-    // Au clic sur un des boutons, je mets à jour les données affichées
-    const handleClick = async (event) => {
+    const fetchData = async (selectedValue) => {
         try {
-            const selection = event.target.value;
-            updateUrl(selection);
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/${selection}`, {
+            const response = await fetch(`${API_URL}/${selectedValue}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -40,11 +30,17 @@ const Backoffice = () => {
                 },
             });
             const result = await response.json();
-            setData(result[selection]);
-            setSelection(selection);
+            setData(result[selectedValue]);
+            setSelection(selectedValue);
         } catch (error) {
             console.log(error);
         }
+    };
+
+    // Au clic sur un des boutons, je mets à jour les données affichées
+    const handleClick = async (event) => {
+        const selectedValue = event.target.value;
+        fetchData(selectedValue);
     };
 
     const openModal = () => {
@@ -53,6 +49,7 @@ const Backoffice = () => {
 
     const closeModal = () => {
         setIsModalOpen(false);
+        fetchData(selection);
     };
 
     return (
@@ -76,17 +73,19 @@ const Backoffice = () => {
                 {data && (
                     <>
                         {/* Au clic sur le bouton, j'ouvre mon modal */}
-                        {(selection !== "reservations" && selection !== "messages") && <button onClick={openModal}>Créer</button>}
+                        {(selection !== undefined && selection !== "reservations" && selection !== "messages") && <button onClick={openModal}>Créer</button>}
+                        {selection === "tags" && <p>Attention : Pour être supprimé, le tag ne doit être associé à aucune attraction.</p>}
+                        {selection === "attractions" && <p>Attention : Pour être supprimée, l'attraction ne doit être associée à aucun tag et à aucune photo.</p>}
                         <ul>
                             {data.map((element, index) => (
                                 <li key={index}>
-                                    {selection === "users" && <UserItem element={element} />}
-                                    {selection === "attractions" && <AttractionItem element={element} />}
-                                    {selection === "prices" && <PriceItem element={element} />}
-                                    {selection === "tags" && <TagItem element={element} />}
-                                    {selection === "messages" && <MessageItem element={element} />}
-                                    {selection === "reservations" && <ReservationItem element={element} />}
-                                    {selection === "categories" && <CategoryItem element={element} />}
+                                    {selection === "users" && <UserItem element={element} onClose={closeModal} />}
+                                    {selection === "attractions" && <AttractionItem element={element} onClose={closeModal} />}
+                                    {selection === "prices" && <PriceItem element={element} onClose={closeModal} />}
+                                    {selection === "tags" && <TagItem element={element} onClose={closeModal} />}
+                                    {selection === "messages" && <MessageItem element={element} onClose={closeModal} />}
+                                    {selection === "reservations" && <ReservationItem element={element} onClose={closeModal} />}
+                                    {selection === "categories" && <CategoryItem element={element} onClose={closeModal} />}
                                 </li>
                             ))}
                         </ul>

@@ -1,5 +1,6 @@
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
@@ -7,6 +8,9 @@ import { Box, Button, Card, List, ListItem, Typography } from '@mui/material';
 import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 
 const Profil = () => {
+
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     // Je récupère mon token stocké dans le store
     const userId = useSelector((state) => state.auth.userId);
@@ -98,6 +102,39 @@ const Profil = () => {
             fetchUserReservations();
         } catch (error) {
             console.error("Erreur lors de l'annulation de la réservation:", error);
+        }
+    };
+
+    const handleDeleteAccount = async (userId) => {
+        try {
+            const token = localStorage.getItem('token');
+            const response = await fetch(`${API_URL}/user/delete/${userId}`, {
+            method: 'PATCH',
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                lastname: "Utilisateur supprimé",
+                firstname: "Utilisateur supprimé",
+                email: "Utilisateur supprimé",
+                address: "Utilisateur supprimé"
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Erreur lors de la suppression du compte');
+        }
+
+        localStorage.removeItem('token');
+        dispatch({ type: 'LOGOUT' });
+        navigate('/connexion');
+        } catch (error) {
+            console.log("Erreur lors de la suppression du compte", error);
+            dispatch({
+                type: 'LOGOUT_FAILED',
+                payload: error.message,
+            });
         }
     };
 

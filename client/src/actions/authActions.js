@@ -86,4 +86,12 @@ const logout = () => async dispatch => {
     }
 }
 
-export { login, register, logout };
+const checkToken = () => async dispatch => {
+    const tokenFromLocalStorage = localStorage.getItem('token');
+    if (tokenFromLocalStorage) {
+        // Si un token est trouvé dans le localstorage, déclencher l'action LOGIN_SUCCESS avec le token
+        dispatch({ type: 'LOGIN_SUCCESS', payload: tokenFromLocalStorage });
+    }
+}
+
+export { login, register, logout, checkToken };

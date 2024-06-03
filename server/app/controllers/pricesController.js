@@ -20,6 +20,36 @@ const pricesController = {
             res.status(500).json({ message: "Erreur lors de l'ajout du prix" });
         }
     },
+
+    updatePrice: async (req, res) => {
+        try {
+            const priceId = req.params.id;
+            const priceDataToUpdate = { ...req.body };
+            delete priceDataToUpdate.id;
+            const price = await Price.update(priceDataToUpdate, {
+                where: { id: priceId }
+            });
+            res.status(200).json({ message: "Modifications enregistrées" });
+        } catch (error) {
+            console.log("Erreur", error);
+            res.status(500).json({ message: "Erreur lors de la mise à jour des informations du prix" });
+        }
+    },
+
+    deletePrice: async (req, res) => {
+        try {
+            const priceId = req.params.id;
+            await Price.destroy({
+                where: {
+                    id: priceId
+                }
+            });
+            res.status(200).json({ message: "Prix supprimé avec succès" });
+        } catch (error) {
+            console.error("Erreur lors de la suppression du prix:", error);
+            res.status(500).json({ message: "Erreur lors de la suppression du prix" });
+        }
+    },
 }
 
 export default pricesController;

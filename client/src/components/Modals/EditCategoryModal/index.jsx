@@ -1,28 +1,34 @@
 import Modal from 'react-modal';
-import { useState, useContext } from 'react';
-import { Context } from '../../Context';
+import { useState, useEffect } from 'react';
 import API_URL from '../../../config.js';
 
-const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
+const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues, onClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
-    const { categories } = useContext(Context);
+    const [formData, setFormData] = useState(initialValues);
+
+    useEffect(() => {
+        setFormData(initialValues);
+    }, [initialValues]);
+
+    const handleChange = (event) => {
+        const { name, value } = event.target;
+        setFormData({ ...formData, [name]: value });
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const formData = new FormData(event.target);
-        const attractionData = Object.fromEntries(formData.entries());
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/attraction`, {
-                method: 'POST',
+            const response = await fetch(`${API_URL}/category/${categoryId}`, {
+                method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(attractionData)
+                body: JSON.stringify(formData)
             });
 
             const result = await response.json();
@@ -30,6 +36,7 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
+                onClose();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);
@@ -37,6 +44,7 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
         } catch (error) {
             console.error('Erreur:', error);
+            console.log(formData)
         }
     };
 
@@ -55,32 +63,15 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
                         type="text"
                         name="name"
                         id="name"
-                        placeholder="Nom de l'attraction"
+                        value={formData.name}
+                        onChange={handleChange}
                         required
                     />
                 </div>
-                <div>
-                    <label htmlFor="description">Description *</label>
-                    <input
-                        type="text"
-                        name="description"
-                        id="description"
-                        placeholder="Description de l'attraction"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="category_id">Catégorie *</label>
-                    <select name="category_id" id="category_id" required>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Créer l'attraction</button>
+                <button type="submit">Modifier les informations</button>
             </form>
         </Modal>
     )
 }
 
-export default CreateAttractionModal;
+export default EditCategoryModal;
