@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../../Context/index.jsx';
 import API_URL from '../../../config.js';
 
-const EditAttractionModal = ({ attractionId, isOpen, onRequestClose, initialValues }) => {
+const EditAttractionModal = ({ attractionId, isOpen, onRequestClose, initialValues, onClose }) => {
 
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
@@ -38,6 +38,7 @@ const EditAttractionModal = ({ attractionId, isOpen, onRequestClose, initialValu
             if (response.ok) {
                 setSuccessMessage(result.message);
                 setErrorMessage('');
+                onClose();
             } else {
                 setSuccessMessage('');
                 setErrorMessage(result.message);
