@@ -210,7 +210,7 @@ const AttractionItem = ({ element, onClose }) => {
                     <button onClick={removeAttraction}>Supprimer</button>
                 </div>
             </article>
-            <EditAttractionModal attractionId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} />
+            <EditAttractionModal attractionId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )
 }
