@@ -3,6 +3,7 @@ import { useState, useEffect, useContext } from 'react';
 import { Context } from '../../Context/index.jsx';
 import formatDate from '../../../utils/dateUtils.js';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
 
 const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialValues, onClose }) => {
 
@@ -136,8 +137,8 @@ const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialVa
             onRequestClose={onRequestClose}
         >
             <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
+                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
+                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
                 <p>Tous les champs sont obligatoires.</p>
                 <div>
                     <label htmlFor="duration">Durée du séjour</label>
