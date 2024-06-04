@@ -3,7 +3,7 @@ import API_URL from '../../config.js';
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
-import { Box } from "@mui/material";
+import { Box, Alert } from "@mui/material";
 
 const Contact = () => {
 
@@ -44,8 +44,8 @@ const Contact = () => {
             <p>Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.</p>
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
+                {successMessage && <Alert variant="filled" severity="success">{successMessage}</Alert>}
+                {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
                 <p>Tous les champs ci-dessous sont obligatoires.</p>
 
                     {/* <label htmlFor="lastname">Nom</label> */}
@@ -56,7 +56,8 @@ const Contact = () => {
                         fullWidth
                         type="text" 
                         name="lastname" 
-                        id="lastname" 
+                        id="lastname"
+                        required
                     />
 
                     {/* <label htmlFor="firstname">Prénom</label> */}
@@ -67,7 +68,8 @@ const Contact = () => {
                         fullWidth
                         type="text" 
                         name="firstname" 
-                        id="firstname" 
+                        id="firstname"
+                        required
                     />
 
                     {/* <label htmlFor="email">Email</label> */}
@@ -78,7 +80,8 @@ const Contact = () => {
                         fullWidth
                         type="email" 
                         name="email" 
-                        id="email" 
+                        id="email"
+                        required
                     />
 
                     {/* <label htmlFor="object">Objet</label> */}
@@ -90,6 +93,7 @@ const Contact = () => {
                         type="text" 
                         name="object" 
                         id="object"
+                        required
                     />
 
                     {/* <label htmlFor="content">Description</label> */}
@@ -101,7 +105,8 @@ const Contact = () => {
                         size="small"
                         fullWidth
                         name="content" 
-                        id="content" 
+                        id="content"
+                        required
                     />
 
                 <Button 

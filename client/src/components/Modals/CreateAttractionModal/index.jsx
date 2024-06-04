@@ -2,6 +2,7 @@ import Modal from 'react-modal';
 import { useState, useContext } from 'react';
 import { Context } from '../../Context';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
 
 const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
@@ -46,8 +47,8 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
             onRequestClose={onRequestClose}
         >
             <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
+                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
+                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
                 <p>* Champs obligatoires</p>
                 <div>
                     <label htmlFor="name">Nom *</label>

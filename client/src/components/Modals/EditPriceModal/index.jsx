@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
 
 const EditPriceModal = ({ priceId, isOpen, onRequestClose, initialValues, onClose }) => {
 
@@ -54,8 +55,8 @@ const EditPriceModal = ({ priceId, isOpen, onRequestClose, initialValues, onClos
             onRequestClose={onRequestClose}
         >
             <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
+                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
+                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
                 <p>* Champs obligatoires</p>
                 <div>
                     <label htmlFor="duration">Durée (en jours) *</label>

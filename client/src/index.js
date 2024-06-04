@@ -26,8 +26,8 @@ import { createTheme } from "@mui/material";
 import { responsiveFontSizes } from '@mui/material/styles';
 import { grey, red } from "@mui/material/colors";
 import { Provider } from "react-redux";
-import store from "./store/store";
-
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/store.js'
 
 const IsLogged = ({ element: Element }) => {
     const isAuthenticated = localStorage.getItem('token');
@@ -121,6 +121,9 @@ const theme = createTheme({
         secondary: {
             main: grey[100],
         },
+        red: {
+            main: '#ff0000',
+        }
     },
     typography: {
         h1: {
@@ -239,9 +242,11 @@ const theme = createTheme({
 ReactDOM.createRoot(document.getElementById("app")).render(
     <ContextProvider>
         <Provider store={store}>
-            <ThemeProvider theme={theme}>
-                <RouterProvider router={router} />
-            </ThemeProvider>
+            <PersistGate loading={null} persistor={persistor}>
+                <ThemeProvider theme={theme}>
+                    <RouterProvider router={router} />
+                </ThemeProvider>
+            </PersistGate>
         </Provider>
     </ContextProvider>
 );

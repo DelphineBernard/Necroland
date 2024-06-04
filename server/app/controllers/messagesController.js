@@ -9,6 +9,7 @@ const messagesController = {
     addMessage: async (req, res) => {
         try {
             const data = req.body;
+            console.log(data)
             const message = await Message.create({
                 object: data.object,
                 content: data.content,

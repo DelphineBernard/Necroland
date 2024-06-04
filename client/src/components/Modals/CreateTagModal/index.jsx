@@ -1,6 +1,7 @@
 import Modal from 'react-modal';
 import { useState } from 'react';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
 
 const CreateTagModal = ({ isOpen, onRequestClose }) => {
 
@@ -44,8 +45,8 @@ const CreateTagModal = ({ isOpen, onRequestClose }) => {
             onRequestClose={onRequestClose}
         >
             <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
+                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
+                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
                 <p>* Champs obligatoires</p>
                 <div>
                     <label htmlFor="name">Nom *</label>
