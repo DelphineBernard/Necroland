@@ -1,7 +1,6 @@
-import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import API_URL from '../../../config.js';
-import { Alert } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, Alert } from '@mui/material';
 
 const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues, onClose }) => {
 
@@ -51,26 +50,37 @@ const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues, 
 
     return (
         <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            open={isOpen}
+            onClose={onRequestClose}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
-                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
-                <p>* Champs obligatoires</p>
-                <div>
-                    <label htmlFor="name">Nom *</label>
-                    <input
-                        type="text"
+            <Box sx={{ width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+                <Typography sx={{ color: 'black' }} gutterBottom>
+                    Modifier une catégorie
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='success'>{successMessage}</Alert>}
+                    {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='error'>{errorMessage}</Alert>}
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
+                    <TextField sx={{ mb: 2 }}
+                        fullWidth
+                        label="Nom"
                         name="name"
-                        id="name"
                         value={formData.name}
                         onChange={handleChange}
                         required
                     />
-                </div>
-                <button type="submit">Modifier les informations</button>
-            </form>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                            Modifier la catégorie
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
         </Modal>
     )
 }
