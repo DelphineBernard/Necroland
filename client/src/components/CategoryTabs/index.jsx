@@ -62,9 +62,9 @@ const CenteredBox = styled(Box)(({ theme }) => ({
 
 const CategoryTabs = () => {
     const { categories, setCategories, setAttractions } = useContext(Context);
-    const { category } = useParams();
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+    const [category, setCategory] = useState("all"); // Set default state to "all"
     const [open, setOpen] = useState(false);
 
     const fetchCategories = async () => {
@@ -94,11 +94,13 @@ const CategoryTabs = () => {
 
     const handleClick = (event) => {
         const selectedCategory = event.target.value;
+        setCategory(selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
     const handleSelectChange = (event) => {
         const selectedCategory = event.target.value;
+        setCategory(selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
@@ -108,7 +110,10 @@ const CategoryTabs = () => {
 
     useEffect(() => {
         fetchCategories();
-    }, []);
+        // Reset category to "all" on initial load
+        setCategory("all");
+        navigate(`/attractions/`);
+    }, [navigate]);
 
     useEffect(() => {
         fetchAttractions(category);
@@ -118,7 +123,7 @@ const CategoryTabs = () => {
         if (open) {
             const timer = setTimeout(() => {
                 setOpen(false);
-            }, 6000);
+            }, 10000);
             return () => clearTimeout(timer);
         }
     }, [open]);
@@ -128,13 +133,21 @@ const CategoryTabs = () => {
             {isMobile ? (
                 <CenteredBox>
                     <StyledSelect
-                        value={category || "all"}
+                        value={category}
                         onChange={handleSelectChange}
                         variant="outlined"
+                        displayEmpty
                         fullWidth
                         open={open}
                         onOpen={handleOpen}
                         onClose={() => setOpen(false)}
+                        renderValue={(selected) => {
+                            if (selected === "all") {
+                                return <em>Choisir une catégorie</em>;
+                            }
+                            return categories.find((cat) => cat.slug === selected)?.name || "";
+                            
+                        }}
                         MenuProps={{
                             PaperProps: {
                                 className: 'centered-menu',
@@ -147,7 +160,7 @@ const CategoryTabs = () => {
                             },
                         }}
                     >
-                        <StyledMenuItem value="all">Toutes les attractions</StyledMenuItem>
+                        <StyledMenuItem value="all"><em>Toutes les attractions</em></StyledMenuItem>
                         {categories.map((category) => (
                             <StyledMenuItem key={category.id} value={category.slug}>
                                 {category.name}
