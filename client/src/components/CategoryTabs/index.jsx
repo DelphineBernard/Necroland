@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import API_URL from '../../config.js';
 import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
@@ -61,10 +61,9 @@ const CenteredBox = styled(Box)(({ theme }) => ({
 }));
 
 const CategoryTabs = () => {
-    const { categories, setCategories, setAttractions } = useContext(Context);
+    const { categories, setCategories, setAttractions, category, setCategory, resetCategory } = useContext(Context);
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [category, setCategory] = useState("all"); // Set default state to "all"
     const [open, setOpen] = useState(false);
 
     const fetchCategories = async () => {
@@ -110,10 +109,7 @@ const CategoryTabs = () => {
 
     useEffect(() => {
         fetchCategories();
-        // Reset category to "all" on initial load
-        setCategory("all");
-        navigate(`/attractions/`);
-    }, [navigate]);
+    }, []);
 
     useEffect(() => {
         fetchAttractions(category);
@@ -146,7 +142,6 @@ const CategoryTabs = () => {
                                 return <em>Choisir une catégorie</em>;
                             }
                             return categories.find((cat) => cat.slug === selected)?.name || "";
-                            
                         }}
                         MenuProps={{
                             PaperProps: {
@@ -187,6 +182,8 @@ const CategoryTabs = () => {
             )}
         </Box>
     );
-}
+};
 
 export default CategoryTabs;
+
+
