@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import API_URL from '../../../config.js';
+import { Button, Typography, Box, Card, CardContent } from "@mui/material";
 
 const MessageItem = ({ element, onClose }) => {
 
@@ -39,21 +40,21 @@ const MessageItem = ({ element, onClose }) => {
     const currentStatus = status.find(status => status.id === element.status_id);
 
     return (
-        <article style={{ marginBottom: '2rem' }}>
-            <div>
-                <p>Nom : {element.lastname}</p>
-                <p>Prénom : {element.firstname}</p>
-                <p>Email : {element.email}</p>
-                <p>Objet : {element.object}</p>
-                <p>Contenu : {element.content}</p>
-                <p>Statut : {currentStatus ? currentStatus.label : 'Loading...'}</p>
-            </div>
-            <div>
-                {currentStatus && currentStatus.label !== 'Traité' && (
-                    <button onClick={() => updateMessageStatus(element.id)}>Marquer comme classé</button>
-                )}
-            </div>
-        </article>
+        <Card sx={{ marginBottom: '2rem', width: '100%' }} component="article">
+            <CardContent>
+                <Typography sx={{ color: 'black' }}>Nom : {element.lastname}</Typography>
+                <Typography sx={{ color: 'black' }}>Prénom : {element.firstname}</Typography>
+                <Typography sx={{ color: 'black' }}>Email : {element.email}</Typography>
+                <Typography sx={{ color: 'black' }}>Objet : {element.object}</Typography>
+                <Typography sx={{ color: 'black' }}>Contenu : {element.content}</Typography>
+                <Typography sx={{ color: 'black' }}>Statut : {currentStatus ? currentStatus.label : 'Loading...'}</Typography>
+                <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, gap: '1rem', marginTop: '1rem', flexDirection: { xs: 'column', sm: 'row' } }}>
+                    {currentStatus && currentStatus.label !== 'Traité' && (
+                        <Button onClick={() => updateMessageStatus(element.id)}>Marquer comme classé</Button>
+                    )}
+                </Box>
+            </CardContent>
+        </Card>
     )
 }
 

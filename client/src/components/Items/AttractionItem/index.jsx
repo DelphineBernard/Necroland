@@ -2,6 +2,8 @@ import { useContext, useState, useEffect } from "react";
 import { Context } from "../../Context";
 import EditAttractionModal from "../../Modals/EditAttractionModal";
 import API_URL from "../../../config";
+import { Card, CardContent, Typography, Box, Button, Select, MenuItem, List, ListItem, IconButton, TextField, useMediaQuery } from '@mui/material';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const AttractionItem = ({ element, onClose }) => {
 
@@ -13,6 +15,8 @@ const AttractionItem = ({ element, onClose }) => {
     const [selectedTagId, setSelectedTagId] = useState('');
     const [selectedFile, setSelectedFile] = useState(null);
     const [photosAssociated, setPhotosAssociated] = useState([]);
+
+    const isMobile = useMediaQuery(theme => theme.breakpoints.down('sm'));
 
     const openModal = () => {
         setIsModalOpen(true);
@@ -78,7 +82,7 @@ const AttractionItem = ({ element, onClose }) => {
     const addPhoto = async () => {
         try {
             const token = localStorage.getItem('token');
-    
+
             if (selectedFile) {
                 const photoData = {
                     name: selectedFile
@@ -161,56 +165,75 @@ const AttractionItem = ({ element, onClose }) => {
 
     return (
         <>
-            <article style={{ marginBottom: '2rem' }}>
-                <div>
-                    <p>Nom : {element.name}</p>
-                    <p>Description : {element.description}</p>
-                    <p>Catégorie : {
-                        categories.find(category => category.id === element.category_id).name
-                    }</p>
-                    <p>Tags associés :</p>
-                    <ul>
+            <Card sx={{ marginBottom: '2rem', width: '100%' }} component="article">
+                <CardContent>
+                    <Typography sx={{ fontWeight: 'bold', color: 'black', marginBottom: '1rem' }}>
+                        {element.name}
+                    </Typography>
+                    <Typography sx={{ color: 'black' }}>
+                        Description : {element.description}
+                    </Typography>
+                    <Typography sx={{ color: 'black' }}>
+                        Catégorie : {categories.find(category => category.id === element.category_id).name}
+                    </Typography>
+                    <Typography sx={{ marginTop: '1rem', color: 'black' }}>
+                        Tags associés :
+                    </Typography>
+                    <List sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row' }}>
                         {tagsAssociated.map(tag => (
-                            <li key={tag.id}>
+                            <ListItem key={tag.id} sx={{ color: 'black' }}>
                                 {tag.name}
-                                <button onClick={() => removeTag(tag.id)}>
-                                    Retirer
-                                </button>
-                            </li>
+                                <IconButton edge="end" onClick={() => removeTag(tag.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItem>
                         ))}
-                    </ul>
-                    <div>
-                        <select value={selectedTagId} onChange={e => setSelectedTagId(e.target.value)}>
-                            <option value="" disabled>Choisissez un tag</option>
+                    </List>
+                    <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem', marginBottom: '1rem' }}>
+                        <Select
+                            value={selectedTagId}
+                            onChange={e => setSelectedTagId(e.target.value)}
+                            displayEmpty
+                            sx={{ minWidth: '200px' }}
+                        >
+                            <MenuItem value="" disabled sx={{ color: 'black' }}>Choisissez un tag</MenuItem>
                             {tags.map(tag => (
-                                <option key={tag.id} value={tag.id}>{tag.name}</option>
+                                <MenuItem key={tag.id} value={tag.id} sx={{ color: 'black' }}>{tag.name}</MenuItem>
                             ))}
-                        </select>
-                        <button onClick={addTag}>Ajouter un tag</button>
-                    </div>
-                    <p>Photos associées :</p>
-                    <ul>
-                        {photosAssociated.map(photo => (
-                            <li key={photo.id}>
-                                {photo.name}
-                                <button onClick={() => removePhoto(photo.id)}>
-                                    Retirer
-                                </button>
-                            </li>
-                        ))}
-                    </ul>
-                    <div>
-                        <input type="file" id="fileInput" onChange={changeSelectedFile} />
-                        <button onClick={addPhoto}>Ajouter une photo</button>
-                    </div>
+                        </Select>
+                        <Button variant="contained" onClick={addTag}>Ajouter un tag</Button>
+                    </Box>
 
-                </div>
-                <div>
-                    <button onClick={openModal}>Modifier</button>
-                    <button onClick={removeAttraction}>Supprimer</button>
-                </div>
-            </article>
-            <EditAttractionModal attractionId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
+                    <Typography sx={{ marginTop: '1rem', color: 'black' }}>
+                        Photos associées :
+                    </Typography>
+                    <List>
+                        {photosAssociated.map(photo => (
+                            <ListItem key={photo.id} sx={{ color: 'black' }}>
+                                {photo.name}
+                                <IconButton edge="end" onClick={() => removePhoto(photo.id)}>
+                                    <DeleteIcon />
+                                </IconButton>
+                            </ListItem>
+                        ))}
+                    </List>
+                    <Box sx={{ display: 'flex', flexDirection: isMobile ? 'column' : 'row', gap: '1rem', marginBottom: '1rem' }}>
+                        <TextField type="file" onChange={changeSelectedFile} sx={{ minWidth: '200px' }} />
+                        <Button variant="contained" onClick={addPhoto}>Ajouter une photo</Button>
+                    </Box>
+                </CardContent>
+                <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: '1rem', padding: '1rem' }}>
+                    <Button variant="contained" onClick={openModal}>Modifier</Button>
+                    <Button variant="contained" onClick={removeAttraction}>Supprimer</Button>
+                </Box>
+            </Card>
+            <EditAttractionModal
+                attractionId={element.id}
+                isOpen={isModalOpen}
+                onRequestClose={closeModal}
+                initialValues={element}
+                onClose={onClose}
+            />
         </>
     )
 }
