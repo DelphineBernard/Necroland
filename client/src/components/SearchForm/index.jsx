@@ -12,7 +12,7 @@ const StyledForm = styled('form')(({ theme }) => ({
     borderRadius: '30px',
     backgroundColor: 'var(--dark_gray)',
     borderColor: 'white',
-    padding: '8px 12px',
+    padding: '3px 12px',
     border: '2px solid white',
     width: '100%',
     '& input': {

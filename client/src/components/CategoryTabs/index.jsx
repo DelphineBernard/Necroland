@@ -15,6 +15,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
     color: 'white',
     alignItems: 'center',
     borderRadius: '30px', // Added borderRadius
+    border: '2px solid wite',
     '& .MuiSelect-icon': {
         color: 'white',
     },
@@ -61,7 +62,7 @@ const CenteredBox = styled(Box)(({ theme }) => ({
 }));
 
 const CategoryTabs = () => {
-    const { categories, setCategories, setAttractions, category, setCategory, resetCategory } = useContext(Context);
+    const { categories, setCategories, setAttractions, category, setCategory } = useContext(Context);
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [open, setOpen] = useState(false);
@@ -94,12 +95,14 @@ const CategoryTabs = () => {
     const handleClick = (event) => {
         const selectedCategory = event.target.value;
         setCategory(selectedCategory);
+        localStorage.setItem('selectedCategory', selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
     const handleSelectChange = (event) => {
         const selectedCategory = event.target.value;
         setCategory(selectedCategory);
+        localStorage.setItem('selectedCategory', selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
@@ -109,6 +112,9 @@ const CategoryTabs = () => {
 
     useEffect(() => {
         fetchCategories();
+        // Retrieve the selected category from localStorage
+        const savedCategory = localStorage.getItem('selectedCategory') || "all";
+        setCategory(savedCategory);
     }, []);
 
     useEffect(() => {
@@ -185,5 +191,3 @@ const CategoryTabs = () => {
 };
 
 export default CategoryTabs;
-
-
