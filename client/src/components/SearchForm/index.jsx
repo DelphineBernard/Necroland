@@ -1,4 +1,5 @@
 import { useContext, useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import slugify from 'slugify';
 import API_URL from '../../config.js';
@@ -85,9 +86,13 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
 }));
 
 const SearchForm = () => {
+    const navigate = useNavigate(); // Add useNavigate hook
     const { tags, setTags, setAttractions, tagSearched, setTagSearched, resetCategory } = useContext(Context);
     const [filteredTags, setFilteredTags] = useState([]);
+    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false); // State to track if suggestions are open
     const searchInputRef = useRef(null);
+    const suggestionsRef = useRef(null);
+    const searchBarRef = useRef(null); // Add a reference for the global component
 
     const fetchTags = async () => {
         try {
@@ -108,6 +113,7 @@ const SearchForm = () => {
                 const data = await response.json();
                 setAttractions(data.attractions.Attractions);
                 setFilteredTags([]);
+                setIsSuggestionsOpen(false);
             } else {
                 fetchAllAttractions();
             }
@@ -134,32 +140,45 @@ const SearchForm = () => {
             const slugifiedValue = slugify(value, { remove: /[*+~.()'"!:@]/g, lower: true });
             const filtered = tags.filter(tag => tag.slug.startsWith(slugifiedValue));
             setFilteredTags(filtered);
+            setIsSuggestionsOpen(true);
         } else {
             setFilteredTags(tags); // Show all tags if the input is empty
             fetchAllAttractions(); // Reset to all attractions if the input is empty
+            setIsSuggestionsOpen(false);
         }
     };
 
     const handleSuggestionClick = async (suggestion) => {
         setTagSearched(suggestion.name);
         setFilteredTags([]);
+        setIsSuggestionsOpen(false);
         const tag = slugify(suggestion.name, { remove: /[*+~.()'"!:@]/g, lower: true });
         const response = await fetch(`${API_URL}/attractions/tags/${tag}`);
         const data = await response.json();
         setAttractions(data.attractions.Attractions);
     };
 
-    const handleFocus = () => {
-        resetCategory(); // Reset category when the input is focused
-        setFilteredTags(tags); // Show all tags when input is focused
+    const handleClick = () => {
+        if (isSuggestionsOpen) {
+            setIsSuggestionsOpen(false);
+        } else {
+            resetCategory(); // Reset category when the input is focused
+            setFilteredTags(tags); // Show all tags when input is focused
+            navigate('/attractions/'); // Navigate to /attractions/
+            setIsSuggestionsOpen(true);
+        }
+    };
+
+    const resetSearch = () => {
+        setTagSearched("");
+        setFilteredTags([]);
+        setIsSuggestionsOpen(false);
     };
 
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
-                setTagSearched("");
-                setFilteredTags([]);
-                fetchAllAttractions(); // Reset to all attractions when clicking outside
+            if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+                resetSearch();
             }
         };
 
@@ -167,7 +186,7 @@ const SearchForm = () => {
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [searchInputRef]);
+    }, [searchBarRef]);
 
     useEffect(() => {
         fetchTags();
@@ -177,29 +196,29 @@ const SearchForm = () => {
     useEffect(() => {
         if (filteredTags.length > 0) {
             const timer = setTimeout(() => {
-                setFilteredTags([]);
+                resetSearch();
             }, 10000); // Close after 10 seconds
             return () => clearTimeout(timer);
         }
     }, [filteredTags]);
 
     return (
-        <div className="searchBar" ref={searchInputRef}>
+        <div className="searchBar" ref={searchBarRef}>
             <StyledForm onSubmit={handleSearchByTag}>
                 <label className="sr-only" htmlFor="tag">Recherche par tag</label>
                 <input
                     type="text"
                     value={tagSearched}
                     onChange={handleChange}
-                    onFocus={handleFocus} // Show all tags when input is focused
+                    onClick={handleClick} // Toggle suggestions open/close on click
                     autoComplete="off"
                 />
                 <button type="submit" className="search-icon">
                     <SearchIcon />
                 </button>
             </StyledForm>
-            {filteredTags.length > 0 && (
-                <StyledSuggestions>
+            {isSuggestionsOpen && filteredTags.length > 0 && (
+                <StyledSuggestions ref={suggestionsRef}>
                     {filteredTags.map((tag) => (
                         <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
                             {tag.name}
