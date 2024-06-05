@@ -23,8 +23,7 @@ import { ContextProvider } from "./components/Context";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
-import { responsiveFontSizes } from '@mui/material/styles';
-import { grey, red } from "@mui/material/colors";
+import { grey, red, yellow } from "@mui/material/colors";
 import { Provider } from "react-redux";
 import store from "./store/store";
 
@@ -75,7 +74,7 @@ const router = createBrowserRouter([
             },
             {
                 path: "/reservation",
-                element: < IsLogged element={Reservation} />,
+                element: <IsLogged element={Reservation} />,
             },
             {
                 path: "/gestion-admin",
@@ -139,7 +138,11 @@ const theme = createTheme({
             },
         },
         h2: {
+            fontFamily: "Rubik, sans-serif",
+            fontWeight: 600,
+            textTransform: "uppercase",
             fontSize: "2rem",
+            padding: '0.5rem 0',
             '@media (max-width:1920px)': {
                 fontSize: '1.75rem',
             },
@@ -154,24 +157,24 @@ const theme = createTheme({
             },
         },
         h3: {
+            fontFamily: "Rubik, sans-serif",
+            fontWeight: 600,
             fontSize: '1.5rem',
+            padding: '1rem 0',
             '@media (max-width:1920px)': {
                 fontSize: '1.25rem',
             },
             '@media (max-width:1280px)': {
-                fontSize: '1rem',
+                fontSize: '1.1rem',
             },
             '@media (max-width:960px)': {
-                fontSize: '0.75rem',
+                fontSize: '1rem',
             },
             '@media (max-width:600px)': {
-                fontSize: '0.5rem',
+                fontSize: '0.9rem',
             },
         },
         body1: {
-            '@media (max-width:1920px)': {
-                fontSize: '1.25rem',
-            },
             '@media (max-width:1280px)': {
                 fontSize: '1rem',
             },
@@ -190,6 +193,15 @@ const theme = createTheme({
         MuiListItem: {
             styleOverrides: {
                 root: {
+                    '@media (max-width:1280px)': {
+                        fontSize: '1rem',
+                    },
+                    '@media (max-width:960px)': {
+                        fontSize: '0.85rem',
+                    },
+                    '@media (max-width:600px)': {
+                        fontSize: '0.8rem',
+                    },
                     display: 'flex',
                     columnGap: '1rem',
                 },
@@ -228,6 +240,16 @@ const theme = createTheme({
                     width: "100%",
                     rowGap: '1rem',
                 }
+            },
+        },
+        MuiAlert: {
+            styleOverrides: {
+                message: {
+                    color: yellow[100],
+                },
+                icon: {
+                    color: yellow[100],
+                },
             },
         },
         MuiInputBase: {

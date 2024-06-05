@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
-import { Box, Button, Card, List, ListItem, Typography } from '@mui/material';
-import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
+import { Alert, Box, Button, Card, Container, List, ListItem, Typography } from '@mui/material';
+import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
+import Alert from '@mui/material/Alert';
 
 const Profil = () => {
 
@@ -139,24 +140,29 @@ const Profil = () => {
     };
 
     return (
-        <main className="center">
-                
+        <main>
+            <Container sx={{ display: { xs: "block", md: "flex"}, align: {md: "center"}, columnGap: "1rem"}}>
             <Box component="section">
                 <Typography variant="h2">Vos informations</Typography>
                 {dataLoaded &&
-                <Card sx= {{ display: { xs: "block", sm: "flex"},
-                    alignItems: "center", backgroundColor: "#00000070", p:2, borderRadius: "0.5rem", p:"1rem", m:"1rem"}}>
-                    <List sx={{display: "flex", flexDirection: "column", p:2}}>
+                <Card sx= {{ display: "flex", flexDirection: { xs: "column", sm: "row" }, justifyContent: "space-around", flexWrap: "wrap", backgroundColor: "#00000070", p:2, borderRadius: "0.5rem", p:"1rem", my:"1rem"}}>
+                    <List>
                         <ListItem><Typography variant="span">Nom:</Typography> {userInfos.lastname}</ListItem>
+
                         <ListItem><Typography variant="span">Prénom: </Typography>{userInfos.firstname}</ListItem>
+
                         <ListItem><Typography variant="span">Email:</Typography> {userInfos.email}</ListItem>
-                        <ListItem sx={{ display: "flex", flexDirection: "column", alignItems: "flex-start" }}><Typography variant="span">Adresse:</Typography>
-                        <Typography>{userInfos.address}</Typography> 
-                        <Typography>{userInfos.postal_code} {userInfos.city} {userInfos.country}</Typography> </ListItem>
+
+                        <ListItem sx={{ display: "flex", flexWrap: "wrap" }}>
+                            <Typography variant="span">Adresse:</Typography>
+                            <Typography>{userInfos.address}</Typography> 
+                            <Typography>{userInfos.postal_code} {userInfos.city} {userInfos.country}</Typography> 
+                        </ListItem>
+
                     </List>
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", rowGap: "1rem"}}>
+                    <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", rowGap: "1rem"}}>
                         <Button size="small" onClick={openModal}>Modifier mes informations</Button>
-                        <Button size="small" onClick={() => handleDeleteAccount(userInfos.id)}>Supprimer mon compte</Button>
+                        <Button sx={{ display: "flex", columnGap: "0.3rem"}} size="small" onClick={() => handleDeleteAccount(userInfos.id)}><WarningAmberRoundedIcon />Supprimer mon compte</Button>
                     </Box>
                 </Card>}
             </Box>
@@ -164,12 +170,9 @@ const Profil = () => {
             <Box component="section">
                 <Typography variant="h2">Vos réservations</Typography>
                 <Box component="article">
-                    <Typography variant="h3">En cours</Typography>
-                    
-                    <Box sx={{ display: "flex",  border: "1px solid white", borderRadius: "0.5rem", p: "0.5rem", m:"1rem" }}>
+                    <Typography variant="h3" component="h3">En cours</Typography>
                         
-                        <Typography sx={{display: "flex", alignItems: "center", columnGap: "1rem"}}><InfoOutlinedIcon />Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Typography>
-                    </Box>
+                    <Alert variant="outlined" severity="warning" sx={{ display: "flex", alignItems: "center"}}>Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Alert>
                     
                     <Box sx={{display: "flex", flexDirection: "column"}}>
                         {dataLoaded && currentReservations.length === 0 &&
@@ -207,6 +210,7 @@ const Profil = () => {
                 </Box>
             </Box>
             <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} />
+            </Container>
         </main>
     )
 }

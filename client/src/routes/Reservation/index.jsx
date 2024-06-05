@@ -72,24 +72,35 @@ const Reservation = () => {
 
     const handleHotelChange = (event) => {
         setHotelSelected(event.target.value)
-    }
+    };
 
     const handleNbPeopleChange = (event) => {
-        setNbPeopleSelected(event.target.value)
-    }
+        const value = event.target.value;
+        if (value === '' || (Number(value) > 0 && Number(value) <= 99)) {
+            setNbPeopleSelected(value);
+        };
+    };
+
+    // Allows only numeric caractere on "number of people input"
+    const handleKeyDown = (event) => {
+        const key = event.key;
+        if (!/[0-9]/.test(key) && key !== 'Backspace' && key !== 'Delete' && key !== 'ArrowLeft' && key !== 'ArrowRight') {
+          event.preventDefault();
+        }
+      };
 
     const handleDurationChange = (event) => {
         setDurationSelected(event.target.value)
-    }
+    };
 
     const handleCheckboxChange = (event) => {
         setCgvChecked(event.target.checked);
-    }
+    };
 
     const handleStartDateChange = (event) => {
         const startDate = event.target.value
         setStartDate(startDate);
-    }
+    };
 
     const updateEndDate = () => {
         // Create complete dates with method Date(), create end date from start date with adding number of days (duration selected)
@@ -109,14 +120,14 @@ const Reservation = () => {
         const shortOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
         const formEndDate = formatDate(fullEndDate, shortOptions).split('/').reverse().join('-')
         setEndDate(formEndDate);
-    }
+    };
 
     const handleReservation = (event) => {
         if (!cgvChecked) {
             event.preventDefault();
             alert("Veuillez accepter les conditions générales de vente pour confirmer votre réservation.");
-        }
-    }
+        };
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -142,7 +153,7 @@ const Reservation = () => {
             }
         } catch (error) {
             console.log(error)
-        }
+        };
     };
 
     return (
@@ -153,7 +164,7 @@ const Reservation = () => {
             <form method="post" onSubmit={handleSubmit}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white' }}>
 
-                    {/* ------------------------- Input Hotel --------------------------- */}
+{/* ------------------------- Input Hotel --------------------------- */}
                     <FormControl component="fieldset">
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
@@ -166,8 +177,8 @@ const Reservation = () => {
                         </RadioGroup>
                     </FormControl>
 
-                    {/* --------------------- Input number of people ---------------------- */}
-                    <FormControl sx={{ display: 'flex' }}>
+{/* --------------------- Input number of people ---------------------- */}
+                    <FormControl component="fieldset" sx={{ display: 'flex' }}>
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white" }} component="label">
                                 Nombre de personnes
@@ -183,13 +194,15 @@ const Reservation = () => {
                             name="nb_people"
                             htmlFor="nb_people"
                             size="small"
-                            inputProps={{ min: 1 }}
-                            defaultValue={1}
+                            value={nbPeopleSelected}
                             onChange={handleNbPeopleChange}
+                            onKeyDown={handleKeyDown}
+                            inputProps={{ min: 1}}
+                            defaultValue={1}
                         />
                     </FormControl>
 
-                    {/* -------------------------- Input duration ----------------------- */}
+{/* -------------------------- Input duration ----------------------- */}
                     <FormControl component="fieldset" >
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
@@ -206,7 +219,7 @@ const Reservation = () => {
                         </RadioGroup>
                     </FormControl>
 
-                    {/*  ---------------------- Input dates ------------------------------ */}
+{/*  ---------------------- Input dates ------------------------------ */}
                     <FormControl component="fieldset">
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white" }} component="legend">
@@ -234,7 +247,7 @@ const Reservation = () => {
                         </Box>
                     </FormControl>
 
-                    {/* ------------------- Resume selection ---------------------------- */}
+{/* ------------------- Resume selection ---------------------------- */}
                     <Box sx={{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
                         <Typography variant="h2">Votre sélection</Typography>
                         {/* If hotel and duration are not selected */}
@@ -245,7 +258,7 @@ const Reservation = () => {
                                 <ListItem><CalendarMonthIcon />
                                     {!stringStartDate &&
                                         <>
-                                            <Typography>Dates</Typography>
+                                            Dates
                                             <HelpOutlineIcon />
                                         </>}
                                     {stringStartDate && stringEndDate &&
@@ -255,7 +268,7 @@ const Reservation = () => {
                                 <ListItem><HotelIcon />
                                     {!hotelSelected &&
                                         <>
-                                            <Typography>Hôtel</Typography>
+                                            Hôtel
                                             <HelpOutlineIcon />
                                         </>}
                                     {/* If duration is not selected, show "hôtel compris" */}
@@ -288,7 +301,7 @@ const Reservation = () => {
                             </List>}
                     </Box>
 
-                    {/* --------------------------Checkbox CGV ------------------------- */}
+{/* --------------------------Checkbox CGV ------------------------- */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
                         <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
                         <FormLabel htmlFor="cgv"> <a href="/cgv" target="_blank">J'accepte les conditions générales de vente</a>.</FormLabel>
