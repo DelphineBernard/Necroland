@@ -1,5 +1,5 @@
 import React, { useEffect, useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import API_URL from '../../config.js';
 import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
@@ -15,7 +15,6 @@ const StyledSelect = styled(Select)(({ theme }) => ({
     color: 'white',
     alignItems: 'center',
     borderRadius: '30px', // Added borderRadius
-    border: '2px solid wite',
     '& .MuiSelect-icon': {
         color: 'white',
     },
@@ -62,7 +61,8 @@ const CenteredBox = styled(Box)(({ theme }) => ({
 }));
 
 const CategoryTabs = () => {
-    const { categories, setCategories, setAttractions, category, setCategory } = useContext(Context);
+    const { categories, setCategories, setAttractions } = useContext(Context);
+    const { category } = useParams();
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [open, setOpen] = useState(false);
@@ -94,15 +94,11 @@ const CategoryTabs = () => {
 
     const handleClick = (event) => {
         const selectedCategory = event.target.value;
-        setCategory(selectedCategory);
-        localStorage.setItem('selectedCategory', selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
     const handleSelectChange = (event) => {
         const selectedCategory = event.target.value;
-        setCategory(selectedCategory);
-        localStorage.setItem('selectedCategory', selectedCategory);
         navigate(`/attractions/${selectedCategory !== "all" ? selectedCategory : ""}`);
     };
 
@@ -112,9 +108,6 @@ const CategoryTabs = () => {
 
     useEffect(() => {
         fetchCategories();
-        // Retrieve the selected category from localStorage
-        const savedCategory = localStorage.getItem('selectedCategory') || "all";
-        setCategory(savedCategory);
     }, []);
 
     useEffect(() => {
@@ -125,7 +118,7 @@ const CategoryTabs = () => {
         if (open) {
             const timer = setTimeout(() => {
                 setOpen(false);
-            }, 10000);
+            }, 6000);
             return () => clearTimeout(timer);
         }
     }, [open]);
@@ -135,10 +128,10 @@ const CategoryTabs = () => {
             {isMobile ? (
                 <CenteredBox>
                     <StyledSelect
-                        value={category}
+                        value={category || "all"}
                         onChange={handleSelectChange}
                         variant="outlined"
-                        displayEmpty
+                        placeholder="Choisir une catégorie"
                         fullWidth
                         open={open}
                         onOpen={handleOpen}
@@ -157,11 +150,12 @@ const CategoryTabs = () => {
                                     borderRadius: '30px',
                                     margin: '5px 0',
                                     border: '2px solid white',
+                                    
                                 },
                             },
                         }}
                     >
-                        <StyledMenuItem value="all"><em>Toutes les attractions</em></StyledMenuItem>
+                        <StyledMenuItem value="all"><em>Choisir une catégorie</em></StyledMenuItem>
                         {categories.map((category) => (
                             <StyledMenuItem key={category.id} value={category.slug}>
                                 {category.name}
@@ -188,6 +182,6 @@ const CategoryTabs = () => {
             )}
         </Box>
     );
-};
+}
 
 export default CategoryTabs;

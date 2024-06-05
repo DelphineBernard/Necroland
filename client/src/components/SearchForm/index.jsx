@@ -6,6 +6,7 @@ import API_URL from '../../config.js';
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 
+
 const StyledForm = styled('form')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
