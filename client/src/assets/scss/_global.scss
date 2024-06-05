@@ -92,3 +92,24 @@ button {
     background: white; /* Assure que le point actif est également blanc */
     opacity: 1; /* Assure que le point actif est complètement visible */
   }
+
+  @media (max-width: 640px) {
+    .swiper-button-next,
+    .swiper-button-prev,
+    .swiper-pagination {
+        display: none !important;
+    }
+
+    .swiper-slide {
+      width: 100% !important;
+      flex-shrink: 0;
+  }
+  .mySwiper .swiper-wrapper {
+    width: 100%;
+}
+}
+.centered-menu {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  position: absolute !important;
+}

@@ -77,15 +77,15 @@ const Attractions = () => {
                     breakpoints={{
                         320: {
                             slidesPerView: 1, // Mobile
-                            spaceBetween: 10,
+                            spaceBetween: 50,
                         },
                         640: {
                             slidesPerView: 2, // Tablette
-                            spaceBetween: 20,
+                            spaceBetween: 30,
                         },
                         1024: {
                             slidesPerView: 3, // Desktop
-                            spaceBetween: 30,
+                            spaceBetween: 40,
                         },
                     }}
                 >
