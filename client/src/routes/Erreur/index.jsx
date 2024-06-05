@@ -1,7 +1,9 @@
+import { Typography } from "@mui/material";
+
 const Erreur = () => {
     return (
         <main>
-            <p>La page que vous recherchez semble introuvable.</p>
+            <Typography sx={{ textAlign: 'center' }}>La page que vous recherchez semble introuvable.</Typography>
         </main>
         
     )

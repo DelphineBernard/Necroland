@@ -1,6 +1,7 @@
 import EditPriceModal from "../../Modals/EditPriceModal";
 import { useState } from "react";
 import API_URL from "../../../config";
+import { Button, Typography, Box, Card, CardContent } from "@mui/material";
 
 const PriceItem = ({ element, onClose }) => {
 
@@ -37,17 +38,17 @@ const PriceItem = ({ element, onClose }) => {
 
     return (
         <>
-            <article style={{ marginBottom: '2rem' }}>
-                <div>
-                    <p>Durée : {element.duration > 1 ? `${element.duration} jours` : `${element.duration} jour`}</p>
-                    <p>Prix : {element.price}€</p>
-                    <p>Avec hôtel : {element.hotel ? "Oui" : "Non"}</p>
-                </div>
-                <div>
-                    <button onClick={openModal}>Modifier</button>
-                    <button onClick={handleDelete}>Supprimer</button>
-                </div>
-            </article>
+            <Card sx={{ marginBottom: '2rem', width: '100%' }} component="article">
+                <CardContent>
+                    <Typography sx={{ color: 'black' }}>Durée : {element.duration > 1 ? `${element.duration} jours` : `${element.duration} jour`}</Typography>
+                    <Typography sx={{ color: 'black' }}>Prix : {element.price}€</Typography>
+                    <Typography sx={{ color: 'black' }}>Avec hôtel : {element.hotel ? "Oui" : "Non"}</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, gap: '1rem', marginTop: '1rem', flexDirection: { xs: 'column', sm: 'row' } }}>
+                        <Button onClick={openModal}>Modifier</Button>
+                        <Button onClick={handleDelete}>Supprimer</Button>
+                    </Box>
+                </CardContent>
+            </Card>
             <EditPriceModal priceId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )

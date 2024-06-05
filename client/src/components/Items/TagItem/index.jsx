@@ -1,6 +1,7 @@
 import EditTagModal from "../../Modals/EditTagModal";
 import { useState } from "react";
 import API_URL from "../../../config";
+import { Button, Typography, Box, Card, CardContent } from "@mui/material";
 
 const TagItem = ({ element, onClose }) => {
 
@@ -37,15 +38,15 @@ const TagItem = ({ element, onClose }) => {
 
     return (
         <>
-            <article style={{ marginBottom: '2rem' }}>
-                <div>
-                    <p>Nom : {element.name}</p>
-                </div>
-                <div>
-                    <button onClick={openModal}>Modifier</button>
-                    <button onClick={handleDelete}>Supprimer</button>
-                </div>
-            </article>
+            <Card sx={{ marginBottom: '2rem', width: '100%' }} component="article">
+                <CardContent>
+                    <Typography sx={{ color: 'black' }}>Nom : {element.name}</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, gap: '1rem', marginTop: '1rem', flexDirection: { xs: 'column', sm: 'row' } }}>
+                        <Button onClick={openModal}>Modifier</Button>
+                        <Button onClick={handleDelete}>Supprimer</Button>
+                    </Box>
+                </CardContent>
+            </Card>
             <EditTagModal tagId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )

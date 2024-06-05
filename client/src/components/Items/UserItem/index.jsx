@@ -1,6 +1,6 @@
 import { useState } from "react";
 import EditUserModal from "../../Modals/EditUserModal";
-import { Card, CardContent, Typography, Button, Container, Box } from '@mui/material';
+import { Card, CardContent, Typography, Button, Box } from '@mui/material';
 import API_URL from "../../../config";
 
 const UserItem = ({ element, onClose }) => {
@@ -36,7 +36,7 @@ const UserItem = ({ element, onClose }) => {
     }
 
     return (
-        <Container sx={{display: "flex", justifyContent: 'center' }}>
+        <>
             <Card style={{ marginBottom: '2rem', width: '100%' }} component="article">
                 <CardContent>
                     <Typography style={{ color: 'black', fontWeight: 'bold' }}>
@@ -51,7 +51,7 @@ const UserItem = ({ element, onClose }) => {
                     <Typography style={{ color: 'black', marginBottom: '1rem' }}>
                         Rôle : {element.role_id === 1 ? "Membre" : "Administrateur"}
                     </Typography>
-                    <Box sx={{display: 'flex', gap: '20px' }}>
+                    <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, gap: '1rem', marginTop: '1rem', flexDirection: { xs: 'column', sm: 'row' } }}>
                         <Button onClick={openModal} variant="contained">
                             Modifier
                         </Button>
@@ -60,9 +60,9 @@ const UserItem = ({ element, onClose }) => {
                         </Button>
                     </Box>
                 </CardContent>
-                <EditUserModal userId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose}/>
             </Card>
-        </Container>
+            <EditUserModal userId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose}/>
+        </>
     )
 }
 
