@@ -174,6 +174,15 @@ const SearchForm = () => {
         fetchAllAttractions();
     }, []);
 
+    useEffect(() => {
+        if (filteredTags.length > 0) {
+            const timer = setTimeout(() => {
+                setFilteredTags([]);
+            }, 10000); // Close after 10 seconds
+            return () => clearTimeout(timer);
+        }
+    }, [filteredTags]);
+
     return (
         <div className="searchBar" ref={searchInputRef}>
             <StyledForm onSubmit={handleSearchByTag}>
@@ -203,4 +212,3 @@ const SearchForm = () => {
 }
 
 export default SearchForm;
-
