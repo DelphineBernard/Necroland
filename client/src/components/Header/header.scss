@@ -8,7 +8,9 @@
 
 .logo {
     width: 100px;
-    margin-left: 28px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav {
@@ -16,7 +18,7 @@
     background-color: #000000;
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.5rem 0.5rem;
     align-items: center;
 
     &__icon {
@@ -39,7 +41,13 @@
             display: flex;
         }
         &_item {
-            @include mixin.links;
+            padding: 0
+;            @include mixin.links;
+        }
+        &_icons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
     }
         
@@ -66,7 +74,9 @@
 @include mixin.medium {
     .logo {
         width: 150px;
-        margin-right: auto;
+        left: auto;
+        position: relative;
+        transform: none;
     }
 
     .nav {
@@ -86,6 +96,7 @@
             justify-content:space-evenly;
             display: flex;
             width: 70%;
+            margin-left: auto;
         }
     }
     
