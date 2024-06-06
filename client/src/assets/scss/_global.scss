@@ -1,15 +1,15 @@
 @use '../scss/var';
 
 @font-face {
-    font-family: 'Gotham';
-    src: 
-        url('../fonts/gotham.ttf') format('truetype'),
-        url('../fonts/gotham.woff2') format('woff2'),
-        url('../fonts/gotham.woff') format('woff');
+  font-family: 'Gotham';
+  src:
+    url('../fonts/gotham.ttf') format('truetype'),
+    url('../fonts/gotham.woff2') format('woff2'),
+    url('../fonts/gotham.woff') format('woff');
 }
 
 * {
-    color: var.$color_white;
+  color: var.$color_white;
 }
 
 main {
@@ -30,23 +30,23 @@ main {
 }
 
 .form {
-    width: 80%;
+  width: 80%;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 input {
-    color: black;
+  color: black;
 }
 
 button {
-    color: black;
+  color: black;
 }
 
 .info {
@@ -56,39 +56,50 @@ button {
 }
 
 .mySwiper {
-    width: 100%;
-    height: 100%;
-    padding: 42px;
-  }
-  
-  .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease-in-out, z-index 0.3s;
-   
-  }
-  
-  .card-content {
-    width: 100%;
-    transition: transform 0.3s ease-in-out, z-index 0.3s;
-  }  
-  /* Styles pour les flèches de navigation */
-.swiper-button-next, .swiper-button-prev {
-    color: white; /* Change la couleur des flèches */
-    width: 50px; /* Change la taille des flèches */
-    height: 50px; /* Change la taille des flèches */
-  }
-  
-  /* Styles pour les points de pagination */
-  .swiper-pagination-bullet {
-    background: white; /* Change la couleur des points de pagination */
-    width: 12px; /* Change la taille des points de pagination */
-    height: 12px; /* Change la taille des points de pagination */
-    opacity: 1; /* Assure que les points sont complètement visibles */
-  }
-  
-  .swiper-pagination-bullet-active {
-    background: white; /* Assure que le point actif est également blanc */
-    opacity: 1; /* Assure que le point actif est complètement visible */
-  }
+  width: 100%;
+  height: 100%;
+  padding: 42px;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out, z-index 0.3s;
+
+}
+
+.card-content {
+  width: 100%;
+  transition: transform 0.3s ease-in-out, z-index 0.3s;
+}
+
+/* Styles pour les flèches de navigation */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  /* Change la couleur des flèches */
+  width: 50px;
+  /* Change la taille des flèches */
+  height: 50px;
+  /* Change la taille des flèches */
+}
+
+/* Styles pour les points de pagination */
+.swiper-pagination-bullet {
+  background: white;
+  /* Change la couleur des points de pagination */
+  width: 12px;
+  /* Change la taille des points de pagination */
+  height: 12px;
+  /* Change la taille des points de pagination */
+  opacity: 1;
+  /* Assure que les points sont complètement visibles */
+}
+
+.swiper-pagination-bullet-active {
+  background: white;
+  /* Assure que le point actif est également blanc */
+  opacity: 1;
+  /* Assure que le point actif est complètement visible */
+}
