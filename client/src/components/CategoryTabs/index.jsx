@@ -13,13 +13,16 @@ const StyledSelect = styled(Select)(({ theme }) => ({
     borderColor: 'white',
     backgroundColor: 'var(--dark_gray)',
     color: 'white',
+    padding: '0',
     alignItems: 'center',
     borderRadius: '30px', // Added borderRadius
+    border: '1.5px solid white',
     '& .MuiSelect-icon': {
         color: 'white',
     },
     '& .MuiOutlinedInput-notchedOutline': {
         borderColor: 'white',
+        padding: '0',
     },
     '&:hover .MuiOutlinedInput-notchedOutline': {
         borderColor: 'white',
@@ -38,7 +41,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     backgroundColor: '#181717',
     color: 'white',
-    borderRadius: '30px', // Added borderRadius
+    borderRadius: '12px', // Added borderRadius
     '&:hover': {
         backgroundColor: 'white',
         color: 'black',
@@ -57,7 +60,12 @@ const CenteredBox = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    padding: '16px 0'
+    
+}));
+
+const PlaceholderText = styled('em')(({ theme }) => ({
+    color: 'rgba(255, 255, 255, 0.5)', // Light color to mimic placeholder
+    
 }));
 
 const CategoryTabs = () => {
@@ -138,7 +146,7 @@ const CategoryTabs = () => {
                         onClose={() => setOpen(false)}
                         renderValue={(selected) => {
                             if (selected === "all") {
-                                return <em>Choisir une catégorie</em>;
+                                return <PlaceholderText>Choisir une catégorie</PlaceholderText>;
                             }
                             return categories.find((cat) => cat.slug === selected)?.name || "";
                         }}

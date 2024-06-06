@@ -60,6 +60,7 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
     padding: '0',
     backgroundColor: '#181717',
     border: '2px solid white',
+    borderRadius: '12px',
     position: 'relative',
     top: '8px', // Adjust the position slightly below the form
     left: 0,
