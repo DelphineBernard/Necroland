@@ -5,9 +5,22 @@ import Spectacles from "../../assets/img/spectacles.jpg";
 import rollercoaster from "../../assets/img/rollercoaster.png";
 import { Grid, Card, CardMedia, CardContent, Typography, Box, Container, useMediaQuery } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
+import { useLocation } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const CardItem = ({ image, title, description, reverse }) => {
     const isMdUp = useMediaQuery((theme) => theme.breakpoints.up('md'));
+
+    const location = useLocation();
+    // If an anchor (hash) is present in the URL, it searches for the matching element and scrolls the page to that element with smooth scrolling behavior
+    useEffect(() => {
+        if (location.hash) {
+            const element = document.querySelector(location.hash);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+    }, [location]);
 
     return (
         <Card sx={{ backgroundColor: '#222', color: '#fff', margin: '20px 0' }} component="article">
@@ -50,7 +63,7 @@ const LeParc = () => {
                 <Typography paragraph sx={{ backgroundColor: 'white', color: "black", fontWeight: "bold", padding: '20px', marginBottom: '20px', borderRadius: '4px', marginBottom: "2rem" }}>
                     OUVERTURE DU PARC DANS 1 MOIS
                 </Typography>
-                <Typography variant="body1" paragraph>
+                <Typography variant="body1" paragraph id="presentation">
                     Necroland est bien plus qu'un simple parc d'attractions, c'est une expérience terrifiante, palpitante et mémorable qui plonge les visiteurs au coeur d'un univers post-apocalyptique où les zombies règnent en maîtres. Conçu pour les amateurs d'horreur, d'aventure et de frissons, NecroLand est un lieu où l'imagination rencontre la réalité, offrant une expérience unique en son genre pour tous ceux qui osent y pénétrer.
                 </Typography>
                 <Box sx={{ marginTop: "2rem"}}>
@@ -91,7 +104,7 @@ const LeParc = () => {
                 />
             </Container>
 
-            <Container component="section" sx={{ backgroundColor: '#000', color: '#fff', padding: "20px", borderRadius: '8px', boxShadow: 3, textAlign: 'center' }}>
+            <Container id="plan-du-parc" component="section" sx={{ backgroundColor: '#000', color: '#fff', padding: "20px", borderRadius: '8px', boxShadow: 3, textAlign: 'center' }}>
                 <Typography variant="h3" sx={{ marginBottom: '20px', fontFamily: 'Cinzel, serif' }}>
                     PLAN DU PARC
                 </Typography>

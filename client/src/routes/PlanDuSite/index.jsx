@@ -1,70 +1,137 @@
-import { Link } from "react-router-dom";
+import { Container, Typography, Link, List, ListItem, Box } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 
 const PlanDuSite = () => {
+
     return (
-       <main>
-         <section className="site-map">
-            <h2 className="site-map__title">Que recherchez vous ?</h2>
+        <main>
+            <Container component="section" sx={{ display: 'flex', justifyContent: 'center' }}>
+                <Box>
+                    <Typography variant='h2' sx={{ mb: 4, textAlign: 'center' }}>
+                        Que recherchez-vous ?
+                    </Typography>
 
-            <div className="site-map__block">
-                <Link to="/attractions" className="site-map__link">Les attractions</Link>
-                <ul className="site-map__sub-links">
-                    <li><Link to="/attractions/rollercoaster" className="site-map__sub-link">Rollercoaster</Link></li>
-                    <li><Link to="/attractions/restaurant" className="site-map__sub-link">Restaurant</Link></li>
-                    <li><Link to="/attractions/experience-immersive" className="site-map__sub-link">Expérience immersive</Link></li>
-                </ul>
-            </div>
-            
-            <div className="site-map__block">
-                <Link to="/le-parc" className="site-map__link">Le parc</Link>
-                <ul className="site-map__sub-links">
-                    <li><Link to="/le-parc#presentation" className="site-map__sub-link">Présentation</Link></li> 
-                    <li><Link to="/le-parc#plan-du-parc" className="site-map__sub-link">Plan du parc</Link></li>
-                </ul>
-            </div>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/attractions">
+                                Les attractions
+                            </Link>
+                        </Typography>
+                        <List>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/attractions/rollercoaster">
+                                    Rollercoasters
+                                </Link>
+                            </ListItem>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/attractions/restaurant">
+                                    Restaurants
+                                </Link>
+                            </ListItem>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/attractions/experience-immersive">
+                                    Expériences immersives
+                                </Link>
+                            </ListItem>
+                        </List>
+                    </Box>
 
-            <div className="site-map__block">
-                <Link to="/infos-pratiques" className="site-map__link">Infos pratiques</Link>
-                <ul className="site-map__sub-links">
-                    <li><Link to="/infos-pratiques#tarifs" className="site-map__sub-link">Les tarifs</Link></li> 
-                    <li><Link to="/infos-pratiques#hotel" className="site-map__sub-link">L'hôtel</Link></li>
-                    <li><Link to="/infos-pratiques#itineraire" className="site-map__sub-link">Venir au parc</Link></li>
-                </ul>
-            </div>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/le-parc">
+                                Le parc
+                            </Link>
+                        </Typography>
+                        <List>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/le-parc#presentation">
+                                    Présentation
+                                </Link>
+                            </ListItem>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/le-parc#plan-du-parc">
+                                    Plan du parc
+                                </Link>
+                            </ListItem>
+                        </List>
+                    </Box>
 
-            <div className="site-map__block">
-                <Link to="/inscription" className="site-map__link">Inscription</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/connexion" className="site-map__link">Connexion</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/profil" className="site-map__link">Profil</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/reservation" className="site-map__link">Réservation</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/paiement" className="site-map__link">Paiement</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/contact" className="site-map__link">Contact</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/cgv" className="site-map__link">Les conditions générales de vente</Link>
-            </div>
-
-            <div className="site-map__block">
-                <Link to="/mentions-legales" className="site-map__link">Mentions Légales</Link>
-            </div>
-        </section>
-       </main>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/infos-pratiques">
+                                Infos pratiques
+                            </Link>
+                        </Typography>
+                        <List>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/infos-pratiques#tarifs">
+                                    Les tarifs
+                                </Link>
+                            </ListItem>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/infos-pratiques#hotel">
+                                    L'hôtel
+                                </Link>
+                            </ListItem>
+                            <ListItem>
+                                <Link sx={{ color: 'white' }} component={RouterLink} to="/infos-pratiques#itineraire">
+                                    Venir au parc
+                                </Link>
+                            </ListItem>
+                        </List>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/inscription">
+                                Inscription
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/connexion">
+                                Connexion
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/profil">
+                                Profil
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/reservation">
+                                Réservation
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/contact">
+                                Contact
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/cgv">
+                                Conditions générales de vente
+                            </Link>
+                        </Typography>
+                    </Box>
+                    <Box sx={{ mb: 4 }}>
+                        <Typography>
+                            <Link sx={{ color: 'white' }} component={RouterLink} to="/mentions-legales">
+                                Mentions légales
+                            </Link>
+                        </Typography>
+                    </Box>
+                </Box>
+            </Container>
+        </main>
     );
 };
 
