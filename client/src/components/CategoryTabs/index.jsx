@@ -2,7 +2,7 @@ import React, { useEffect, useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import API_URL from '../../config.js';
-import { Box, Button, MenuItem, Select, useMediaQuery } from '@mui/material';
+import { Box, Button, MenuItem, Select, useMediaQuery, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
 const CategoryButton = styled(Button)(({ theme }) => ({
@@ -164,21 +164,26 @@ const CategoryTabs = () => {
                     </StyledSelect>
                 </CenteredBox>
             ) : (
-                <>
-                    <CategoryButton variant="contained" value={"all"} onClick={handleClick}>
-                        Toutes les attractions
-                    </CategoryButton>
-                    {categories.map((category) => (
-                        <CategoryButton
-                            variant="contained"
-                            onClick={handleClick}
-                            key={category.id}
-                            value={category.slug}
-                        >
-                            {category.name}
-                        </CategoryButton>
-                    ))}
-                </>
+                <CenteredBox>
+                    <Grid container spacing={2} justifyContent="center">
+                        <Grid item>
+                            <CategoryButton variant="contained" value={"all"} onClick={handleClick}>
+                                Toutes les attractions
+                            </CategoryButton>
+                        </Grid>
+                        {categories.map((category) => (
+                            <Grid item key={category.id}>
+                                <CategoryButton
+                                    variant="contained"
+                                    onClick={handleClick}
+                                    value={category.slug}
+                                >
+                                    {category.name}
+                                </CategoryButton>
+                            </Grid>
+                        ))}
+                    </Grid>
+                </CenteredBox>
             )}
         </Box>
     );
