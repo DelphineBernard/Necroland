@@ -4,7 +4,16 @@ import { Context } from "../Context";
 import slugify from 'slugify';
 import API_URL from '../../config.js';
 import { styled } from '@mui/system';
+import { Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
+
+const StyledFormContainer = styled('div')({
+    position: 'relative',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column', // Adjust to column
+    alignItems: 'center',
+});
 
 const StyledForm = styled('form')(({ theme }) => ({
     display: 'flex',
@@ -12,9 +21,10 @@ const StyledForm = styled('form')(({ theme }) => ({
     borderRadius: '30px',
     backgroundColor: 'var(--dark_gray)',
     borderColor: 'white',
-    padding: '3px 12px',
+    padding: '0',
     border: '2px solid white',
     width: '100%',
+    maxWidth: '600px',
     '@media (min-width: 600px)': {
         width: '50%',
     },
@@ -29,6 +39,7 @@ const StyledForm = styled('form')(({ theme }) => ({
         color: 'white',
         padding: '8px 12px',
         fontSize: '1rem',
+        borderRadius: '30px',
     },
     '& .search-icon': {
         border: 'none',
@@ -47,37 +58,39 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
     listStyle: 'none',
     margin: 0,
     padding: '0',
-    backgroundColor: 'var(--dark_gray)',
+    backgroundColor: '#181717',
     border: '2px solid white',
-    marginTop: '8px',
-    maxHeight: '140px', // Limit the height to 3 items (approximately 150px)
-    overflow: 'auto', // Add scroll bar if content exceeds maxHeight
+    position: 'relative',
+    top: '8px', // Adjust the position slightly below the form
+    left: 0,
+    maxHeight: '140px',
+    overflow: 'auto',
     width: '100%',
+    maxWidth: '600px',
     '@media (min-width: 600px)': {
         width: '50%',
     },
     '@media (min-width: 960px)': {
         width: '40%',
     },
+    zIndex: 1000,
     '& li': {
         padding: '8px 12px',
         color: 'white',
         cursor: 'pointer',
-        margin: '0 10px',
         '&:hover': {
             backgroundColor: 'white',
             color: 'black',
             borderRadius: '30px'
         }
     },
-    /* Custom scrollbar styles */
     '&::-webkit-scrollbar': {
         width: '12px',
     },
     '&::-webkit-scrollbar-thumb': {
         backgroundColor: 'white',
         borderRadius: '10px',
-        border: '3px solid var(--dark_gray)', // Creates space around thumb
+        border: '3px solid var(--dark_gray)',
     },
     '&::-webkit-scrollbar-track': {
         backgroundColor: 'var(--dark_gray)',
@@ -98,12 +111,12 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
 }));
 
 const SearchForm = () => {
-    const navigate = useNavigate(); // Add useNavigate hook
+    const navigate = useNavigate();
     const { tags, setTags, setAttractions, tagSearched, setTagSearched, resetCategory } = useContext(Context);
     const [filteredTags, setFilteredTags] = useState([]);
-    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false); // State to track if suggestions are open
+    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
     const suggestionsRef = useRef(null);
-    const searchBarRef = useRef(null); // Add a reference for the global component
+    const searchBarRef = useRef(null);
 
     const fetchTags = async () => {
         try {
@@ -153,8 +166,8 @@ const SearchForm = () => {
             setFilteredTags(filtered);
             setIsSuggestionsOpen(true);
         } else {
-            setFilteredTags(tags); // Show all tags if the input is empty
-            fetchAllAttractions(); // Reset to all attractions if the input is empty
+            setFilteredTags(tags);
+            fetchAllAttractions();
             setIsSuggestionsOpen(false);
         }
     };
@@ -173,9 +186,9 @@ const SearchForm = () => {
         if (isSuggestionsOpen) {
             setIsSuggestionsOpen(false);
         } else {
-            resetCategory(); // Reset category when the input is focused
-            setFilteredTags(tags); // Show all tags when input is focused
-            navigate('/attractions/'); // Navigate to /attractions/
+            resetCategory();
+            setFilteredTags(tags);
+            navigate('/attractions/');
             setIsSuggestionsOpen(true);
         }
     };
@@ -208,37 +221,38 @@ const SearchForm = () => {
         if (filteredTags.length > 0) {
             const timer = setTimeout(() => {
                 resetSearch();
-            }, 10000); // Close after 10 seconds
+            }, 10000);
             return () => clearTimeout(timer);
         }
     }, [filteredTags]);
 
     return (
-        <div className="searchBar" ref={searchBarRef}>
-            <StyledForm onSubmit={handleSearchByTag}>
-                
-                <input
-                    type="text"
-                    value={tagSearched}
-                    onChange={handleChange}
-                    onClick={handleClick} // Toggle suggestions open/close on click
-                    autoComplete="off"
-                    placeholder="Recherche par Tag"
-                />
-                <button type="submit" className="search-icon">
-                    <SearchIcon />
-                </button>
-            </StyledForm>
-            {isSuggestionsOpen && filteredTags.length > 0 && (
-                <StyledSuggestions ref={suggestionsRef}>
-                    {filteredTags.map((tag) => (
-                        <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
-                            {tag.name}
-                        </li>
-                    ))}
-                </StyledSuggestions>
-            )}
-        </div>
+        <Box display="flex" justifyContent="center" alignItems="center" width="100%" mt={2}>
+            <StyledFormContainer ref={searchBarRef}>
+                <StyledForm onSubmit={handleSearchByTag}>
+                    <input
+                        type="text"
+                        value={tagSearched}
+                        onChange={handleChange}
+                        onClick={handleClick}
+                        autoComplete="off"
+                        placeholder="Recherche par Tag"
+                    />
+                    <button type="submit" className="search-icon">
+                        <SearchIcon />
+                    </button>
+                </StyledForm>
+                {isSuggestionsOpen && filteredTags.length > 0 && (
+                    <StyledSuggestions ref={suggestionsRef}>
+                        {filteredTags.map((tag) => (
+                            <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
+                                {tag.name}
+                            </li>
+                        ))}
+                    </StyledSuggestions>
+                )}
+            </StyledFormContainer>
+        </Box>
     );
 }
 
