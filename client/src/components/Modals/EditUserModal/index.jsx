@@ -72,7 +72,20 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose 
                 justifyContent: 'center'
             }}
         >
-            <Box sx={{ width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+            <Box
+                sx={{
+                    width: '90%',
+                    maxWidth: 400,
+                    maxHeight: '85vh',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    overflow: 'auto',
+                    '@media (min-width:600px)': {
+                        width: 400,
+                    }
+                }}
+            >
                 <Typography sx={{ color: 'black' }} gutterBottom>
                     Modifier le membre
                 </Typography>

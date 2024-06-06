@@ -39,8 +39,8 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
     };
 
     return (
-        <Modal 
-            open={isOpen} 
+        <Modal
+            open={isOpen}
             onClose={onRequestClose}
             style={{
                 display: 'flex',
@@ -48,14 +48,27 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
                 justifyContent: 'center'
             }}
         >
-            <Box sx={{ width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+            <Box
+                sx={{
+                    width: '90%',
+                    maxWidth: 400,
+                    maxHeight: '85vh',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    overflow: 'auto',
+                    '@media (min-width:600px)': {
+                        width: 400,
+                    }
+                }}
+            >
                 <Typography sx={{ color: 'black' }} gutterBottom>
                     Ajouter un membre
                 </Typography>
                 <form onSubmit={handleSubmit}>
                     {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity="success">{successMessage}</Alert>}
                     {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity="error">{errorMessage}</Alert>}
-                    <Typography sx={{ color: 'gray', mb: 2}}>Tous les champs sont obligatoires.</Typography>
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
                     <TextField sx={{ mb: 2 }} fullWidth label="Adresse e-mail" name="email" type="email" required />
                     <TextField sx={{ mb: 2 }} fullWidth label="Mot de passe" name="password" type="password" required />
                     <TextField sx={{ mb: 2 }} fullWidth label="Nom" name="lastname" required />
