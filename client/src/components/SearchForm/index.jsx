@@ -6,7 +6,6 @@ import API_URL from '../../config.js';
 import { styled } from '@mui/system';
 import SearchIcon from '@mui/icons-material/Search';
 
-
 const StyledForm = styled('form')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -16,6 +15,12 @@ const StyledForm = styled('form')(({ theme }) => ({
     padding: '3px 12px',
     border: '2px solid white',
     width: '100%',
+    '@media (min-width: 600px)': {
+        width: '50%',
+    },
+    '@media (min-width: 960px)': {
+        width: '40%',
+    },
     '& input': {
         flex: 1,
         border: 'none',
@@ -43,11 +48,17 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
     margin: 0,
     padding: '0',
     backgroundColor: 'var(--dark_gray)',
-    borderRadius: '30px',
     border: '2px solid white',
     marginTop: '8px',
     maxHeight: '140px', // Limit the height to 3 items (approximately 150px)
     overflow: 'auto', // Add scroll bar if content exceeds maxHeight
+    width: '100%',
+    '@media (min-width: 600px)': {
+        width: '50%',
+    },
+    '@media (min-width: 960px)': {
+        width: '40%',
+    },
     '& li': {
         padding: '8px 12px',
         color: 'white',
@@ -91,7 +102,6 @@ const SearchForm = () => {
     const { tags, setTags, setAttractions, tagSearched, setTagSearched, resetCategory } = useContext(Context);
     const [filteredTags, setFilteredTags] = useState([]);
     const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false); // State to track if suggestions are open
-    const searchInputRef = useRef(null);
     const suggestionsRef = useRef(null);
     const searchBarRef = useRef(null); // Add a reference for the global component
 
@@ -206,13 +216,14 @@ const SearchForm = () => {
     return (
         <div className="searchBar" ref={searchBarRef}>
             <StyledForm onSubmit={handleSearchByTag}>
-                <label className="sr-only" htmlFor="tag">Recherche par tag</label>
+                
                 <input
                     type="text"
                     value={tagSearched}
                     onChange={handleChange}
                     onClick={handleClick} // Toggle suggestions open/close on click
                     autoComplete="off"
+                    placeholder="Recherche par Tag"
                 />
                 <button type="submit" className="search-icon">
                     <SearchIcon />

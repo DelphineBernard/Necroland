@@ -56,7 +56,7 @@ const Attractions = () => {
                 <img src={Alerte} alt="Alerte" />
                 <p>Le parc est interdit au moins de 16 ans</p>
             </div>
-            <div>
+            <div className="Filter">
                 <CategoryTabs />
                 <SearchForm />
             </div>
