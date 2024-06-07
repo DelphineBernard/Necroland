@@ -1,11 +1,11 @@
 @use '../scss/var';
 
 @font-face {
-    font-family: 'Gotham';
-    src: 
-        url('../fonts/gotham.ttf') format('truetype'),
-        url('../fonts/gotham.woff2') format('woff2'),
-        url('../fonts/gotham.woff') format('woff');
+  font-family: 'Gotham';
+  src:
+    url('../fonts/gotham.ttf') format('truetype'),
+    url('../fonts/gotham.woff2') format('woff2'),
+    url('../fonts/gotham.woff') format('woff');
 }
 
 p, h1, h2, h3, span, a, li {
@@ -31,23 +31,23 @@ main {
 }
 
 .form {
-    width: 80%;
+  width: 80%;
 }
 
 img {
-    max-width: 100%;
+  max-width: 100%;
 }
 
 .hidden {
-    display: none;
+  display: none;
 }
 
 input {
-    color: black;
+  color: black;
 }
 
 button {
-    color: black;
+  color: black;
 }
 
 .text-illustration {

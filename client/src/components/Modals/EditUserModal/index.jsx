@@ -1,7 +1,6 @@
-import Modal from 'react-modal';
 import { useState, useEffect } from 'react';
 import API_URL from '../../../config.js';
-import { Alert } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose }) => {
 
@@ -13,9 +12,23 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose 
         setFormData(initialValues);
     }, [initialValues]);
 
+    const fieldMapping = {
+        email: 'email',
+        password: 'password',
+        lastname: 'lastname',
+        firstname: 'firstname',
+        address: 'address',
+        postalCode: 'postal_code',
+        city: 'city',
+        country: 'country',
+        role_id: 'role_id',
+    };
+
     const handleChange = (event) => {
         const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
+        const mappedName = fieldMapping[name];
+        // We map to convert the form field names to corresponding property names in the formData object
+        setFormData({ ...formData, [mappedName]: value });
     };
 
     const handleSubmit = async (event) => {
@@ -33,6 +46,7 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose 
             });
 
             const result = await response.json();
+            console.log("Formdata", formData)
 
             if (response.ok) {
                 setSuccessMessage(result.message);
@@ -45,117 +59,140 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose 
 
         } catch (error) {
             console.error('Erreur:', error);
-            console.log(formData)
         }
     };
 
     return (
         <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            open={isOpen}
+            onClose={onRequestClose}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
-                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
-                <p>* Champs obligatoires</p>
-                <div>
-                    <label htmlFor="email">Adresse e-mail *</label>
-                    <input
-                        type="email"
+            <Box
+                sx={{
+                    width: '90%',
+                    maxWidth: 400,
+                    maxHeight: '85vh',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    overflow: 'auto',
+                    '@media (min-width:600px)': {
+                        width: 400,
+                    }
+                }}
+            >
+                <Typography sx={{ color: 'black' }} gutterBottom>
+                    Modifier le membre
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='success'>{successMessage}</Alert>}
+                    {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='error'>{errorMessage}</Alert>}
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
+                    <TextField
+                        fullWidth
+                        label="Adresse e-mail"
                         name="email"
-                        id="email"
+                        type="email"
                         value={formData.email}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="password">Mot de passe *</label>
-                    <p>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</p>
-                    <input
-                        type="password"
+                    <Typography sx={{ mb: '1rem', color: 'black' }}>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</Typography>
+                    <TextField
+                        fullWidth
+                        label="Mot de passe"
                         name="password"
-                        id="password"
+                        type="password"
                         value={formData.password}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="lastname">Nom *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Nom"
                         name="lastname"
-                        id="lastname"
+                        type="text"
                         value={formData.lastname}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="firstname">Prénom *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Prénom"
                         name="firstname"
-                        id="firstname"
+                        type="text"
                         value={formData.firstname}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="address">Adresse *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Adresse"
                         name="address"
-                        id="address"
+                        type="text"
                         value={formData.address}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="postalCode">Code postal *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Code postal"
                         name="postalCode"
-                        id="postalCode"
+                        type="text"
                         value={formData.postal_code}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="city">Ville *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Ville"
                         name="city"
-                        id="city"
+                        type="text"
                         value={formData.city}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="country">Pays *</label>
-                    <input
-                        type="text"
+                    <TextField
+                        fullWidth
+                        label="Pays"
                         name="country"
-                        id="country"
+                        type="text"
                         value={formData.country}
                         onChange={handleChange}
                         required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="role_id">Role *</label>
-                    <select name="role_id" id="role_id" required value={formData.role_id} onChange={handleChange}>
-                        <option value="1">Membre</option>
-                        <option value="2">Administrateur</option>
-                    </select>
-                </div>
-                <button type="submit">Modifier les informations</button>
-            </form>
+                    <FormControl fullWidth variant='filled'>
+                        <InputLabel>Rôle</InputLabel>
+                        <Select
+                            name="role_id"
+                            value={formData.role_id}
+                            onChange={handleChange}
+                            required
+                        >
+                            <MenuItem sx={{ color: 'black' }} value="1">Membre</MenuItem>
+                            <MenuItem sx={{ color: 'black' }} value="2">Administrateur</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                            Modifier le membre
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
         </Modal>
     )
 }

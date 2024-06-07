@@ -1,9 +1,8 @@
-import Modal from 'react-modal';
 import { useState, useEffect, useContext } from 'react';
 import { Context } from '../../Context/index.jsx';
 import formatDate from '../../../utils/dateUtils.js';
 import API_URL from '../../../config.js';
-import { Alert } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialValues, onClose }) => {
 
@@ -76,7 +75,7 @@ const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialVa
             setStartDate(value);
         }
     };
-    
+
     useEffect(() => {
         setFormData(initialValues);
         const initialDuration = calculateDuration(initialValues.start_date, initialValues.end_date);
@@ -133,71 +132,85 @@ const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialVa
 
     return (
         <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            open={isOpen}
+            onClose={onRequestClose}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <Alert variant='filled' severity='success'>{successMessage}</Alert>}
-                {errorMessage && <Alert variant='filled' severity='error'>{errorMessage}</Alert>}
-                <p>Tous les champs sont obligatoires.</p>
-                <div>
-                    <label htmlFor="duration">Durée du séjour</label>
-                    <select
-                        name="duration"
-                        id="duration"
-                        value={durationSelected}
-                        onChange={handleDurationChange}
-                    >
-                        {hotelSelected !== "true" && <option value="1">1 jour</option>}
-                        <option value="2">2 jours</option>
-                        <option value="3">3 jours</option>
-                        <option value="4">4 jours</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="hotel">Hôtel</label>
-                    <select
-                        name="hotel"
-                        id="hotel"
-                        value={hotelSelected}
-                        onChange={handleHotelChange}
-                    >
-                        {durationSelected !== "1" && <option value="true">Avec hôtel</option>}
-                        <option value="false">Sans hôtel</option>
-                    </select>
-                </div>
-                <div>
-                    <label htmlFor="nb_people">Nombre de personnes</label>
-                    <input
-                        type="number"
+            <Box sx={{ width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+                <Typography sx={{ color: 'black' }} gutterBottom>
+                    Modifier une réservation
+                </Typography>
+                <form method="post" onSubmit={handleSubmit}>
+                    {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='success'>{successMessage}</Alert>}
+                    {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='error'>{errorMessage}</Alert>}
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
+                    <FormControl fullWidth required variant='filled'>
+                        <InputLabel>Durée du séjour</InputLabel>
+                        <Select
+                            name="duration"
+                            value={durationSelected}
+                            onChange={handleDurationChange}
+                            sx={{ mb: 2 }}
+                        >
+                            {hotelSelected !== "true" && <MenuItem sx={{ color: 'black' }} value="1">1 jour</MenuItem>}
+                            <MenuItem sx={{ color: 'black' }} value="2">2 jours</MenuItem>
+                            <MenuItem sx={{ color: 'black' }} value="3">3 jours</MenuItem>
+                            <MenuItem sx={{ color: 'black' }} value="4">4 jours</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <FormControl fullWidth required variant='filled'>
+                        <InputLabel>Hôtel</InputLabel>
+                        <Select
+                            name="hotel"
+                            value={hotelSelected}
+                            onChange={handleHotelChange}
+                            sx={{ mb: 2 }}
+                        >
+                            {durationSelected !== "1" && <MenuItem sx={{ color: 'black' }} value="true">Avec hôtel</MenuItem>}
+                            <MenuItem sx={{ color: 'black' }} value="false">Sans hôtel</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <TextField
+                        fullWidth
+                        label="Nombre de personnes"
                         name="nb_people"
-                        id="nb-people"
-                        min={1}
+                        type="number"
                         value={nbPeopleSelected}
                         onChange={handleChange}
+                        required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="start_date">Date de début</label>
-                    <input 
-                        type="date" 
-                        name="start_date" 
-                        value={startDate} 
-                        onChange={handleChange} 
+                    <TextField
+                        fullWidth
+                        label="Date de début"
+                        name="start_date"
+                        type="date"
+                        value={startDate}
+                        onChange={handleChange}
+                        required
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <div>
-                    <label htmlFor="end_date">Date de fin</label>
-                    <input 
-                        type="date" 
-                        name="end_date" 
-                        value={endDate} 
-                        readOnly 
+                    <TextField
+                        fullWidth
+                        label="Date de fin"
+                        name="end_date"
+                        type="date"
+                        value={endDate}
+                        readOnly
+                        sx={{ mb: 2 }}
                     />
-                </div>
-                <p>Prix total : {totalPrice} € TTC</p>
-                <button type="submit">Modifier les informations</button>
-            </form>
+                    <Typography sx={{ color: 'black', fontWeight: 'bold' }}>Prix total : {totalPrice} € TTC</Typography>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                            Modifier la réservation
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
         </Modal>
     )
 }
