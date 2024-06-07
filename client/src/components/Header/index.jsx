@@ -1,8 +1,8 @@
 import { Link } from "react-router-dom";
-import Logo from "../../assets/img/logo.png";
-import Avatar from "../../assets/icons/avatar.png";
-import Banner from "../../assets/img/banner3.jpg";
-import Menu from "../../assets/icons/menu.png";
+import Logo from "../../assets/img/logo.webp";
+import Avatar from "../../assets/icons/avatar.webp";
+import Banner from "../../assets/img/banner.webp";
+import Menu from "../../assets/icons/menu.webp";
 import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from "react";
 import LogoutButton from "../LogoutButton";
@@ -42,8 +42,8 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="nav">
-        <a href="#" onClick={toggleMenu}>
-          <img className="nav__icon nav__icon-menu" src={Menu} alt="" />
+        <a href="#" onClick={toggleMenu} title={"Ouvrir le menu"}>
+          <img className="nav__icon nav__icon-menu" src={Menu} alt="Ouvrir le menu" />
         </a>
         <Link className="logo" to={"/"} title={"Retour à l'accueil"}>
           <img src={Logo} alt="Necroland" />
@@ -60,11 +60,11 @@ const Header = () => {
         <div className="nav__links_icons">
           {isAuthenticated ? (
             <Link className="nav__links_item" to={"profil"}>
-              <img className="nav__icon" src={Avatar} alt="" />
+              <img className="nav__icon" src={Avatar} alt="Accéder au profil" />
             </Link>
           ) : (
             <Link className="nav__links_item" to={"connexion"}>
-              <img className="nav__icon" src={Avatar} alt="" />
+              <img className="nav__icon" src={Avatar} alt="Se connecter" />
             </Link>
           )}
           {isAuthenticated && <LogoutButton />}

@@ -1,4 +1,4 @@
-import rollercoaster from "../../assets/img/rollercoaster.png"
+import rollercoaster from "../../assets/img/rollercoaster.webp"
 
 const Card = ({name, img, description, category}) => {
     return (
