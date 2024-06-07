@@ -191,6 +191,26 @@ const theme = createTheme({
         span: {
             fontWeight: "600",
         },
+        spanItalic: {
+            fontWeight: "800",
+            fontStyle: "italic",
+            textTransform: "uppercase",
+        },
+        spanUppercase: {
+            textTransform: "uppercase",
+            fontWeight: "800",
+            padding: "2rem 0",
+
+            '@media (max-width:1280px)': {
+                fontSize: '2.5rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '1.8rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.5rem',
+            },
+        }
     },
     components: {
         MuiListItem: {
@@ -226,6 +246,13 @@ const theme = createTheme({
                     '&:hover': {
                         backgroundColor: red[600],
                         color: 'white',
+                    },
+                    '& a': {
+                        textDecoration: 'none',
+                        color: 'inherit',
+                    },
+                      '& a:hover': {
+                        textDecoration: 'none',
                     },
                 },
             },
