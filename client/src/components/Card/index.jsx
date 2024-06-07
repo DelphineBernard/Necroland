@@ -6,7 +6,7 @@ import rollercoaster from "../../assets/img/rollercoaster.png";
 const StyledCard = styled(Box)(({ theme }) => ({
     width: '100%',
     marginTop: '3rem',
-    marginBottom:'2rem',
+    marginBottom:'3rem',
     padding: '16px',
     paddingTop: '0',
     backgroundColor: '#3f3f3f',

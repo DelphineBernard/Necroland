@@ -6,7 +6,8 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
+import 'swiper/components/effect-coverflow/effect-coverflow.min.css'; // Correct import path for effect-coverflow
+
 import { styled } from '@mui/system';
 import Alerte from "../../assets/icons/alerte.png";
 import Card from "../../components/Card";
@@ -70,6 +71,8 @@ const Attractions = () => {
         }
     };
 
+    const middleSlideIndex = Math.floor(attractions.length / 2); // Dynamically calculate the middle slide index
+
     return (
         <main>
             <AlertSection>
@@ -85,10 +88,12 @@ const Attractions = () => {
         
                 <Swiper
                     ref={swiperRef}
-                    effect={'coverflow'}
+                    effect="coverflow"
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView={'auto'}
+                    slidesPerView="auto"
+                    initialSlide={middleSlideIndex}
+                    loop={true}
                     coverflowEffect={{
                         rotate: 50,
                         stretch: 0,
@@ -102,7 +107,7 @@ const Attractions = () => {
                     }}
                     navigation
                     pagination={{ clickable: true }}
-                    className="mySwiper"  // Ajoutez cette classe
+                    className="mySwiper"
                     breakpoints={{
                         320: {
                             slidesPerView: 1, // Mobile
