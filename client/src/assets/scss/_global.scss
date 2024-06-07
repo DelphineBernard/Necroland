@@ -59,7 +59,7 @@ button {
 .mySwiper {
     width: 100%;
     height: 100%;
-    padding: 42px;
+    
   }
   
   .swiper-slide {
@@ -96,8 +96,7 @@ button {
 
   @media (max-width: 640px) {
     .swiper-button-next,
-    .swiper-button-prev,
-    .swiper-pagination {
+    .swiper-button-prev {
         display: none !important;
     }
 

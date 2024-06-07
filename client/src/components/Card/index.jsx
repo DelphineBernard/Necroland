@@ -5,8 +5,10 @@ import rollercoaster from "../../assets/img/rollercoaster.png";
 
 const StyledCard = styled(Box)(({ theme }) => ({
     width: '100%',
-    margin: '0 auto',
+    marginTop: '3rem',
+    marginBottom:'2rem',
     padding: '16px',
+    paddingTop: '0',
     backgroundColor: '#3f3f3f',
     boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
     borderRadius: '8px',
@@ -22,11 +24,10 @@ const StyledCard = styled(Box)(({ theme }) => ({
 
 const StyledImageContainer = styled(Box)({
     position: 'relative',
-    width: 'calc(100% + 64px)', // Further increase the width to create more overflow effect
-    margin: '-32px 0 16px -32px', // Adjust the margin to position the image correctly
+    width: '100%',
     overflow: 'hidden',
-    borderTopLeftRadius: '8px',
-    borderTopRightRadius: '8px',
+    paddingBottom: '16px',
+   
 });
 
 const StyledImage = styled('img')({
@@ -38,7 +39,6 @@ const StyledImage = styled('img')({
 const StyledTypography = styled(Typography)({
     textAlign: 'center',
     margin: '16px 0',
-    
 });
 
 const StyledDescription = styled(Typography)({
@@ -50,20 +50,38 @@ const StyledDescription = styled(Typography)({
     fontSize: '14px',
 });
 
+const DescriptionContainer = styled(Box)({
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'space-between',
+    height: '100%', // Ensure it fills the remaining space in the card
+});
+
+const ButtonContainer = styled(Box)({
+    display: 'flex',
+    justifyContent: 'flex-end',
+});
+
 const Card = ({ name, img, description, category }) => {
     return (
         <StyledCard>
+            
+            <StyledTypography variant="h3">{name}</StyledTypography>
+            <DescriptionContainer>
             <StyledImageContainer>
                 <StyledImage src={rollercoaster} alt={name} />
             </StyledImageContainer>
-            <StyledTypography variant="h3">{name}</StyledTypography>
-            <Box>
-                <StyledDescription variant="body1">{description}</StyledDescription>
-                <StyledDescription variant="body2">{category}</StyledDescription>
-                <Button variant="contained" color="primary">Plus de photos</Button>
-            </Box>
+                <Box>
+                    <StyledDescription variant="body1">{description}</StyledDescription>
+                    <StyledDescription variant="body2">{category}</StyledDescription>
+                </Box>
+                <ButtonContainer>
+                    <Button variant="contained" color="primary">Plus de photos</Button>
+                </ButtonContainer>
+            </DescriptionContainer>
         </StyledCard>
     );
 };
 
 export default Card;
+
