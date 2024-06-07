@@ -1,8 +1,8 @@
-import Plan from "../../assets/img/plan-du-parc.png";
-import Securite from "../../assets/img/securite.jpg";
-import Horreur from "../../assets/img/horreur-epique.jpg";
-import Spectacles from "../../assets/img/spectacles.jpg";
-import rollercoaster from "../../assets/img/rollercoaster.png";
+import Plan from "../../assets/img/plan-du-parc.webp";
+import Securite from "../../assets/img/securite.webp";
+import Horreur from "../../assets/img/horreur-epique.webp";
+import Spectacles from "../../assets/img/spectacles.webp";
+import rollercoaster from "../../assets/img/rollercoaster.webp";
 import { Grid, Card, CardMedia, CardContent, Typography, Box, Container, useMediaQuery } from '@mui/material';
 import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import { useLocation } from 'react-router-dom';

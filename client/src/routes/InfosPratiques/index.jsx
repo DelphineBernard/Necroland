@@ -10,7 +10,7 @@ import voiture from "../../assets/icons/voiture.png";
 import fleche from "../../assets/icons/fleche.png";
 import telephone from "../../assets/icons/telephone.png";
 import { Icon } from "leaflet";
-import logo from "../../assets/img/logo.png";
+import logo from "../../assets/img/logo.webp";
 import API_URL from '../../config.js';
 
 

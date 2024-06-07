@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { logout } from '../../actions/authActions';
-import Deconnexion from '../../assets/icons/deconnexion.png';
+import Deconnexion from '../../assets/icons/deconnexion.webp';
 import { useNavigate } from 'react-router-dom';
 
 const LogoutButton = () => {
@@ -18,7 +18,7 @@ const LogoutButton = () => {
             onClick={deconnect}
             style={{ backgroundColor: 'transparent', border: 'none', cursor: 'pointer' }}
         >
-            <img className="nav__icon" src={Deconnexion} alt="" />
+            <img className="nav__icon" src={Deconnexion} alt="Se déconnecter" />
         </button>
     )
 }
