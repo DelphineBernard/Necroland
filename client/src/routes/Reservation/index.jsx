@@ -85,9 +85,9 @@ const Reservation = () => {
     const handleKeyDown = (event) => {
         const key = event.key;
         if (!/[0-9]/.test(key) && key !== 'Backspace' && key !== 'Delete' && key !== 'ArrowLeft' && key !== 'ArrowRight') {
-          event.preventDefault();
+            event.preventDefault();
         }
-      };
+    };
 
     const handleDurationChange = (event) => {
         setDurationSelected(event.target.value)
@@ -164,7 +164,7 @@ const Reservation = () => {
             <form method="post" onSubmit={handleSubmit}>
                 <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', rowGap: '1rem', width: '100%', color: 'white' }}>
 
-{/* ------------------------- Input Hotel --------------------------- */}
+                    {/* ------------------------- Input Hotel --------------------------- */}
                     <FormControl component="fieldset">
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
@@ -177,7 +177,7 @@ const Reservation = () => {
                         </RadioGroup>
                     </FormControl>
 
-{/* --------------------- Input number of people ---------------------- */}
+                    {/* --------------------- Input number of people ---------------------- */}
                     <FormControl component="fieldset" sx={{ display: 'flex' }}>
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white" }} component="label">
@@ -197,12 +197,12 @@ const Reservation = () => {
                             value={nbPeopleSelected}
                             onChange={handleNbPeopleChange}
                             onKeyDown={handleKeyDown}
-                            inputProps={{ min: 1}}
+                            inputProps={{ min: 1 }}
                             defaultValue={1}
                         />
                     </FormControl>
 
-{/* -------------------------- Input duration ----------------------- */}
+                    {/* -------------------------- Input duration ----------------------- */}
                     <FormControl component="fieldset" >
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white", '&.Mui-focused': { color: 'white' } }} component="legend">
@@ -219,7 +219,7 @@ const Reservation = () => {
                         </RadioGroup>
                     </FormControl>
 
-{/*  ---------------------- Input dates ------------------------------ */}
+                    {/*  ---------------------- Input dates ------------------------------ */}
                     <FormControl component="fieldset">
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white" }} component="legend">
@@ -247,8 +247,8 @@ const Reservation = () => {
                         </Box>
                     </FormControl>
 
-{/* ------------------- Resume selection ---------------------------- */}
-                    <Box sx={{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
+                    {/* ------------------- Resume selection ---------------------------- */}
+                    <Box sx={{ width: '100%', alignSelf:"center", p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
                         <Typography variant="h2">Votre sélection</Typography>
                         {/* If hotel and duration are not selected */}
                         {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
@@ -301,9 +301,9 @@ const Reservation = () => {
                             </List>}
                     </Box>
 
-{/* --------------------------Checkbox CGV ------------------------- */}
+                    {/* --------------------------Checkbox CGV ------------------------- */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
-                        <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
+                        <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} sx={{ color: "white"}}/>
                         <FormLabel htmlFor="cgv"> <a href="/cgv" target="_blank">J'accepte les conditions générales de vente</a>.</FormLabel>
                     </Box>
 

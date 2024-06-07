@@ -8,8 +8,8 @@
     url('../fonts/gotham.woff') format('woff');
 }
 
-* {
-  color: var.$color_white;
+p, h1, h2, h3, span, a, li {
+    color: var.$color_white;
 }
 
 main {
@@ -27,6 +27,7 @@ main {
   flex-direction: column;
   align-items: center;
   justify-content: stretch;
+  text-align: center;
 }
 
 .form {
@@ -49,6 +50,71 @@ button {
   color: black;
 }
 
+.text-illustration {
+  width: 20%;
+}
+
+// Zombie animation
+
+.anim-translate {
+  display: inline-block;
+  transform: translateX(0) scaleX(-1);
+  animation: move 3s ease-in-out 2;
+}
+
+@keyframes move {
+  0% {
+    transform: translateX(0) scaleX(-1);
+  }
+  50% {
+    transform: translateX(-10vw) scaleX(-1);
+  }
+  50.01% {
+    transform: translateX(-10vw) scaleX(1);
+  }
+  100% {
+    transform: translateX(0) scaleX(1);
+  } 
+}
+
+// Zombie-hand animation
+
+.anim-appear {
+  animation: shake 0.5s ease-in-out 5;
+  &:hover {
+    animation: shake 0.5s ease-in-out infinite;
+  }
+}
+
+@keyframes shake {
+  0% { transform: translate(1px, 1px) rotate(0deg); }
+  10% { transform: translate(-1px, -2px) rotate(-1deg); }
+  20% { transform: translate(-3px, 0px) rotate(1deg); }
+  30% { transform: translate(3px, 2px) rotate(0deg); }
+  40% { transform: translate(1px, -1px) rotate(1deg); }
+  50% { transform: translate(-1px, 2px) rotate(-1deg); }
+  60% { transform: translate(-3px, 1px) rotate(0deg); }
+  70% { transform: translate(3px, 1px) rotate(-1deg); }
+  80% { transform: translate(-1px, -1px) rotate(1deg); }
+  90% { transform: translate(1px, 2px) rotate(0deg); }
+  100% { transform: translate(1px, -2px) rotate(-1deg); }
+}
+
+// Grave animation
+
+.anim-fall {
+  animation: fall 3s ease-in-out forwards;
+}
+
+@keyframes fall {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
 .info {
   font-size: 0.8rem;
   font-style: italic;
@@ -56,50 +122,38 @@ button {
 }
 
 .mySwiper {
-  width: 100%;
-  height: 100%;
-  padding: 42px;
-}
-
-.swiper-slide {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.3s ease-in-out, z-index 0.3s;
-
-}
-
-.card-content {
-  width: 100%;
-  transition: transform 0.3s ease-in-out, z-index 0.3s;
-}
-
-/* Styles pour les flèches de navigation */
-.swiper-button-next,
-.swiper-button-prev {
-  color: white;
-  /* Change la couleur des flèches */
-  width: 50px;
-  /* Change la taille des flèches */
-  height: 50px;
-  /* Change la taille des flèches */
-}
-
-/* Styles pour les points de pagination */
-.swiper-pagination-bullet {
-  background: white;
-  /* Change la couleur des points de pagination */
-  width: 12px;
-  /* Change la taille des points de pagination */
-  height: 12px;
-  /* Change la taille des points de pagination */
-  opacity: 1;
-  /* Assure que les points sont complètement visibles */
-}
-
-.swiper-pagination-bullet-active {
-  background: white;
-  /* Assure que le point actif est également blanc */
-  opacity: 1;
-  /* Assure que le point actif est complètement visible */
-}
+    width: 100%;
+    height: 100%;
+    padding: 42px;
+  }
+  
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.3s ease-in-out, z-index 0.3s;
+  }
+  
+  .card-content {
+    width: 100%;
+    transition: transform 0.3s ease-in-out, z-index 0.3s;
+  }  
+  /* Styles pour les flèches de navigation */
+.swiper-button-next, .swiper-button-prev {
+    color: white; /* Change la couleur des flèches */
+    width: 50px; /* Change la taille des flèches */
+    height: 50px; /* Change la taille des flèches */
+  }
+  
+  /* Styles pour les points de pagination */
+  .swiper-pagination-bullet {
+    background: white; /* Change la couleur des points de pagination */
+    width: 12px; /* Change la taille des points de pagination */
+    height: 12px; /* Change la taille des points de pagination */
+    opacity: 1; /* Assure que les points sont complètement visibles */
+  }
+  
+  .swiper-pagination-bullet-active {
+    background: white; /* Assure que le point actif est également blanc */
+    opacity: 1; /* Assure que le point actif est complètement visible */
+  }
