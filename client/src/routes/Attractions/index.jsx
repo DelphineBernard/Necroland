@@ -7,7 +7,6 @@ import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css'; // Correct import path for effect-coverflow
-
 import { styled } from '@mui/system';
 import Alerte from "../../assets/icons/alerte.png";
 import Card from "../../components/Card";
