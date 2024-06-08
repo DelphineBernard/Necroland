@@ -252,6 +252,31 @@ const TableCellStyled = styled(TableCell)(({ theme }) => ({
       height: '20px',
     },
   }));  
+
+  const LogoImage = styled('img')({
+    width: '60px', // Taille réduite pour l'image
+    height: '60px', // Taille réduite pour l'image
+  });
+  
+  const PopupContent = styled(Box)(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'column',
+    textAlign: 'center',
+    width: '150px', // Taille par défaut pour les petits écrans
+    [theme.breakpoints.up('sm')]: {
+      width: '200px', // Taille pour les écrans moyens
+    },
+    [theme.breakpoints.up('md')]: {
+      width: '250px', // Taille pour les grands écrans
+    },
+  }));
+  
+  
+  const PopupText = styled(Typography)({
+    color: 'black', // Texte en noir
+  });
   
   
 
@@ -284,7 +309,7 @@ const InfosPratiques = () => {
   const markers = [
     {
       geocode: [48.38756, 3.08915], // définition de la position GPS du marqueur
-      popup: "Necroland 1 Rue des Frissons, 77170 La tombe",
+      popup: "1 Rue des Frissons, 77170 La tombe",
     },
   ];
 
@@ -424,12 +449,12 @@ const InfosPratiques = () => {
           <MapClickHandler />
           {markers.map(marker => (
             <Marker key={marker.geocode} position={marker.geocode} icon={customIcon}>
-              <Popup>
-                <div>
-                  <img src={logo} alt="logo" />
-                  <strong>{marker.popup}</strong>
-                </div>
-              </Popup>
+                <Popup>
+                  <PopupContent>
+                    <LogoImage src={logo} alt="logo" />
+                    <PopupText variant="body1">{marker.popup}</PopupText>
+                  </PopupContent>
+                </Popup>
             </Marker>
           ))}
         </MapContainer>
