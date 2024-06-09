@@ -3,7 +3,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMapEvents } from 'react-leaflet';
 import "leaflet/dist/leaflet.css";
 import { Icon } from "leaflet";
-import { Typography, Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Typography, Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
 import { red } from '@mui/material/colors';
 import Alerte from "../../assets/icons/alerte.png";
@@ -15,6 +15,14 @@ import telephone from "../../assets/icons/telephone.png";
 import logo from "../../assets/img/logo.png";
 import rollercoaster from "../../assets/img/rollercoaster.png";
 import API_URL from '../../config.js';
+import SwiperCore, { Pagination } from 'swiper';
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/swiper-bundle.min.css';
+import 'swiper/swiper.min.css';
+import 'swiper/components/navigation/navigation.min.css';
+import 'swiper/components/pagination/pagination.min.css';
+
+SwiperCore.use([Pagination]);
 
 const AlertSection = styled('div')({
   display: 'flex',
@@ -30,7 +38,7 @@ const AlertSection = styled('div')({
 });
 
 const PaperStyled = styled(Paper)({
-  padding: '30px',
+  padding: '16px',
   backgroundColor: 'transparent',
   color: '#fff',
   boxShadow: 'none',
@@ -71,7 +79,7 @@ const ResponsiveContainer = styled(Box)(({ theme }) => ({
     padding: "30px 80px",
   },
   [theme.breakpoints.up('lg')]: {
-    padding: "30px", // Ajustement pour les très grands écrans
+    padding: "60px", // Ajustement pour les très grands écrans
   },
 }));
 
@@ -130,7 +138,7 @@ const MapContainerWrapper = styled(Box)(({ theme }) => ({
   height: '300px',
   padding: '8px',
   [theme.breakpoints.up('sm')]: {
-    height: '400px',
+    height: '500px',
     padding: '50px',
   },
   [theme.breakpoints.up('md')]: {
@@ -300,8 +308,12 @@ const PopupText = styled(Typography)({
   color: 'black',
 });
 
+
+
 const InfosPratiques = () => {
   const [prices, setPrices] = useState([]);
+  const theme = useTheme();
+  const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md')); // Inclut les mobiles et les tablettes
 
   useEffect(() => {
     const fetchPrices = async () => {
@@ -332,7 +344,7 @@ const InfosPratiques = () => {
 
   const customIcon = new Icon({
     iconUrl: require("../../assets/icons/markerIcon.png"),
-    iconSize: [38, 38]
+    iconSize: [38, 38],
   });
 
   const MapClickHandler = () => {
@@ -373,15 +385,15 @@ const InfosPratiques = () => {
       </Typography>
 
       <Box py={4} textAlign="center">
-        <Typography variant="h2" gutterBottom>
+        <Typography variant="h2" gutterBottom padding='20px'>
           Des tarifs tout aussi surprenants
         </Typography>
         <Box mt={2} textAlign="center">
-          <Button variant="contained" color="primary" padding="40px">
+          <Button variant="contained" color="primary" padding="60px">
             <LinkStyled to="/reservation">Réserver</LinkStyled>
           </Button>
         </Box>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" paddingTop='20px'>
           <Grid item xs={12} md={8}>
             <Grid container spacing={2}>
               <Grid item xs={12} md={6}>
@@ -440,23 +452,49 @@ const InfosPratiques = () => {
           Notre Hôtel
         </Typography>
         <ResponsiveContainer>
-            <ResponsiveBox>
-              <p>
-                Nos chambres, conçues avec un souci du détail morbide, offrent un refuge confortable au milieu du chaos extérieur.
-                Du mobilier lugubre aux lumières tamisées qui dansent avec les ombres, chaque élément vous plongera plus profondément
-                dans notre univers fascinant.
-              </p>
-            </ResponsiveBox>
+          <ResponsiveBox>
+            <p>
+              Nos chambres, conçues avec un souci du détail morbide, offrent un refuge confortable au milieu du chaos extérieur.
+              Du mobilier lugubre aux lumières tamisées qui dansent avec les ombres, chaque élément vous plongera plus profondément
+              dans notre univers fascinant.
+            </p>
+          </ResponsiveBox>
+          {isMobileOrTablet ? (
+  <Box width="100%"> {/* Assurez-vous que le conteneur parent prend toute la largeur */}
+  <Swiper
+    pagination={{ clickable: true }}
+    style={{ width: '100%', paddingBottom: '16px' }} // Ajoute un padding en bas du swiper et prend toute la largeur
+  >
+    <SwiperSlide>
+      <ImageContainer src={rollercoaster} alt="Rollercoaster 1" />
+    </SwiperSlide>
+    <SwiperSlide>
+      <ImageContainer src={rollercoaster} alt="Rollercoaster 2" />
+    </SwiperSlide>
+    <SwiperSlide>
+      <ImageContainer src={rollercoaster} alt="Rollercoaster 3" />
+    </SwiperSlide>
+    <SwiperSlide>
+      <ImageContainer src={rollercoaster} alt="Rollercoaster 4" />
+    </SwiperSlide>
+    <div
+      className="swiper-pagination"
+      style={{ position: 'relative', bottom: '0', marginTop: '10px' }} // Positionne les points de pagination en dessous
+    ></div>
+  </Swiper>
+</Box>
+          ) : (
             <GridContainer p={2}>
               <ImageContainer src={rollercoaster} alt="Rollercoaster 1" />
               <ImageContainer src={rollercoaster} alt="Rollercoaster 2" />
               <ImageContainer src={rollercoaster} alt="Rollercoaster 3" />
               <ImageContainer src={rollercoaster} alt="Rollercoaster 4" />
             </GridContainer>
-          </ResponsiveContainer>
+          )}
+        </ResponsiveContainer>
       </section>
 
-      <Typography id="itineraire" variant="h2" textAlign="center" gutterBottom>Venir au parc</Typography>
+      <Typography id="itineraire" variant="h2" textAlign="center" gutterBottom padding= '15px'>Venir au parc</Typography>
 
       <MapContainerWrapper>
         <MapContainer center={[48.38756, 3.08915]} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
