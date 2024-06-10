@@ -6,6 +6,7 @@ import { Box } from "@mui/material";
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
+import { Alert } from "@mui/material";
 
 const Inscription = () => {
 
@@ -43,6 +44,7 @@ const Inscription = () => {
             })
             .catch((error) => {
                 console.error("Erreur lors de la connexion :", error);
+                setErrorMessage(error.message);
             });
     };
 
@@ -53,8 +55,8 @@ const Inscription = () => {
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
                 <p>Tous les champs sont obligatoires.</p>
-                {error && <p className="message message--error">{error}</p>}
-                {errorMessage && <p className="message message--error">{errorMessage}</p>}
+                {error && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
+                {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
 
                     {/* <label htmlFor="email">Adresse e-mail *</label> */}
                     <FormField

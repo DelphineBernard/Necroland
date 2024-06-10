@@ -1,15 +1,15 @@
 import * as ReactDOM from "react-dom/client";
 import {
-  createBrowserRouter,
-  RouterProvider,
-  Navigate
+    createBrowserRouter,
+    RouterProvider,
+    Navigate
 } from "react-router-dom";
 import Layout from "./components/Layout";
 import Accueil from "./routes/Accueil";
 import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
-import Reservation from "./routes/Reservation";
+import { Reservation } from "./routes/Reservation";
 import Connexion from "./routes/Connexion";
 import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";
@@ -23,12 +23,12 @@ import { ContextProvider } from "./components/Context";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
-import { grey, red } from "@mui/material/colors";
+import { grey, red, yellow } from "@mui/material/colors";
 import { Provider } from "react-redux";
-import store from "./store/store";
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from './store/store.js'
 
-
-const IsLogged = ({ element: Element}) => {
+const IsLogged = ({ element: Element }) => {
     const isAuthenticated = localStorage.getItem('token');
 
     return isAuthenticated ? (
@@ -38,7 +38,7 @@ const IsLogged = ({ element: Element}) => {
     );
 };
 
-const IsAdmin = ({ element: Element}) => {
+const IsAdmin = ({ element: Element }) => {
     const isAdmin = useSelector(state => state.auth.isAdmin);
 
     return isAdmin ? (
@@ -49,65 +49,65 @@ const IsAdmin = ({ element: Element}) => {
 };
 
 const router = createBrowserRouter([
-    {   
+    {
         element: <Layout />,
         children: [
-        {
-            path: "/",
-            element: <Accueil />,
-        },
-        {
-            path: "/attractions/:category?",
-            element: <Attractions />,
-        },
-        {
-            path: "/le-parc",
-            element: <LeParc />,
-        },
-        {
-            path: "/infos-pratiques",
-            element: <InfosPratiques />,
-        },
-        {
-            path: "/contact",
-            element: <Contact />,
-        },
-        {
-            path: "/reservation",
-            element: < IsLogged element={Reservation} />,
-        },
-        {
-            path: "/gestion-admin",
-            element: <IsAdmin element={Backoffice} />,
-        },
-        {
-            path: "/connexion",
-            element: <Connexion />,
-        },
-        {
-            path: "/inscription",
-            element: <Inscription />,
-        },
-        {
-            path: "/profil",
-            element: <IsLogged element={Profil} />,
-        },
-        {
-            path: "/cgv",
-            element: <CGV />,
-        },
-        {
-            path: "/mentions-legales",
-            element: <MentionsLegales />,
-        },
-        {
-            path: "/plan-du-site",
-            element: <PlanDuSite />,
-        },
-        {
-            path: "/erreur",
-            element: <Erreur />,
-        },
+            {
+                path: "/",
+                element: <Accueil />,
+            },
+            {
+                path: "/attractions/:category?",
+                element: <Attractions />,
+            },
+            {
+                path: "/le-parc",
+                element: <LeParc />,
+            },
+            {
+                path: "/infos-pratiques",
+                element: <InfosPratiques />,
+            },
+            {
+                path: "/contact",
+                element: <Contact />,
+            },
+            {
+                path: "/reservation",
+                element: <IsLogged element={Reservation} />,
+            },
+            {
+                path: "/gestion-admin",
+                element: <IsAdmin element={Backoffice} />,
+            },
+            {
+                path: "/connexion",
+                element: <Connexion />,
+            },
+            {
+                path: "/inscription",
+                element: <Inscription />,
+            },
+            {
+                path: "/profil",
+                element: <IsLogged element={Profil} />,
+            },
+            {
+                path: "/cgv",
+                element: <CGV />,
+            },
+            {
+                path: "/mentions-legales",
+                element: <MentionsLegales />,
+            },
+            {
+                path: "/plan-du-site",
+                element: <PlanDuSite />,
+            },
+            {
+                path: "/erreur",
+                element: <Erreur />,
+            },
         ]
     }
 ]);
@@ -120,20 +120,111 @@ const theme = createTheme({
         secondary: {
             main: grey[100],
         },
+        red: {
+            main: '#ff0000',
+        }
     },
     typography: {
+        h1: {
+            fontSize: "2.5rem",
+            '@media (max-width:1920px)': {
+                fontSize: '2.25rem',
+            },
+            '@media (max-width:1280px)': {
+                fontSize: '2rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '1.75rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.5rem',
+            },
+        },
         h2: {
-            fontSize: "1.2rem",
+            fontFamily: "Rubik, sans-serif",
+            fontWeight: 600,
+            textTransform: "uppercase",
+            fontSize: "2rem",
+            padding: '0.5rem 0',
+            '@media (max-width:1920px)': {
+                fontSize: '1.75rem',
+            },
+            '@media (max-width:1280px)': {
+                fontSize: '1.5rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '1.25rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1rem',
+            },
         },
         h3: {
-            fontSize: "1.1rem",
-            fontWeight: '800',
+            fontFamily: "Rubik, sans-serif",
+            fontWeight: 600,
+            fontSize: '1.5rem',
+            padding: '1rem 0',
+            '@media (max-width:1920px)': {
+                fontSize: '1.25rem',
+            },
+            '@media (max-width:1280px)': {
+                fontSize: '1.1rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '1rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '0.9rem',
+            },
+        },
+        body1: {
+            '@media (max-width:1280px)': {
+                fontSize: '1rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '0.85rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '0.8rem',
+            },
+        },
+        span: {
+            fontWeight: "600",
+        },
+        spanItalic: {
+            fontWeight: "800",
+            fontStyle: "italic",
+            textTransform: "uppercase",
+        },
+        spanUppercase: {
+            textTransform: "uppercase",
+            fontWeight: "800",
+            padding: "2rem 0",
+
+            '@media (max-width:1280px)': {
+                fontSize: '2.5rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '1.8rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '1.5rem',
+            },
         }
     },
     components: {
         MuiListItem: {
             styleOverrides: {
                 root: {
+                    '@media (max-width:1280px)': {
+                        fontSize: '1rem',
+                    },
+                    '@media (max-width:960px)': {
+                        fontSize: '0.85rem',
+                    },
+                    '@media (max-width:600px)': {
+                        fontSize: '0.8rem',
+                    },
                     display: 'flex',
                     columnGap: '1rem',
                 },
@@ -148,21 +239,29 @@ const theme = createTheme({
         },
         MuiButton: {
             styleOverrides: {
-              root: {
-                backgroundColor: red[900],
-                color: 'white',
-                '&:hover': {
-                  backgroundColor: red[600],
-                  color: 'white',
+                root: {
+                    backgroundColor: red[900],
+                    color: 'white',
+                    width: 'fit-content',
+                    '&:hover': {
+                        backgroundColor: red[600],
+                        color: 'white',
+                    },
+                    '& a': {
+                        textDecoration: 'none',
+                        color: 'inherit',
+                    },
+                      '& a:hover': {
+                        textDecoration: 'none',
+                    },
                 },
-              },
             },
         },
         MuiFilledInputLabel: {
             styleOverrides: {
-              root: {
-                color: 'white',
-              },
+                root: {
+                    color: 'white',
+                },
             },
         },
         MuiFormControl: {
@@ -170,26 +269,38 @@ const theme = createTheme({
                 root: {
                     width: "100%",
                     rowGap: '1rem',
-            }
+                }
+            },
         },
+        MuiAlert: {
+            styleOverrides: {
+                message: {
+                    color: yellow[100],
+                },
+                icon: {
+                    color: yellow[100],
+                },
+            },
         },
         MuiInputBase: {
             styleOverrides: {
                 input: {
-                   color: 'black', 
+                    color: 'black',
                 }
             },
+        },
     },
-},
 });
 
 ReactDOM.createRoot(document.getElementById("app")).render(
     <ContextProvider>
-      <Provider store={store}>
-        <ThemeProvider theme={theme}>
-            <RouterProvider router={router} />
-        </ThemeProvider>
-      </Provider>
+        <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
+                <ThemeProvider theme={theme}>
+                    <RouterProvider router={router} />
+                </ThemeProvider>
+            </PersistGate>
+        </Provider>
     </ContextProvider>
 );
 // En enveloppant le router avec la balise ContextProvider je rends disponibles à tous les composants enfants, les valeurs de mon Context

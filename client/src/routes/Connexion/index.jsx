@@ -8,6 +8,7 @@ import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
+import { Alert } from "@mui/material";
 
 const Connexion = () => {
 
@@ -37,7 +38,7 @@ const Connexion = () => {
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
                 <p>Tous les champs sont obligatoires.</p>
-                {error && <p className="message message--error">{error}</p>}
+                {error && <Alert variant="filled" severity="error" >{error}</Alert>}
                     {/* <label htmlFor="email">Adresse e-mail *</label> */}
                     <Box sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
                         <AccountCircle sx={{ color: 'action.active', fontSize: 45, mr: 1, my: 0.5 }} />

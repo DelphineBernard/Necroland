@@ -1,9 +1,9 @@
-import Modal from 'react-modal';
 import { useState } from 'react';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const CreateUserModal = ({ isOpen, onRequestClose }) => {
-
     const [successMessage, setSuccessMessage] = useState('');
     const [errorMessage, setErrorMessage] = useState('');
 
@@ -40,105 +40,59 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
 
     return (
         <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            open={isOpen}
+            onClose={onRequestClose}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
-                <p>* Champs obligatoires</p>
-                <div>
-                    <label htmlFor="email">Adresse e-mail *</label>
-                    <input
-                        type="email"
-                        name="email"
-                        id="email"
-                        placeholder="Adresse e-mail du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="password">Mot de passe *</label>
-                    <p>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</p>
-                    <input
-                        type="password"
-                        name="password"
-                        id="password"
-                        placeholder="Mot de passe du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="lastname">Nom *</label>
-                    <input
-                        type="text"
-                        name="lastname"
-                        id="lastname"
-                        placeholder="Nom du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="firstname">Prénom *</label>
-                    <input
-                        type="text"
-                        name="firstname"
-                        id="firstname"
-                        placeholder="Prénom du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="address">Adresse *</label>
-                    <input
-                        type="text"
-                        name="address"
-                        id="address"
-                        placeholder="Adresse du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="postalCode">Code postal *</label>
-                    <input
-                        type="text"
-                        name="postalCode"
-                        id="postalCode"
-                        placeholder="Code postal du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="city">Ville *</label>
-                    <input
-                        type="text"
-                        name="city"
-                        id="city"
-                        placeholder="Ville du membre"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="country">Pays *</label>
-                    <input
-                        type="text"
-                        name="country"
-                        id="country"
-                        placeholder="France"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="role_id">Role *</label>
-                    <select name="role_id" id="role_id" required>
-                        <option value="1">Membre</option>
-                        <option value="2">Administrateur</option>
-                    </select>
-                </div>
-                <button type="submit">Créer le membre</button>
-            </form>
+            <Box
+                sx={{
+                    width: '90%',
+                    maxWidth: 400,
+                    maxHeight: '85vh',
+                    bgcolor: 'background.paper',
+                    boxShadow: 24,
+                    p: 4,
+                    overflow: 'auto',
+                    '@media (min-width:600px)': {
+                        width: 400,
+                    }
+                }}
+            >
+                <Typography sx={{ color: 'black' }} gutterBottom>
+                    Ajouter un membre
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity="success">{successMessage}</Alert>}
+                    {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity="error">{errorMessage}</Alert>}
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
+                    <TextField sx={{ mb: 2 }} fullWidth label="Adresse e-mail" name="email" type="email" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Mot de passe" name="password" type="password" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Nom" name="lastname" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Prénom" name="firstname" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Adresse" name="address" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Code postal" name="postalCode" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Ville" name="city" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Pays" name="country" required />
+                    <FormControl fullWidth variant='filled'>
+                        <InputLabel>Rôle</InputLabel>
+                        <Select name="role_id" required>
+                            <MenuItem sx={{ color: 'black' }} value={1}>Membre</MenuItem>
+                            <MenuItem sx={{ color: 'black' }} value={2}>Administrateur</MenuItem>
+                        </Select>
+                    </FormControl>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                            Ajouter le membre
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
         </Modal>
-    )
-}
+    );
+};
 
 export default CreateUserModal;

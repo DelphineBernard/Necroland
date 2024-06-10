@@ -8,7 +8,9 @@
 
 .logo {
     width: 100px;
-    margin-left: 28px;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
 }
 
 .nav {
@@ -16,7 +18,7 @@
     background-color: #000000;
     display: flex;
     justify-content: space-between;
-    padding: 1rem;
+    padding: 1.5rem 0.5rem;
     align-items: center;
 
     &__icon {
@@ -35,14 +37,23 @@
         align-items: center;
         gap: 0.5rem;
         width: 100%;
+
         &:not(.hidden) {
             display: flex;
         }
+
         &_item {
+            padding: 0;
             @include mixin.links;
         }
+
+        &_icons {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
     }
-        
+
 }
 
 
@@ -52,6 +63,7 @@
     align-items: center;
     justify-content: center;
     text-align: center;
+
     &__title {
         position: absolute;
         text-transform: uppercase;
@@ -59,14 +71,15 @@
         font-family: var.$passion_one;
         font-size: 1.3rem;
         -webkit-text-stroke: 1px black;
-        text-stroke: 1px black;
     }
 }
 
 @include mixin.medium {
     .logo {
         width: 150px;
-        margin-right: auto;
+        left: auto;
+        position: relative;
+        transform: none;
     }
 
     .nav {
@@ -75,6 +88,7 @@
 
         &__icon {
             justify-self: right;
+
             &-menu {
                 display: none;
             }
@@ -83,12 +97,13 @@
         &__links {
             position: static;
             flex-direction: row;
-            justify-content:space-evenly;
+            justify-content: space-evenly;
             display: flex;
             width: 70%;
+            margin-left: auto;
         }
     }
-    
+
     .banner {
         &__title {
             font-size: 2rem;

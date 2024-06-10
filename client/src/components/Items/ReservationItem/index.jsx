@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import API_URL from '../../../config.js';
 import EditReservationModal from "../../Modals/EditReservationModal/index.jsx";
+import { Button, Typography, Box, Card, CardContent } from "@mui/material";
 
 const ReservationItem = ({ element, onClose }) => {
 
@@ -71,28 +72,29 @@ const ReservationItem = ({ element, onClose }) => {
 
     return (
         <>
-            <article style={{ marginBottom: '2rem' }}>
-                <div>
-                    <p>N° de réservation : {element.id}</p>
-                    <p>Date de début : {element.start_date}</p>
-                    <p>Date de fin : {element.end_date}</p>
-                    <p>Nombre de personnes : {element.nb_people}</p>
-                    <p>Hôtel compris : {element.hotel === 'true' ? "Oui" : "Non"}</p>
-                    <p>Prix total : {element.total_price}€</p>
-                    <p>Réservation effectuée par :
-                        <span>{users && users.find(user => user.id === element.user_id).lastname}</span>
-                        <span>{users && users.find(user => user.id === element.user_id).firstname}</span>
-                        <span>{users && users.find(user => user.id === element.user_id).email}</span>
-                    </p>
-                    <p>Statut : {
-                        status && status.find(status => status.id === element.status_id).label
-                    }</p>
-                </div>
-                <div>
-                    <button onClick={openModal}>Modifier</button>
-                    <button onClick={handleDelete}>Supprimer</button>
-                </div>
-            </article>
+            <Card sx={{ marginBottom: '2rem', width: '100%' }} component="article">
+                <CardContent>
+                    <Typography sx={{ color: 'black' }}>N° de réservation : {element.id}</Typography>
+                    <Typography sx={{ color: 'black' }}>Date de début : {element.start_date}</Typography>
+                    <Typography sx={{ color: 'black' }}>Date de fin : {element.end_date}</Typography>
+                    <Typography sx={{ color: 'black' }}>Nombre de personnes : {element.nb_people}</Typography>
+                    <Typography sx={{ color: 'black' }}>Hôtel compris : {element.hotel === 'true' ? "Oui" : "Non"}</Typography>
+                    <Typography sx={{ color: 'black' }}>Prix total : {element.total_price}€</Typography>
+                    <Typography sx={{ color: 'black' }}>
+                        Réservation effectuée par :
+                            <span sx={{ color: 'black' }}>{users && users.find(user => user.id === element.user_id).lastname}</span>
+                            <span sx={{ color: 'black' }}>{users && users.find(user => user.id === element.user_id).firstname}</span>
+                            <span sx={{ color: 'black' }}>{users && users.find(user => user.id === element.user_id).email}</span>
+                    </Typography>
+                    <Typography sx={{ color: 'black' }}>
+                        Statut : { status && status.find(status => status.id === element.status_id).label }
+                    </Typography>
+                    <Box sx={{ display: 'flex', justifyContent: { xs: 'center', sm: 'flex-end' }, gap: '1rem', marginTop: '1rem', flexDirection: { xs: 'column', sm: 'row' } }}>
+                        <Button onClick={openModal}>Modifier</Button>
+                        <Button onClick={handleDelete}>Supprimer</Button>
+                    </Box>
+                </CardContent>
+            </Card>
             <EditReservationModal reservationId={element.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={element} onClose={onClose} />
         </>
     )

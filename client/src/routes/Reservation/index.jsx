@@ -14,6 +14,21 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import EuroIcon from '@mui/icons-material/Euro';
 import { grey, red } from "@mui/material/colors";
 
+// Fonction to fetch price depending on reservation choices (with or without hotel + duration selected)
+const calculateTotalPrice = (allPrices, durationSelected, hotelSelected) => {
+    try {
+        // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
+        const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
+
+        if (selectedPrice) {
+            return selectedPrice.price;
+        }
+    } catch (error) {
+        console.error("Erreur le prix n'a pas pu être calculé:", error);
+        return "Erreur le prix n'a pas pu être calculé"
+    }
+}
+
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
     const [durationSelected, setDurationSelected] = useState(null);
@@ -50,46 +65,44 @@ const Reservation = () => {
     }, [hotelSelected]);
 
     useEffect(() => {
-        calculeTotalPrice();
+        const totalPrice = calculateTotalPrice(allPrices, durationSelected, hotelSelected);
+        setTotalPrice(totalPrice);
         if (startDate && durationSelected) {
             updateEndDate(startDate, durationSelected);
         }
-    }, [hotelSelected, durationSelected, startDate]);
-
-    // Fonction to fetch price depending on reservation choices (with or without hotel + duration selected)
-    const calculeTotalPrice = () => {
-        try {
-            // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
-            const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
-
-            if (selectedPrice) {
-                setTotalPrice(selectedPrice.price)
-            }
-        } catch (error) {
-            return "Erreur le prix n'a pas pu être calculé"
-        }
-    }
+    }, [allPrices, hotelSelected, durationSelected, startDate]);
 
     const handleHotelChange = (event) => {
         setHotelSelected(event.target.value)
-    }
+    };
 
     const handleNbPeopleChange = (event) => {
-        setNbPeopleSelected(event.target.value)
-    }
+        const value = event.target.value;
+        if (value === '' || (Number(value) > 0 && Number(value) <= 99)) {
+            setNbPeopleSelected(value);
+        };
+    };
+
+    // Allows only numeric caractere on "number of people input"
+    const handleKeyDown = (event) => {
+        const key = event.key;
+        if (!/[0-9]/.test(key) && key !== 'Backspace' && key !== 'Delete' && key !== 'ArrowLeft' && key !== 'ArrowRight') {
+            event.preventDefault();
+        }
+    };
 
     const handleDurationChange = (event) => {
         setDurationSelected(event.target.value)
-    }
+    };
 
     const handleCheckboxChange = (event) => {
         setCgvChecked(event.target.checked);
-    }
+    };
 
     const handleStartDateChange = (event) => {
         const startDate = event.target.value
         setStartDate(startDate);
-    }
+    };
 
     const updateEndDate = () => {
         // Create complete dates with method Date(), create end date from start date with adding number of days (duration selected)
@@ -109,14 +122,14 @@ const Reservation = () => {
         const shortOptions = { year: 'numeric', month: '2-digit', day: '2-digit' };
         const formEndDate = formatDate(fullEndDate, shortOptions).split('/').reverse().join('-')
         setEndDate(formEndDate);
-    }
+    };
 
     const handleReservation = (event) => {
         if (!cgvChecked) {
             event.preventDefault();
             alert("Veuillez accepter les conditions générales de vente pour confirmer votre réservation.");
-        }
-    }
+        };
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -142,7 +155,7 @@ const Reservation = () => {
             }
         } catch (error) {
             console.log(error)
-        }
+        };
     };
 
     return (
@@ -167,7 +180,7 @@ const Reservation = () => {
                     </FormControl>
 
                     {/* --------------------- Input number of people ---------------------- */}
-                    <FormControl sx={{ display: 'flex' }}>
+                    <FormControl component="fieldset" sx={{ display: 'flex' }}>
                         <Divider sx={{ backgroundColor: 'transparent', '&::before, &::after': { borderColor: red[400] } }}>
                             <FormLabel sx={{ color: "white" }} component="label">
                                 Nombre de personnes
@@ -183,9 +196,11 @@ const Reservation = () => {
                             name="nb_people"
                             htmlFor="nb_people"
                             size="small"
+                            value={nbPeopleSelected}
+                            onChange={handleNbPeopleChange}
+                            onKeyDown={handleKeyDown}
                             inputProps={{ min: 1 }}
                             defaultValue={1}
-                            onChange={handleNbPeopleChange}
                         />
                     </FormControl>
 
@@ -220,7 +235,7 @@ const Reservation = () => {
                                     maxWidth: '60%', '& .MuiInputBase-input': {
                                         color: 'white',
                                     }
-                                }} type="date" name="start_date" size="small" onChange={handleStartDateChange} />
+                                }} type="date" name="start_date" id="start_date" size="small" onChange={handleStartDateChange} />
                             </Box>
                             <Box sx={{ display: 'flex', alignItems: "center", justifyContent: 'space-evenly', columnGap: '1rem' }}>
                                 <FormLabel sx={{ color: 'white' }} htmlFor="end_date">au</FormLabel>
@@ -228,14 +243,14 @@ const Reservation = () => {
                                     maxWidth: '60%', color: 'black', '& .MuiInputBase-input': {
                                         color: 'white',
                                     }
-                                }} type="date" name="end_date" value={endDate} size="small"
+                                }} type="date" name="end_date" id="end_date" value={endDate} size="small"
                                     InputProps={{ readOnly: true }} />
                             </Box>
                         </Box>
                     </FormControl>
 
                     {/* ------------------- Resume selection ---------------------------- */}
-                    <Box sx={{ width: '100%', p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
+                    <Box sx={{ width: '100%', alignSelf:"center", p: 3, border: '1px solid', borderColor: grey[800], borderRadius: '0.5rem' }}>
                         <Typography variant="h2">Votre sélection</Typography>
                         {/* If hotel and duration are not selected */}
                         {!hotelSelected && !durationSelected && <p>Choisissez vos options de séjour</p>}
@@ -245,7 +260,7 @@ const Reservation = () => {
                                 <ListItem><CalendarMonthIcon />
                                     {!stringStartDate &&
                                         <>
-                                            <Typography>Dates</Typography>
+                                            Dates
                                             <HelpOutlineIcon />
                                         </>}
                                     {stringStartDate && stringEndDate &&
@@ -255,7 +270,7 @@ const Reservation = () => {
                                 <ListItem><HotelIcon />
                                     {!hotelSelected &&
                                         <>
-                                            <Typography>Hôtel</Typography>
+                                            Hôtel
                                             <HelpOutlineIcon />
                                         </>}
                                     {/* If duration is not selected, show "hôtel compris" */}
@@ -290,8 +305,8 @@ const Reservation = () => {
 
                     {/* --------------------------Checkbox CGV ------------------------- */}
                     <Box sx={{ display: 'flex', alignItems: 'center', mx: 'auto' }}>
-                        <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} />
-                        <label htmlFor="cgv">J'accepte les <a href="/cgv" target="_blank">conditions générales de vente</a>.</label>
+                        <Checkbox type="checkbox" name="cgv" id="cgv" onChange={handleCheckboxChange} sx={{ color: "white"}}/>
+                        <FormLabel htmlFor="cgv"> <a href="/cgv" target="_blank">J'accepte les conditions générales de vente</a>.</FormLabel>
                     </Box>
 
                     <Button sx={{ mx: 'auto' }} onClick={handleReservation} type="submit">Confirmer la réservation</Button>
@@ -301,4 +316,4 @@ const Reservation = () => {
     )
 }
 
-export default Reservation;
+export { Reservation, calculateTotalPrice };

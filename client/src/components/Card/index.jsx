@@ -1,7 +1,11 @@
+<<<<<<< feature_front_route_Attractions_Infos_pratiques_Plan_du_site_style
 import React from 'react';
 import { styled } from '@mui/system';
 import { Box, Typography, Button } from '@mui/material';
 import rollercoaster from "../../assets/img/rollercoaster.png";
+=======
+import rollercoaster from "../../assets/img/rollercoaster.webp"
+>>>>>>> main
 
 const StyledCard = styled(Box)(({ theme }) => ({
     width: '100%',

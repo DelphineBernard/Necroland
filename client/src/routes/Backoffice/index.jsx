@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import CreateUserModal from "../../components/Modals/CreateUserModal";
 import CreateAttractionModal from "../../components/Modals/CreateAttractionModal";
 import CreatePriceModal from "../../components/Modals/CreatePriceModal";
@@ -12,12 +12,16 @@ import MessageItem from "../../components/Items/MessageItem";
 import ReservationItem from "../../components/Items/ReservationItem";
 import CategoryItem from "../../components/Items/CategoryItem";
 import API_URL from '../../config.js';
+import { Tabs, Tab, Box, useMediaQuery, useTheme, Container, Button, Alert } from '@mui/material';
 
 const Backoffice = () => {
 
     const [data, setData] = useState([]);
-    const [selection, setSelection] = useState();
+    const [selection, setSelection] = useState("users");
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const theme = useTheme();
+    const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
     const fetchData = async (selectedValue) => {
         try {
@@ -37,10 +41,13 @@ const Backoffice = () => {
         }
     };
 
-    // Au clic sur un des boutons, je mets à jour les données affichées
-    const handleClick = async (event) => {
-        const selectedValue = event.target.value;
-        fetchData(selectedValue);
+    useEffect(() => {
+        fetchData(selection);
+    }, []);
+
+    // Update data when a tab is clicked
+    const handleTabChange = (event, newValue) => {
+        fetchData(newValue);
     };
 
     const openModal = () => {
@@ -54,28 +61,38 @@ const Backoffice = () => {
 
     return (
         <main>
-            <div>
-                <button value={"users"} onClick={handleClick}>Gestion membres</button>
-                <button value={"attractions"} onClick={handleClick}>Gestion attractions</button>
-                <button value={"prices"} onClick={handleClick}>Gestion prix</button>
-                <button value={"tags"} onClick={handleClick}>Gestion tags</button>
-                <button value={"messages"} onClick={handleClick}>Gestion messages</button>
-                <button value={"reservations"} onClick={handleClick}>Gestion réservations</button>
-                <button value={"categories"} onClick={handleClick}>Gestion catégories</button>
-            </div>
+            <Box sx={{ width: '100%', display: 'flex', justifyContent: 'center', flexWrap: 'wrap', marginBottom: 2 }}>
+                <Tabs
+                    variant='scrollable'
+                    scrollButtons={isDesktop ? 'auto' : false}
+                    allowScrollButtonsMobile
+                    orientation={isDesktop ? 'horizontal' : 'vertical'}
+                    value={selection}
+                    onChange={handleTabChange}
+                >
+                    <Tab label="Gestion membres" value="users" sx={{ color: 'white' }} />
+                    <Tab label="Gestion attractions" value="attractions" sx={{ color: 'white' }} />
+                    <Tab label="Gestion prix" value="prices" sx={{ color: 'white' }} />
+                    <Tab label="Gestion tags" value="tags" sx={{ color: 'white' }} />
+                    <Tab label="Gestion messages" value="messages" sx={{ color: 'white' }} />
+                    <Tab label="Gestion réservations" value="reservations" sx={{ color: 'white' }} />
+                    <Tab label="Gestion catégories" value="categories" sx={{ color: 'white' }} />
+                </Tabs>
+            </Box>
+
             {selection === "users" && <CreateUserModal isOpen={isModalOpen} onRequestClose={closeModal} />}
             {selection === "attractions" && <CreateAttractionModal isOpen={isModalOpen} onRequestClose={closeModal} />}
             {selection === "prices" && <CreatePriceModal isOpen={isModalOpen} onRequestClose={closeModal} />}
             {selection === "tags" && <CreateTagModal isOpen={isModalOpen} onRequestClose={closeModal} />}
             {selection === "categories" && <CreateCategoryModal isOpen={isModalOpen} onRequestClose={closeModal} />}
 
-            <div>
+            <Container component="section" sx={{margin: 'auto', marginTop: '1rem', marginBottom: '1rem' }}>
                 {data && (
                     <>
                         {/* Au clic sur le bouton, j'ouvre mon modal */}
-                        {(selection !== "reservations" && selection !== "messages") && <button onClick={openModal}>Créer</button>}
-                        {selection === "tags" && <p>Attention : Pour être supprimé, le tag ne doit être associé à aucune attraction.</p>}
-                        {selection === "attractions" && <p>Attention : Pour être supprimée, l'attraction ne doit être associée à aucun tag et à aucune photo.</p>}
+                        {(selection !== undefined && selection !== "reservations" && selection !== "messages") && <Button sx={{margin: '2rem'}} onClick={openModal}>Créer</Button>}
+                        {selection === "tags" && <Alert variant="outlined" severity="warning" sx={{marginBottom: '2rem' }}>Attention : Pour être supprimé, le tag ne doit être associé à aucune attraction.</Alert>}
+                        {selection === "attractions" && <Alert variant="outlined" severity="warning" sx={{marginBottom: '2rem'}}>Attention : Pour être supprimée, l'attraction ne doit être associée à aucun tag et à aucune photo.</Alert>}
                         <ul>
                             {data.map((element, index) => (
                                 <li key={index}>
@@ -91,7 +108,7 @@ const Backoffice = () => {
                         </ul>
                     </>
                 )}
-            </div>
+            </Container>
         </main>
     )
 }

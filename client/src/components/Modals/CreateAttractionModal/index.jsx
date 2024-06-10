@@ -1,7 +1,8 @@
-import Modal from 'react-modal';
 import { useState, useContext } from 'react';
 import { Context } from '../../Context';
 import API_URL from '../../../config.js';
+import { Alert } from "@mui/material";
+import { Modal, Box, Typography, TextField, Button, Alert, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 
 const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
@@ -42,43 +43,42 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
     return (
         <Modal
-            isOpen={isOpen}
-            onRequestClose={onRequestClose}
+            open={isOpen}
+            onClose={onRequestClose}
+            style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center'
+            }}
         >
-            <form method="post" onSubmit={handleSubmit}>
-                {successMessage && <p>{successMessage}</p>}
-                {errorMessage && <p>{errorMessage}</p>}
-                <p>* Champs obligatoires</p>
-                <div>
-                    <label htmlFor="name">Nom *</label>
-                    <input
-                        type="text"
-                        name="name"
-                        id="name"
-                        placeholder="Nom de l'attraction"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="description">Description *</label>
-                    <input
-                        type="text"
-                        name="description"
-                        id="description"
-                        placeholder="Description de l'attraction"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="category_id">Catégorie *</label>
-                    <select name="category_id" id="category_id" required>
-                        {categories.map((category) => (
-                            <option key={category.id} value={category.id}>{category.name}</option>
-                        ))}
-                    </select>
-                </div>
-                <button type="submit">Créer l'attraction</button>
-            </form>
+            <Box sx={{ width: 400, bgcolor: 'background.paper', boxShadow: 24, p: 4 }}>
+                <Typography sx={{ color: 'black' }} gutterBottom>
+                    Ajouter une attraction
+                </Typography>
+                <form onSubmit={handleSubmit}>
+                    {successMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='success'>{successMessage}</Alert>}
+                    {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='error'>{errorMessage}</Alert>}
+                    <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
+                    <TextField sx={{ mb: 2 }} fullWidth label="Nom" name="name" required />
+                    <TextField sx={{ mb: 2 }} fullWidth label="Description" name="description" required multiline minRows={3} />
+                    <FormControl fullWidth variant='filled'>
+                        <InputLabel>Catégorie</InputLabel>
+                        <Select
+                            name="category_id"
+                            required
+                        >
+                            {categories.map((category) => (
+                                <MenuItem key={category.id} sx={{ color: 'black' }} value={category.id}>{category.name}</MenuItem>
+                            ))}
+                        </Select>
+                    </FormControl>
+                    <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+                        <Button type="submit" variant="contained" sx={{ mt: 2 }}>
+                            Ajouter l'attraction
+                        </Button>
+                    </Box>
+                </form>
+            </Box>
         </Modal>
     )
 }
