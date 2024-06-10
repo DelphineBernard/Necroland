@@ -7,11 +7,9 @@ import mainController from './controllers/mainController.js';
 import userController from './controllers/usersController.js';
 import isAuthenticated from './middlewares/isAuthenticated.js';
 import isAdmin from './middlewares/isAdmin.js';
-import multer from 'multer';
 import usersController from './controllers/usersController.js';
 
 const router = express.Router();
-const upload = multer({ dest: 'uploads/' });
 
 router.get('/prices', pricesController.getPrices);
 router.post('/price', isAuthenticated, isAdmin, pricesController.addPrice);
@@ -60,7 +58,7 @@ router.delete('/category/delete/:id', isAuthenticated, isAdmin, mainController.d
 
 router.get('/photos', mainController.getPhotos);
 router.get('/photos/:attractionId', mainController.getAttractionsPhotos);
-router.post('/photo/:attractionId', isAuthenticated, isAdmin, upload.single('photo'), mainController.addPhoto); // 'photo' est le nom du champ dans le formulaire où le fichier est téléchargé
+router.post('/photo/:attractionId', isAuthenticated, isAdmin, mainController.addPhoto);
 router.delete('/photo/:photoId', isAuthenticated, isAdmin, mainController.deletePhoto);
 
 router.get('/status', mainController.getStatus);

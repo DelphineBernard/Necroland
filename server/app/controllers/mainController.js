@@ -6,8 +6,13 @@ import { QueryTypes } from "sequelize";
 const mainController = {
 
     getAttractions: async (req, res) => {
-        const attractions = await Attraction.findAll();
-        res.json({ attractions });
+        try {
+            const attractions = await Attraction.findAll();
+            res.status(200).json({ attractions });
+        } catch (error) {
+            console.log(error);
+            res.status(500).json({ message: 'Erreur lors de la récupération des attractions.' });
+        } 
     },
 
     getAttractionsByCategory: async (req, res) => {
