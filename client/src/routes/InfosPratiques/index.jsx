@@ -37,6 +37,15 @@ const AlertSection = styled('div')({
   },
 });
 
+const CustomTypographyH2 = styled(Typography)(({ theme }) => ({
+  fontFamily: 'Cinzel, serif',
+  fontWeight: 'bold',
+  fontSize: '1.5rem',
+  [theme.breakpoints.up('md')]: {
+    fontSize: '2rem',
+  },
+}));
+
 const PaperStyled = styled(Paper)({
   padding: '16px',
   backgroundColor: 'transparent',
@@ -114,7 +123,11 @@ const ImageContainer = styled('img')(({ theme }) => ({
 const ResponsiveBox = styled(Box)(({ theme }) => ({
   padding: '16px', // Padding minimal pour mobile
   width: 'auto',
+  textAlign: 'justify',
   marginBottom: '0px', // Réduit la marge inférieure pour minimiser l'espace
+  hyphens: 'auto', // Enable hyphenation
+  wordBreak: 'break-word', // Allow words to break
+  overflowWrap: 'break-word', // Ensure words break to avoid overflow
   [theme.breakpoints.up('sm')]: {
     width: '60%', // Ajustement pour les tablettes
     padding: '16px', // Ajustement pour les tablettes
@@ -176,7 +189,6 @@ const PhoneIconContainer = styled(Box)(({ theme }) => ({
   height: '50px',
   borderRadius: '20px',
   backgroundColor: '#d9d9d9',
-  margin: '8px',
   [theme.breakpoints.down('sm')]: {
     width: '30px',
     height: '30px',
@@ -233,7 +245,7 @@ const IconContainer = styled(Box)({
   width: '60px',
   height: '60px',
   borderRadius: '30px',
-  backgroundColor: '#d9d9d9',
+  backgroundColor: 'var(--dark_gray)',
   margin: '8px',
 });
 
@@ -385,9 +397,9 @@ const InfosPratiques = () => {
       </Typography>
 
       <Box py={4} textAlign="center">
-        <Typography variant="h2" gutterBottom padding='20px'>
+        <CustomTypographyH2 variant="h2" gutterBottom padding='20px'>
           Des tarifs tout aussi surprenants
-        </Typography>
+        </CustomTypographyH2>
         <Box mt={2} textAlign="center">
           <Button variant="contained" color="primary" padding="60px">
             <LinkStyled to="/reservation">Réserver</LinkStyled>
@@ -448,9 +460,9 @@ const InfosPratiques = () => {
       </Box>
 
       <section>
-        <Typography id="hotel" variant="h2" textAlign="center" gutterBottom>
+        <CustomTypographyH2 id="hotel" variant="h2" textAlign="center" gutterBottom >
           Notre Hôtel
-        </Typography>
+        </CustomTypographyH2>
         <ResponsiveContainer>
           <ResponsiveBox>
             <p>
@@ -479,7 +491,7 @@ const InfosPratiques = () => {
     </SwiperSlide>
     <div
       className="swiper-pagination"
-      style={{ position: 'relative', bottom: '0', marginTop: '10px' }} // Positionne les points de pagination en dessous
+      style={{ position: 'relative', bottom: '0', marginTop: '20px' }} // Positionne les points de pagination en dessous
     ></div>
   </Swiper>
 </Box>
@@ -494,7 +506,7 @@ const InfosPratiques = () => {
         </ResponsiveContainer>
       </section>
 
-      <Typography id="itineraire" variant="h2" textAlign="center" gutterBottom padding= '15px'>Venir au parc</Typography>
+      <CustomTypographyH2 id="itineraire" variant="h2" textAlign="center" gutterBottom padding= '15px'>Venir au parc</CustomTypographyH2>
 
       <MapContainerWrapper>
         <MapContainer center={[48.38756, 3.08915]} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
