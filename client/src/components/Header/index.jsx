@@ -80,6 +80,50 @@ const Header = () => {
 
 // Définir la fonction getTitleForPath pour mapper les titres aux chemins d'URL
 const getTitleForPath = (path) => {
+<<<<<<< feature_front_route_Attractions_Infos_pratiques_Plan_du_site_style
+    switch (path) {
+      case '/':
+        return "NecroLand";
+      case '/attractions':
+        return "Les attractions";
+        case '/attractions/':
+          return "Les attractions";
+      case '/attractions/rollercoaster':
+        return "Les attractions";
+      case '/attractions/restaurant':
+        return "Les attractions";
+      case '/attractions/experience-immersive':
+        return "Les attractions";
+      case '/le-parc':
+        return "Le parc";
+      case '/infos-pratiques':
+        return "Infos pratiques"; 
+      case '/contact':
+        return "Contact";
+      case '/reservation':
+        return "Réservation";
+      case '/connexion':
+        return "Connexion";
+      case '/inscription':
+        return "Inscription"; 
+      case '/profil':
+        return "Profil";
+      case '/cgv':
+        return "Conditions générales de vente";
+      case '/mentions-legales':
+        return "Mentions légales";
+      case '/plan-du-site':
+        return "Plan du site";
+      case '/le-parc':
+        return "Le parc";
+      case '/erreur':
+        return "Erreur";
+      case '/gestion-admin':
+        return "Gestion administrateur";
+      default:
+        return "Necroland";
+    }
+=======
   switch (path) {
     case '/':
       return "NecroLand";
@@ -120,6 +164,7 @@ const getTitleForPath = (path) => {
     default:
       return "Necroland";
   }
+>>>>>>> main
 }
 
 export default Header;

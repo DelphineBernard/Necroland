@@ -1,132 +1,259 @@
 import { useContext, useEffect, useState, useRef } from "react";
+import { useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import slugify from 'slugify';
 import API_URL from '../../config.js';
+import { styled } from '@mui/system';
+import { Box } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
+
+const StyledFormContainer = styled('div')({
+    position: 'relative',
+    width: '100%',
+    display: 'flex',
+    flexDirection: 'column', // Adjust to column
+    alignItems: 'center',
+});
+
+const StyledForm = styled('form')(({ theme }) => ({
+    display: 'flex',
+    alignItems: 'center',
+    borderRadius: '30px',
+    backgroundColor: 'var(--dark_gray)',
+    borderColor: 'white',
+    padding: '0',
+    border: '2px solid white',
+    width: '100%',
+    maxWidth: '600px',
+    '@media (min-width: 600px)': {
+        width: '50%',
+    },
+    '@media (min-width: 960px)': {
+        width: '40%',
+    },
+    '& input': {
+        flex: 1,
+        border: 'none',
+        outline: 'none',
+        backgroundColor: 'var(--dark_gray)',
+        color: 'white',
+        padding: '8px 12px',
+        fontSize: '1rem',
+        borderRadius: '30px',
+    },
+    '& .search-icon': {
+        border: 'none',
+        outline: 'none',
+        backgroundColor: 'transparent',
+        color: 'white',
+        padding: '8px',
+        cursor: 'pointer',
+        '&:hover': {
+            color: '#007FFF',
+        },
+    }
+}));
+
+const StyledSuggestions = styled('ul')(({ theme }) => ({
+    listStyle: 'none',
+    margin: 0,
+    padding: '0',
+    backgroundColor: '#181717',
+    border: '2px solid white',
+    borderRadius: '12px',
+    position: 'relative',
+    top: '8px', // Adjust the position slightly below the form
+    left: 0,
+    maxHeight: '140px',
+    overflow: 'auto',
+    width: '100%',
+    maxWidth: '600px',
+    '@media (min-width: 600px)': {
+        width: '50%',
+    },
+    '@media (min-width: 960px)': {
+        width: '40%',
+    },
+    zIndex: 1000,
+    '& li': {
+        padding: '8px 12px',
+        color: 'white',
+        cursor: 'pointer',
+        '&:hover': {
+            backgroundColor: 'white',
+            color: 'black',
+            borderRadius: '30px'
+        }
+    },
+    '&::-webkit-scrollbar': {
+        width: '12px',
+    },
+    '&::-webkit-scrollbar-thumb': {
+        backgroundColor: 'white',
+        borderRadius: '10px',
+        border: '3px solid var(--dark_gray)',
+    },
+    '&::-webkit-scrollbar-track': {
+        backgroundColor: 'var(--dark_gray)',
+        borderRadius: '10px',
+    },
+    '&::-webkit-scrollbar-button:single-button': {
+        backgroundColor: 'white',
+        height: '12px',
+        width: '12px',
+        borderRadius: '10px',
+    },
+    '&::-webkit-scrollbar-button:single-button:vertical:decrement': {
+        borderBottom: '2px solid var(--dark_gray)',
+    },
+    '&::-webkit-scrollbar-button:single-button:vertical:increment': {
+        borderTop: '2px solid var(--dark_gray)',
+    },
+}));
 
 const SearchForm = () => {
-    // Récupère les données nécessaires du Context
-    const { tags, setTags, setAttractions, tagSearched, setTagSearched } = useContext(Context);
-    // État local pour stocker les suggestions de tags filtrés
+    const navigate = useNavigate();
+    const { tags, setTags, setAttractions, tagSearched, setTagSearched, resetCategory } = useContext(Context);
     const [filteredTags, setFilteredTags] = useState([]);
-    // Référence pour le champ de recherche
-    const searchInputRef = useRef(null);
+    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+    const suggestionsRef = useRef(null);
+    const searchBarRef = useRef(null);
 
-    // Fonction asynchrone pour récupérer les tags depuis l'API
     const fetchTags = async () => {
         try {
             const response = await fetch(`${API_URL}/tags`);
             const data = await response.json();
-            setTags(data.tags); // Met à jour les tags dans le Context
+            setTags(data.tags);
         } catch (error) {
             console.log(error);
         }
     };
 
-    // Fonction de gestion de la recherche par tag
     const handleSearchByTag = async (event) => {
         try {
-            event.preventDefault(); // Empêche le rechargement de la page lors de la soumission du formulaire
-            // Convertit la valeur du champ de recherche en slug
+            event.preventDefault();
             const tag = slugify(event.target[0].value, { remove: /[*+~.()'"!:@]/g, lower: true });
             if (tag) {
-                // Requête API pour récupérer les attractions associées au tag
                 const response = await fetch(`${API_URL}/attractions/tags/${tag}`);
                 const data = await response.json();
-                setAttractions(data.attractions.Attractions); // Met à jour les attractions dans le Context
-                setFilteredTags([]); // Vide les suggestions après la recherche
+                setAttractions(data.attractions.Attractions);
+                setFilteredTags([]);
+                setIsSuggestionsOpen(false);
             } else {
-                fetchAllAttractions(); // Réinitialise toutes les attractions si le champ de recherche est vide
+                fetchAllAttractions();
             }
         } catch (error) {
             console.log(error);
         }
     };
 
-    // Fonction pour récupérer toutes les attractions
     const fetchAllAttractions = async () => {
         try {
             const response = await fetch(`${API_URL}/attractions`);
             const data = await response.json();
-            setAttractions(data.attractions); // Met à jour les attractions dans le Context
+            setAttractions(data.attractions);
         } catch (error) {
             console.log(error);
         }
     };
 
-    // Fonction de gestion de la saisie dans le champ de recherche
     const handleChange = (event) => {
         const value = event.target.value;
-        setTagSearched(value); // Met à jour la valeur de recherche dans le Context
+        setTagSearched(value);
 
         if (value) {
-            // Filtre les tags dont le slug commence par la valeur saisie
             const slugifiedValue = slugify(value, { remove: /[*+~.()'"!:@]/g, lower: true });
             const filtered = tags.filter(tag => tag.slug.startsWith(slugifiedValue));
-            setFilteredTags(filtered); // Met à jour les suggestions filtrées
+            setFilteredTags(filtered);
+            setIsSuggestionsOpen(true);
         } else {
-            setFilteredTags([]); // Vide les suggestions si le champ de recherche est vide
-            fetchAllAttractions(); // Réinitialise toutes les attractions si le champ de recherche est vide
+            setFilteredTags(tags);
+            fetchAllAttractions();
+            setIsSuggestionsOpen(false);
         }
     };
 
-    // Fonction de gestion du clic sur une suggestion de tag
     const handleSuggestionClick = async (suggestion) => {
-        setTagSearched(suggestion.name); // Remplit le champ de recherche avec la suggestion cliquée
-        setFilteredTags([]); // Vide les suggestions
-
-        // Requête API pour récupérer les attractions associées à la suggestion sélectionnée
+        setTagSearched(suggestion.name);
+        setFilteredTags([]);
+        setIsSuggestionsOpen(false);
         const tag = slugify(suggestion.name, { remove: /[*+~.()'"!:@]/g, lower: true });
         const response = await fetch(`${API_URL}/attractions/tags/${tag}`);
         const data = await response.json();
-        setAttractions(data.attractions.Attractions); // Met à jour les attractions dans le Context
+        setAttractions(data.attractions.Attractions);
     };
 
-    // Gestion des clics en dehors du champ de recherche pour vider le champ
+    const handleClick = () => {
+        if (isSuggestionsOpen) {
+            setIsSuggestionsOpen(false);
+        } else {
+            resetCategory();
+            setFilteredTags(tags);
+            navigate('/attractions');
+            setIsSuggestionsOpen(true);
+        }
+    };
+
+    const resetSearch = () => {
+        setTagSearched("");
+        setFilteredTags([]);
+        setIsSuggestionsOpen(false);
+    };
+
     useEffect(() => {
         const handleClickOutside = (event) => {
-            if (searchInputRef.current && !searchInputRef.current.contains(event.target)) {
-                setTagSearched(""); // Vide le champ de recherche
-                setFilteredTags([]); // Vide les suggestions
+            if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
+                resetSearch();
             }
         };
 
-        // Ajoute un écouteur d'événements pour détecter les clics en dehors du champ de recherche
         document.addEventListener("mousedown", handleClickOutside);
-
-        // Nettoie l'écouteur d'événements lorsqu'il n'est plus nécessaire
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
-    }, [searchInputRef]);
+    }, [searchBarRef]);
 
-    // Récupère les tags et toutes les attractions lors du montage du composant
     useEffect(() => {
         fetchTags();
         fetchAllAttractions();
     }, []);
 
+    useEffect(() => {
+        if (filteredTags.length > 0) {
+            const timer = setTimeout(() => {
+                resetSearch();
+            }, 10000);
+            return () => clearTimeout(timer);
+        }
+    }, [filteredTags]);
+
     return (
-        <div className="searchBar" ref={searchInputRef}>
-            <form onSubmit={handleSearchByTag}>
-                <label className="sr-only" htmlFor="tag">Recherche par tag</label>
-                <input
-                    type="text"
-                    value={tagSearched} // Lie la valeur du champ de recherche à l'état du Context
-                    onChange={handleChange} // Appelle handleChange à chaque changement de valeur
-                    autoComplete="off"
-                />
-                <button>Rechercher</button>
-            </form>
-            {filteredTags.length > 0 && ( // Affiche les suggestions filtrées si elles existent
-                <ul>
-                    {filteredTags.map((tag) => (
-                        <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
-                            {tag.name}
-                        </li>
-                    ))}
-                </ul>
-            )}
-        </div>
+        <Box display="flex" justifyContent="center" alignItems="center" width="100%" mt={2}>
+            <StyledFormContainer ref={searchBarRef}>
+                <StyledForm onSubmit={handleSearchByTag}>
+                    <input
+                        type="text"
+                        value={tagSearched}
+                        onChange={handleChange}
+                        onClick={handleClick}
+                        autoComplete="off"
+                        placeholder="Recherche par Tag"
+                    />
+                    <button type="submit" className="search-icon">
+                        <SearchIcon />
+                    </button>
+                </StyledForm>
+                {isSuggestionsOpen && filteredTags.length > 0 && (
+                    <StyledSuggestions ref={suggestionsRef}>
+                        {filteredTags.map((tag) => (
+                            <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
+                                {tag.name}
+                            </li>
+                        ))}
+                    </StyledSuggestions>
+                )}
+            </StyledFormContainer>
+        </Box>
     );
 }
 

@@ -22,6 +22,7 @@ main {
   width: 100%;
 }
 
+
 .center {
   display: flex;
   flex-direction: column;
@@ -124,7 +125,7 @@ button {
 .mySwiper {
     width: 100%;
     height: 100%;
-    padding: 42px;
+    
   }
   
   .swiper-slide {
@@ -156,4 +157,29 @@ button {
   .swiper-pagination-bullet-active {
     background: white; /* Assure que le point actif est également blanc */
     opacity: 1; /* Assure que le point actif est complètement visible */
+<<<<<<< feature_front_route_Attractions_Infos_pratiques_Plan_du_site_style
   }
+
+  @media (max-width: 640px) {
+    .swiper-button-next,
+    .swiper-button-prev {
+        display: none !important;
+    }
+
+    .swiper-slide {
+      width: 100% !important;
+      flex-shrink: 0;
+  }
+  .mySwiper .swiper-wrapper {
+    width: 100%;
+}
+}
+.centered-menu {
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+  position: absolute !important;
+}
+
+=======
+  }
+>>>>>>> main
