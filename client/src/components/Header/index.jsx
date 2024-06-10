@@ -68,6 +68,14 @@ const getTitleForPath = (path) => {
         return "NecroLand";
       case '/attractions':
         return "Les attractions";
+        case '/attractions/':
+          return "Les attractions";
+      case '/attractions/rollercoaster':
+        return "Les attractions";
+      case '/attractions/restaurant':
+        return "Les attractions";
+      case '/attractions/experience-immersive':
+        return "Les attractions";
       case '/le-parc':
         return "Le parc";
       case '/infos-pratiques':

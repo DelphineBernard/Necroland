@@ -189,7 +189,7 @@ const SearchForm = () => {
         } else {
             resetCategory();
             setFilteredTags(tags);
-            navigate('/attractions/');
+            navigate('/attractions');
             setIsSuggestionsOpen(true);
         }
     };

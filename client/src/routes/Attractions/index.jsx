@@ -31,11 +31,17 @@ const AlertSection = styled('div')({
     },
 });
 
-const CenteredHeading = styled('h2')({
+const CenteredHeading = styled('h2')(({ theme }) => ({
     textAlign: 'center',
     margin: '16px 0',
     paddingTop: '20px',
-});
+    fontFamily: 'Cinzel, serif',
+    fontWeight: 'bold',
+    fontSize: '1.5rem',
+    [theme.breakpoints.up('md')]: {
+      fontSize: '2rem',
+    },
+  }));
 
 const Attractions = () => {
     const { attractions, setAttractions } = useContext(Context);
