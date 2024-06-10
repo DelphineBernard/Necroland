@@ -9,7 +9,7 @@ import Accueil from "./routes/Accueil";
 import Attractions from "./routes/Attractions";
 import Profil from "./routes/Profil";
 import Contact from "./routes/Contact";
-import Reservation from "./routes/Reservation";
+import { Reservation } from "./routes/Reservation";
 import Connexion from "./routes/Connexion";
 import Inscription from "./routes/Inscription";
 import LeParc from "./routes/LeParc";

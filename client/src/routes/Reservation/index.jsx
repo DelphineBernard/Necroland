@@ -14,6 +14,21 @@ import EmojiPeopleIcon from '@mui/icons-material/EmojiPeople';
 import EuroIcon from '@mui/icons-material/Euro';
 import { grey, red } from "@mui/material/colors";
 
+// Fonction to fetch price depending on reservation choices (with or without hotel + duration selected)
+const calculateTotalPrice = (allPrices, durationSelected, hotelSelected) => {
+    try {
+        // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
+        const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
+
+        if (selectedPrice) {
+            return selectedPrice.price;
+        }
+    } catch (error) {
+        console.error("Erreur le prix n'a pas pu être calculé:", error);
+        return "Erreur le prix n'a pas pu être calculé"
+    }
+}
+
 const Reservation = () => {
     const [hotelSelected, setHotelSelected] = useState(null);
     const [durationSelected, setDurationSelected] = useState(null);
@@ -50,25 +65,12 @@ const Reservation = () => {
     }, [hotelSelected]);
 
     useEffect(() => {
-        calculeTotalPrice();
+        const totalPrice = calculateTotalPrice(allPrices, durationSelected, hotelSelected);
+        setTotalPrice(totalPrice);
         if (startDate && durationSelected) {
             updateEndDate(startDate, durationSelected);
         }
-    }, [hotelSelected, durationSelected, startDate]);
-
-    // Fonction to fetch price depending on reservation choices (with or without hotel + duration selected)
-    const calculeTotalPrice = () => {
-        try {
-            // Conversion of price.hotel(booleen in BDD) to string to compare to hotelSelected (string)
-            const selectedPrice = allPrices.find(price => price.duration == durationSelected && String(price.hotel) === hotelSelected)
-
-            if (selectedPrice) {
-                setTotalPrice(selectedPrice.price)
-            }
-        } catch (error) {
-            return "Erreur le prix n'a pas pu être calculé"
-        }
-    }
+    }, [allPrices, hotelSelected, durationSelected, startDate]);
 
     const handleHotelChange = (event) => {
         setHotelSelected(event.target.value)
@@ -314,4 +316,4 @@ const Reservation = () => {
     )
 }
 
-export default Reservation;
+export { Reservation, calculateTotalPrice };
