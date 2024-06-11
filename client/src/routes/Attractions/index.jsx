@@ -14,7 +14,6 @@ import SearchForm from "../../components/SearchForm";
 import CategoryTabs from "../../components/CategoryTabs";
 import { Context } from "../../components/Context";
 import API_URL from '../../config.js';
-
 // Initialize Swiper modules
 SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
 const AlertSection = styled('div')({
@@ -45,6 +44,7 @@ const Attractions = () => {
     const { category } = useParams(); // Récupère le paramètre de catégorie de l'URL
     const [activeSlide, setActiveSlide] = useState(null);
     const swiperRef = useRef(null);
+    
     const fetchAttractions = async () => {
         try {
             let response;
