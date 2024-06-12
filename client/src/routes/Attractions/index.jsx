@@ -16,6 +16,7 @@ import { Context } from "../../components/Context";
 import API_URL from '../../config.js';
 // Initialize Swiper modules
 SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
+
 const AlertSection = styled('div')({
     display: 'flex',
     flexDirection: 'column',
@@ -39,12 +40,13 @@ const CenteredHeading = styled('h2')(({ theme }) => ({
       fontSize: '2rem',
     },
   }));
+  
 const Attractions = () => {
     const { attractions, setAttractions } = useContext(Context);
     const { category } = useParams(); // Récupère le paramètre de catégorie de l'URL
     const [activeSlide, setActiveSlide] = useState(null);
     const swiperRef = useRef(null);
-    
+
     const fetchAttractions = async () => {
         try {
             let response;
@@ -57,9 +59,11 @@ const Attractions = () => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         fetchAttractions();
     }, [category]); // Re-fetch les attractions chaque fois que la catégorie change
+    
     const handleSlideClick = (index) => {
         if (index === activeSlide) {
             setActiveSlide(null);
@@ -69,7 +73,9 @@ const Attractions = () => {
             swiperRef.current.swiper.autoplay.stop();
         }
     };
+
     const middleSlideIndex = Math.floor(attractions.length / 2); // Dynamically calculate the middle slide index
+
     return (
         <main>
             <AlertSection>

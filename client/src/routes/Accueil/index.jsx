@@ -1,7 +1,7 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import rollercoaster from "../../assets/img/rollercoaster.webp";
-import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
+import SwiperCore, { Autoplay, Navigation, Pagination, EffectCoverflow} from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import API_URL from '../../config.js';
 import { Box, Button, Card, CardContent, CardMedia, Container, Typography } from "@mui/material";
@@ -15,8 +15,9 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 
-SwiperCore.use([Autoplay, Navigation, Pagination]);
+SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
 
 const Accueil = () => {
     const [attractions, setAttractions] = useState([]);
@@ -72,6 +73,8 @@ const Accueil = () => {
         }
     };
 
+    const middleSlideIndex = Math.floor(attractions.length / 2); // Dynamically calculate the middle slide index
+
     return (
         <main className="center">
             <Container component="section">
@@ -122,12 +125,31 @@ const Accueil = () => {
                 </Box>  
             </Container>
 
-            <Container component="section">
+            <Container component="section"
+                      sx={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        padding: "2px",
+                      }}
+            >
                 <Typography variant="h2" sx={{ py: "3rem"}}>Des attractions aussi terrifiantes les unes que les autres</Typography>
                 <Swiper
                     ref={swiperRef}
-                    spaceBetween={50}
-                    slidesPerView={1}
+                    effect="coverflow"
+                    grabCursor={true}
+                    centeredSlides={true}
+                    slidesPerView="auto"
+                    initialSlide={middleSlideIndex}
+                    loop={true}
+                    coverflowEffect={{
+                        rotate: 50,
+                        stretch: 0,
+                        depth: 100,
+                        modifier: 1,
+                        slideShadows: true,
+                    }}
                     autoplay={{
                         delay: 3000,
                         disableOnInteraction: false,
@@ -154,9 +176,66 @@ const Accueil = () => {
                             className={index === activeSlide ? "swiper-slide-active" : ""}
                             style={index === activeSlide ? { transform: 'scale(1.1)', zIndex: 999 } : {}}
                         >
-                            <Box className="card-content">
-                                <img src={rollercoaster} alt={attraction.name} />
-                                <Typography variant="span">{attraction.name}</Typography>
+                            <Box className="card-content"
+                            sx={{
+                                width: '100% !important',
+                                marginBottom:'3rem',
+                                backgroundColor: '#3f3f3f',
+                                boxShadow: '0 2px 4px rgba(0, 0, 0, 0.1)',
+                                borderRadius: '8px',
+                                overflow: 'hidden',
+                                position: 'relative',
+                                alignContent: 'center',
+                                '@media (max-width:1920px)': {
+                                     padding: '4rem',
+                                     marginBottom:'5rem',
+                                    },
+                                    '@media (max-width:1280px)': {
+                                    padding: '4rem',
+                                    marginBottom:'5rem',
+                                    },
+                                    '@media (max-width:960px)': {
+                                    padding: '1rem',
+                                    marginBottom:'3rem',
+                                    },
+                                    '@media (max-width:600px)': {
+                                    padding: '0.5rem',
+                                    marginBottom:'3rem',
+                                    },
+                            }}
+                            >
+                                <Box component="img" src={rollercoaster} alt={attraction.name} 
+                                sx={{width: '100%', 
+                                     display:'block',
+                                     position: 'relative', 
+                                     }} />
+
+                                <Typography variant="h3" 
+                                sx={{textAlign: 'center', 
+                                    fontSize: '1.2rem',
+                                    padding: '0',
+                                    '@media (max-width:1920px)': {
+                                     fontSize: '2rem',
+                                     fontWeight: "900",
+                                     marginTop: '30px',
+                                    },
+                                    '@media (max-width:1280px)': {
+                                     fontSize: '2rem',
+                                     fontWeight: "900",
+                                     marginTop: '30px',
+                                    },
+                                    '@media (max-width:960px)': {
+                                     fontSize: '1.8rem',
+                                     fontWeight: "800",
+                                     marginTop: '20px',
+                                    },
+                                    '@media (max-width:600px)': {
+                                        fontSize: '1rem',
+                                        fontWeight: "600",
+                                        marginTop: '16px',
+                                    },
+                                    }}>
+                                    {attraction.name}</Typography>
                                 
                             </Box>
                         </SwiperSlide>
