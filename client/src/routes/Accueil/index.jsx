@@ -97,14 +97,16 @@ const Accueil = () => {
 
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
                         <img className="text-illustration anim-appear" src={zombieHand} alt="" />
-                        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1.5rem" }}>
-                            <Typography>Préparez-vous à
-                                <Typography variant="spanItalic"> trembler</Typography></Typography>
-                            <Typography> et à
-                                <Typography variant="spanItalic"> hurler</Typography> dans ce parc</Typography>
-                            <Typography>  où le danger rôde</Typography><Typography> à chaque coin de rue
+                        <Box sx={{ display: "flex", flexDirection: "column", rowGap: "1.5rem"}}>
+                            <Typography>Préparez-vous à 
+                                <Typography variant="spanItalic"> trembler</Typography>
                             </Typography>
-                        </Box>
+                            <Typography> et à 
+                                <Typography variant="spanItalic"> hurler</Typography> dans ce parc
+                            </Typography>
+                            <Typography> où le danger rôde</Typography>
+                            <Typography> à chaque coin de rue.</Typography>
+                        </Box>    
                     </Box>
 
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
@@ -117,9 +119,9 @@ const Accueil = () => {
 
                     <Typography variant="spanUppercase">l' apocalypse zombie ?</Typography>
 
-                    <Box sx={{ minWidth: "80%", alignSelf: "center", backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
-                        <WarningAmberIcon sx={{ color: "#e57373" }} />
-                        <Typography sx={{ color: "#e57373", pb: "0.5rem" }} variant="body1">
+                    <Box sx={{ minWidth: "80%", alignSelf:"center", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem"}}>
+                        <WarningAmberIcon sx={{ color: "#e57373"}} />
+                        <Typography sx={{ color: "#e57373", pb: "0.5rem"}} variant="body1">
                             Le parc est interdit aux moins de 16 ans
                         </Typography>
                     </Box>
