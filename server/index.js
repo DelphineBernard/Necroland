@@ -6,10 +6,12 @@ import cors from 'cors';
 dotenv.config();
 
 const port = process.env.PORT_EXPRESS || 3000;
+
 const app = express();
 
 app.use(cors());
 
+app.use(express.static('./app/public'));
 app.use(express.urlencoded({ extended: true}));
 app.use(express.json());
 

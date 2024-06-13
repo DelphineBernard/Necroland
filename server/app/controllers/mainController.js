@@ -7,12 +7,18 @@ const mainController = {
 
     getAttractions: async (req, res) => {
         try {
-            const attractions = await Attraction.findAll();
+            const attractions = await Attraction.findAll({
+                include: {
+                    model: Photo,
+                    as: 'photos',
+                    attributes: ['name']
+                }
+            });
             res.status(200).json({ attractions });
         } catch (error) {
-            console.log(error);
+            console.error('Erreur lors de la récupération des attractions:', error);
             res.status(500).json({ message: 'Erreur lors de la récupération des attractions.' });
-        } 
+        }
     },
 
     getAttractionsByCategory: async (req, res) => {
@@ -21,8 +27,15 @@ const mainController = {
             const foundCategory = await Category.findOne({ where: { slug: category } });
             if (foundCategory) {
                 const categoryId = foundCategory.id;
-                const attractions = await Attraction.findAll({ where: { category_id: categoryId } });
-                res.json({ attractions });
+                const attractions = await Attraction.findAll({ 
+                    where: { category_id: categoryId },
+                    include: {
+                        model: Photo,
+                        as: 'photos',
+                        attributes: ['name']
+                    }
+                });
+                res.status(200).json({ attractions });
             }
         } catch (error) {
             console.log(error);
@@ -34,7 +47,15 @@ const mainController = {
             const tag = req.params.tag;
             const foundTag = await Tag.findOne({
                 where: { slug: tag },
-                include: { model: Attraction, as: 'Attractions' },
+                include: { 
+                    model: Attraction, 
+                    as: 'Attractions',
+                    include: {
+                        model: Photo,
+                        as: 'photos',
+                        attributes: ['name']
+                    }
+                },
             });
             if (foundTag) {
                 const attractions = foundTag;
@@ -309,11 +330,6 @@ const mainController = {
             console.error("Erreur lors de la suppression de la catégorie:", error);
             res.status(500).json({ message: "Erreur lors de la suppression de la catégorie" });
         }
-    },
-
-    getPhotos: async (req, res) => {
-        const photos = await Photo.findAll()
-        res.json({ photos })
     },
 
     getAttractionsPhotos: async (req, res) => {
