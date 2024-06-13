@@ -1,10 +1,11 @@
-import  { useEffect, useContext, useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
 import API_URL from '../../config.js';
 import { Box, Button, MenuItem, Select, useMediaQuery, Grid } from '@mui/material';
 import { styled } from '@mui/system';
 
+// Styled components for buttons and select elements
 const CategoryButton = styled(Button)(({ theme }) => ({
     margin: theme.spacing(1),
 }));
@@ -14,7 +15,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
     color: 'white',
     padding: '0',
     alignItems: 'center',
-    borderRadius: '30px', // Added borderRadius
+    borderRadius: '30px', 
     border: '1.5px solid white',
     '& .MuiSelect-icon': {
         color: 'white',
@@ -39,7 +40,7 @@ const StyledSelect = styled(Select)(({ theme }) => ({
 const StyledMenuItem = styled(MenuItem)(({ theme }) => ({
     backgroundColor: '#181717',
     color: 'white',
-    borderRadius: '12px', // Added borderRadius
+    borderRadius: '12px', 
     '&:hover': {
         backgroundColor: 'white',
         color: 'black',
@@ -57,21 +58,20 @@ const CenteredBox = styled(Box)(({ theme }) => ({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    
 }));
 const PlaceholderText = styled('em')(({ theme }) => ({
-    color: 'rgba(255, 255, 255, 0.5)', // Light color to mimic placeholder
-    
+    color: 'rgba(255, 255, 255, 0.5)', 
 }));
 
-
 const CategoryTabs = () => {
-    const { categories, setCategories, setAttractions, resetCategory  } = useContext(Context);
-    const { category } = useParams();
-    const navigate = useNavigate();
-    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
-    const [open, setOpen] = useState(false);
+    // Get categories and set functions from context
+    const { categories, setCategories, setAttractions, resetCategory } = useContext(Context);
+    const { category } = useParams(); // Get category from URL
+    const navigate = useNavigate(); // Hook to navigate programmatically
+    const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm')); // Check if the device is mobile
+    const [open, setOpen] = useState(false); // State for select dropdown
 
+    // Fetch categories from the API
     const fetchCategories = async () => {
         try {
             const response = await fetch(`${API_URL}/categories`);
@@ -82,6 +82,7 @@ const CategoryTabs = () => {
         }
     };
 
+    // Fetch attractions based on the selected category
     const fetchAttractions = async (category) => {
         try {
             let response;
@@ -96,7 +97,8 @@ const CategoryTabs = () => {
             console.log(error);
         }
     };
-    
+
+    // Handle button click event to navigate to a category
     const handleClick = (event) => {
         const selectedCategory = event.target.value;
         if (selectedCategory === 'all') {
@@ -107,6 +109,7 @@ const CategoryTabs = () => {
         }
     };
 
+    // Handle select change event to navigate to a category
     const handleSelectChange = (event) => {
         const selectedCategory = event.target.value;
         if (selectedCategory === 'all') {
@@ -116,19 +119,23 @@ const CategoryTabs = () => {
             navigate(`/attractions/${selectedCategory}`);
         }
     };
-    
+
+    // Handle opening the select dropdown
     const handleOpen = () => {
         setOpen(true);
     };
 
+    // Fetch categories when component mounts
     useEffect(() => {
         fetchCategories();
     }, []);
 
+    // Fetch attractions when the category changes
     useEffect(() => {
         fetchAttractions(category);
     }, [category]);
 
+    // Auto-close the select dropdown after a delay
     useEffect(() => {
         if (open) {
             const timer = setTimeout(() => {
@@ -165,7 +172,6 @@ const CategoryTabs = () => {
                                     borderRadius: '30px',
                                     margin: '5px 0',
                                     border: '2px solid white',
-                                    
                                 },
                             },
                         }}
@@ -203,4 +209,5 @@ const CategoryTabs = () => {
         </Box>
     );
 }
+
 export default CategoryTabs;

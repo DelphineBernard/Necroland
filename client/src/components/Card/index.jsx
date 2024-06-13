@@ -1,6 +1,6 @@
 import { styled } from '@mui/system';
 import { Box, Typography, Button } from '@mui/material';
-import rollercoaster from "../../assets/img/rollercoaster.webp"
+
 
 const StyledCard = styled(Box)(({ theme }) => ({
     width: '100%',
