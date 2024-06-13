@@ -189,7 +189,7 @@ const CategoryTabs = () => {
                     <Grid container spacing={2} justifyContent="center">
                         <Grid item>
                             <CategoryButton variant="contained" value={"all"} onClick={handleClick}>
-                                Toutes les attractions
+                                Les attractions
                             </CategoryButton>
                         </Grid>
                         {categories.map((category) => (

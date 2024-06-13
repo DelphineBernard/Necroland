@@ -318,7 +318,7 @@ const InfosPratiques = () => {
   const markers = [
     {
       geocode: [48.38756, 3.08915], // Coordinates for the marker.
-      popup: "1 Rue des Frissons, 77170 La tombe", // Text to show when the marker is clicked.
+      popup: "1 Rue des Frissons, 77170 La Tombe", // Text to show when the marker is clicked.
     },
   ];
 
