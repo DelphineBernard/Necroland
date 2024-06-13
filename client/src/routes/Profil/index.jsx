@@ -180,8 +180,8 @@ const Profil = () => {
                 <Box component="article">
                     <Typography variant="h3" component="h3">En cours</Typography>
 
-                    <Box sx={{ display: "flex", alignItems: "center", minWidth: "80%", alignSelf:"center", columnGap: "1rem", border: "1px solid #fff59d", borderRadius: "0.5rem", px: "0.5rem", color: "#fff59d"}}>
-                        <WarningAmberIcon sx={{ color: "#fff59d"}} />
+                    <Box sx={{ display: "flex", alignItems: "center", minWidth: "80%", alignSelf:"center", columnGap: "1rem", border: "1px solid #FF9800", borderRadius: "0.5rem", px: "0.5rem", color: "#fff59d"}}>
+                        <WarningAmberIcon sx={{ color: "#FF9800"}} />
                         <Typography sx={{ color: "#fff59d", py: "0.5rem"}} variant="body1">
                         Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.
                         </Typography>
