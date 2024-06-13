@@ -170,7 +170,7 @@ const Inscription = () => {
                         placeholder="France"
                         required 
                     />
-                    <Box>
+                    <Box sx={{color: "white"}}>
                         <input type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
                         <label htmlFor="legalTerms">J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles</a>.</label>
                     </Box>

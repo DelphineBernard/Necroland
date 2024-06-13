@@ -4,8 +4,9 @@ import { useNavigate } from 'react-router-dom';
 import ReservationInfos from '../../components/ReservationInfos/index.jsx';
 import EditUserModal from '../../components/Modals/EditUserModal/index.jsx';
 import API_URL from '../../config.js';
-import { Alert, Box, Button, Card, Container, List, ListItem, Typography } from '@mui/material';
+import { Box, Button, Card, Container, List, ListItem, Typography } from '@mui/material';
 import WarningAmberRoundedIcon from '@mui/icons-material/WarningAmberRounded';
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 import Alert from '@mui/material/Alert';
 
 const Profil = () => {
@@ -21,14 +22,6 @@ const Profil = () => {
     const [passedReservations, setPassedReservations] = useState([]);
     const [userInfos, setUserInfos] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
 
     const fetchUserInfos = async () => {
         try {
@@ -81,6 +74,16 @@ const Profil = () => {
             console.error('Error fetching reservations:', error);
         }
 
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        fetchUserInfos();
+        fetchUserReservations();
     };
 
     useEffect(() => {
@@ -161,8 +164,13 @@ const Profil = () => {
 
                     </List>
                     <Box sx={{ display: "flex", alignItems: "center", justifyContent: "center", flexDirection: "column", rowGap: "1rem"}}>
-                        <Button size="small" onClick={openModal}>Modifier mes informations</Button>
-                        <Button sx={{ display: "flex", columnGap: "0.3rem"}} size="small" onClick={() => handleDeleteAccount(userInfos.id)}><WarningAmberRoundedIcon />Supprimer mon compte</Button>
+                        <Button size="small" onClick={openModal}>
+                            Modifier mes informations
+                        </Button>
+                        <Button sx={{ display: "flex", columnGap: "0.3rem"}} size="small" onClick={() => handleDeleteAccount(userInfos.id)}>
+                            <WarningAmberRoundedIcon />
+                            Supprimer mon compte
+                        </Button>
                     </Box>
                 </Card>}
             </Box>
@@ -171,8 +179,13 @@ const Profil = () => {
                 <Typography variant="h2">Vos réservations</Typography>
                 <Box component="article">
                     <Typography variant="h3" component="h3">En cours</Typography>
-                        
-                    <Alert variant="outlined" severity="warning" sx={{ display: "flex", alignItems: "center"}}>Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.</Alert>
+
+                    <Box sx={{ display: "flex", alignItems: "center", minWidth: "80%", alignSelf:"center", columnGap: "1rem", border: "1px solid #fff59d", borderRadius: "0.5rem", px: "0.5rem", color: "#fff59d"}}>
+                        <WarningAmberIcon sx={{ color: "#fff59d"}} />
+                        <Typography sx={{ color: "#fff59d", py: "0.5rem"}} variant="body1">
+                        Vous pouvez annuler votre réservation jusqu'à 10 jours avant la date de début de votre séjour.
+                        </Typography>
+                    </Box>
                     
                     <Box sx={{display: "flex", flexDirection: "column"}}>
                         {dataLoaded && currentReservations.length === 0 &&
@@ -209,7 +222,7 @@ const Profil = () => {
                     ))}
                 </Box>
             </Box>
-            <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} />
+            <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} onCLose={closeModal}/>
             </Container>
         </main>
     )

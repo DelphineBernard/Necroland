@@ -1,12 +1,14 @@
 @use '../scss/var';
-@font-face {
-  font-family: 'Gotham';
-  src:
-    url('../fonts/gotham.ttf') format('truetype'),
-    url('../fonts/gotham.woff2') format('woff2'),
-    url('../fonts/gotham.woff') format('woff');
+@use '../scss/mixin';
+
+@import url('https://fonts.cdnfonts.com/css/chilling-nightime');
+@import url('https://fonts.cdnfonts.com/css/nextir-brush-personal-use');
+
+body {
+  background-color: #181717;
 }
-p, h1, h2, h3, span, a, li {
+
+p, h1, h2, h3, a, li {
     color: var.$color_white;
 }
 main {
@@ -26,76 +28,38 @@ main {
   justify-content: stretch;
   text-align: center;
 }
+
 .form {
   width: 80%;
+
+  @include mixin.small {
+    width: 50%;
+  }
+  @include mixin.medium {
+    width: 40%;
+  }
 }
+
 img {
   max-width: 100%;
 }
+
 .hidden {
   display: none;
 }
+
 input {
   color: black;
 }
+
 button {
   color: black;
 }
+
 .text-illustration {
   width: 20%;
 }
-// Zombie animation
-.anim-translate {
-  display: inline-block;
-  transform: translateX(0) scaleX(-1);
-  animation: move 3s ease-in-out 2;
-}
-@keyframes move {
-  0% {
-    transform: translateX(0) scaleX(-1);
-  }
-  50% {
-    transform: translateX(-10vw) scaleX(-1);
-  }
-  50.01% {
-    transform: translateX(-10vw) scaleX(1);
-  }
-  100% {
-    transform: translateX(0) scaleX(1);
-  } 
-}
-// Zombie-hand animation
-.anim-appear {
-  animation: shake 0.5s ease-in-out 5;
-  &:hover {
-    animation: shake 0.5s ease-in-out infinite;
-  }
-}
-@keyframes shake {
-  0% { transform: translate(1px, 1px) rotate(0deg); }
-  10% { transform: translate(-1px, -2px) rotate(-1deg); }
-  20% { transform: translate(-3px, 0px) rotate(1deg); }
-  30% { transform: translate(3px, 2px) rotate(0deg); }
-  40% { transform: translate(1px, -1px) rotate(1deg); }
-  50% { transform: translate(-1px, 2px) rotate(-1deg); }
-  60% { transform: translate(-3px, 1px) rotate(0deg); }
-  70% { transform: translate(3px, 1px) rotate(-1deg); }
-  80% { transform: translate(-1px, -1px) rotate(1deg); }
-  90% { transform: translate(1px, 2px) rotate(0deg); }
-  100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-// Grave animation
-.anim-fall {
-  animation: fall 3s ease-in-out forwards;
-}
-@keyframes fall {
-  0% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 1;
-  }
-}
+
 .info {
   font-size: 0.8rem;
   font-style: italic;
