@@ -11,7 +11,6 @@ import DirectionsBusRoundedIcon from '@mui/icons-material/DirectionsBusRounded';
 import TrainRoundedIcon from '@mui/icons-material/TrainRounded';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
-import rollercoaster from "../../assets/img/rollercoaster.webp";
 import { Icon } from "leaflet";
 import logo from "../../assets/img/logo.webp";
 import API_URL from '../../config.js';
