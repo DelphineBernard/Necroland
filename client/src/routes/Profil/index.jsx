@@ -23,14 +23,6 @@ const Profil = () => {
     const [userInfos, setUserInfos] = useState([]);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    const openModal = () => {
-        setIsModalOpen(true);
-    };
-
-    const closeModal = () => {
-        setIsModalOpen(false);
-    };
-
     const fetchUserInfos = async () => {
         try {
             const token = localStorage.getItem('token');
@@ -82,6 +74,16 @@ const Profil = () => {
             console.error('Error fetching reservations:', error);
         }
 
+    };
+
+    const openModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        fetchUserInfos();
+        fetchUserReservations();
     };
 
     useEffect(() => {
@@ -220,7 +222,7 @@ const Profil = () => {
                     ))}
                 </Box>
             </Box>
-            <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} />
+            <EditUserModal userId={userInfos.id} isOpen={isModalOpen} onRequestClose={closeModal} initialValues={userInfos} onCLose={closeModal}/>
             </Container>
         </main>
     )

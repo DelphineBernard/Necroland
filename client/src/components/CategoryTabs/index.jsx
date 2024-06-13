@@ -1,4 +1,3 @@
-
 import  { useEffect, useContext, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Context } from "../Context";
@@ -64,12 +63,15 @@ const PlaceholderText = styled('em')(({ theme }) => ({
     color: 'rgba(255, 255, 255, 0.5)', // Light color to mimic placeholder
     
 }));
+
+
 const CategoryTabs = () => {
-    const { categories, setCategories, setAttractions } = useContext(Context);
+    const { categories, setCategories, setAttractions, resetCategory  } = useContext(Context);
     const { category } = useParams();
     const navigate = useNavigate();
     const isMobile = useMediaQuery((theme) => theme.breakpoints.down('sm'));
     const [open, setOpen] = useState(false);
+
     const fetchCategories = async () => {
         try {
             const response = await fetch(`${API_URL}/categories`);
@@ -79,6 +81,7 @@ const CategoryTabs = () => {
             console.log(error);
         }
     };
+
     const fetchAttractions = async (category) => {
         try {
             let response;
@@ -93,34 +96,39 @@ const CategoryTabs = () => {
             console.log(error);
         }
     };
+    
     const handleClick = (event) => {
         const selectedCategory = event.target.value;
         if (selectedCategory === 'all') {
+            resetCategory();
             navigate('/attractions');
+        } else {
+            navigate(`/attractions/${selectedCategory}`);
         }
-        else {
-            navigate(`/attractions/${selectedCategory}`)
-        }
-        
     };
+
     const handleSelectChange = (event) => {
         const selectedCategory = event.target.value;
         if (selectedCategory === 'all') {
+            resetCategory();
             navigate('/attractions');
-        }
-        else {
-            navigate(`/attractions/${selectedCategory}`)
+        } else {
+            navigate(`/attractions/${selectedCategory}`);
         }
     };
+    
     const handleOpen = () => {
         setOpen(true);
     };
+
     useEffect(() => {
         fetchCategories();
     }, []);
+
     useEffect(() => {
         fetchAttractions(category);
     }, [category]);
+
     useEffect(() => {
         if (open) {
             const timer = setTimeout(() => {
@@ -129,6 +137,7 @@ const CategoryTabs = () => {
             return () => clearTimeout(timer);
         }
     }, [open]);
+
     return (
         <Box>
             {isMobile ? (

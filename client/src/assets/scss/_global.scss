@@ -154,10 +154,6 @@ button {
     opacity: 1; /* Assure que le point actif est complètement visible */
   }
   @media (max-width: 640px) {
-    .swiper-button-next,
-    .swiper-button-prev {
-        display: none !important;
-    }
     .swiper-slide {
       width: 100% !important;
       flex-shrink: 0;
@@ -165,6 +161,12 @@ button {
   .mySwiper .swiper-wrapper {
     width: 100%;
 }
+}
+@media (max-width: 960px) {
+  .swiper-button-next,
+  .swiper-button-prev {
+      display: none !important;
+  }
 }
 .centered-menu {
   left: 50% !important;

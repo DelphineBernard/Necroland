@@ -66,9 +66,9 @@ const LeParc = () => {
                 <Typography variant="body1" paragraph id="presentation">
                     Necroland est bien plus qu'un simple parc d'attractions, c'est une expérience terrifiante, palpitante et mémorable qui plonge les visiteurs au coeur d'un univers post-apocalyptique où les zombies règnent en maîtres. Conçu pour les amateurs d'horreur, d'aventure et de frissons, NecroLand est un lieu où l'imagination rencontre la réalité, offrant une expérience unique en son genre pour tous ceux qui osent y pénétrer.
                 </Typography>
-                <Box sx={{ marginTop: "2rem"}}>
-                    <WarningAmberIcon />
-                    <Typography variant="body1" paragraph>
+                <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
+                    <WarningAmberIcon sx={{ color: "#e57373" }} />
+                    <Typography sx={{ color: "#e57373", pb: "0.5rem" }} variant="body1">
                         Le parc est interdit aux moins de 16 ans
                     </Typography>
                 </Box>
