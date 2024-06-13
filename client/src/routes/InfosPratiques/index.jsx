@@ -340,7 +340,7 @@ const InfosPratiques = () => {
           Le parc est interdit aux moins de 16 ans
         </Typography>
       </Box>
-      <Typography variant="p" display="flex"
+      <Typography display="flex"
         justifyContent="center"
         alignItems="center"
         textAlign="center"

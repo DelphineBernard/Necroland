@@ -1,5 +1,11 @@
 @use 'var';
 
+@mixin small {
+  @media screen and (min-width: var.$breakpoint-small) {
+    @content;
+  }
+}
+
 @mixin medium {
   @media screen and (min-width: var.$breakpoint-medium) {
     @content;
