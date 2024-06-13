@@ -4,6 +4,10 @@
 @import url('https://fonts.cdnfonts.com/css/chilling-nightime');
 @import url('https://fonts.cdnfonts.com/css/nextir-brush-personal-use');
 
+body {
+  background-color: black;
+}
+
 p, h1, h2, h3, a, li {
     color: var.$color_white;
 }
