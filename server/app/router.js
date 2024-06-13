@@ -56,7 +56,6 @@ router.post('/category', isAuthenticated, isAdmin, mainController.addCategory);
 router.put('/category/:id', isAuthenticated, isAdmin, mainController.updateCategory);
 router.delete('/category/delete/:id', isAuthenticated, isAdmin, mainController.deleteCategory);
 
-router.get('/photos', mainController.getPhotos);
 router.get('/photos/:attractionId', mainController.getAttractionsPhotos);
 router.post('/photo/:attractionId', isAuthenticated, isAdmin, mainController.addPhoto);
 router.delete('/photo/:photoId', isAuthenticated, isAdmin, mainController.deletePhoto);

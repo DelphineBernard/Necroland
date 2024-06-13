@@ -54,18 +54,16 @@ const ButtonContainer = styled(Box)({
     display: 'flex',
     justifyContent: 'flex-end',
 });
-const Card = ({ name, img, description, category }) => {
+const Card = ({ name, img, description }) => {
     return (
         <StyledCard>
-            
             <StyledTypography variant="h3">{name}</StyledTypography>
             <DescriptionContainer>
             <StyledImageContainer>
-                <StyledImage src={rollercoaster} alt={name} />
+                <StyledImage src={img} alt={name} />
             </StyledImageContainer>
                 <Box>
                     <StyledDescription variant="body1">{description}</StyledDescription>
-                    <StyledDescription variant="body2">{category}</StyledDescription>
                 </Box>
                 <ButtonContainer>
                     <Button variant="contained" color="primary">Plus de photos</Button>
