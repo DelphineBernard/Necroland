@@ -20,6 +20,7 @@ import { PUBLIC_URL } from "../../config.js";
 
 // Initialize Swiper modules
 SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
+
 const AlertSection = styled('div')({
     display: 'flex',
     flexDirection: 'column',
@@ -36,18 +37,22 @@ const CenteredHeading = styled('h2')(({ theme }) => ({
     textAlign: 'center',
     margin: '16px 0',
     paddingTop: '20px',
-    fontFamily: 'Cinzel, serif',
-    fontWeight: 'bold',
-    fontSize: '1.5rem',
+    fontFamily: "Rubik, sans-serif",
+    fontWeight: 600,
+    textTransform: "uppercase",
+    fontSize: "1rem",
+    letterSpacing: '0.4px',
     [theme.breakpoints.up('md')]: {
         fontSize: '2rem',
     },
-}));
+  }));
+
 const Attractions = () => {
     const { attractions, setAttractions } = useContext(Context);
     const { category } = useParams(); // Récupère le paramètre de catégorie de l'URL
     const [activeSlide, setActiveSlide] = useState(null);
     const swiperRef = useRef(null);
+
     const fetchAttractions = async () => {
         try {
             let response;
@@ -60,6 +65,7 @@ const Attractions = () => {
             console.log(error);
         }
     };
+
     useEffect(() => {
         fetchAttractions();
     }, [category]); // Re-fetch les attractions chaque fois que la catégorie change
@@ -73,7 +79,9 @@ const Attractions = () => {
             swiperRef.current.swiper.autoplay.stop();
         }
     };
+
     const middleSlideIndex = Math.floor(attractions.length / 2); // Dynamically calculate the middle slide index
+
     return (
         <main>
             <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>

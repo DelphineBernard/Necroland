@@ -6,11 +6,12 @@ import { Typography, Box, Button, Grid, Paper, Table, TableBody, TableCell, Tabl
 import { styled } from '@mui/system';
 import { red } from '@mui/material/colors';
 import Alerte from "../../assets/icons/alerte.png";
-import autobus from "../../assets/icons/autobus.png";
-import train from "../../assets/icons/train.png";
-import voiture from "../../assets/icons/voiture.png";
-import fleche from "../../assets/icons/fleche.png";
-import telephone from "../../assets/icons/telephone.png";
+import DirectionsCarFilledRoundedIcon from '@mui/icons-material/DirectionsCarFilledRounded';
+import DirectionsBusRoundedIcon from '@mui/icons-material/DirectionsBusRounded';
+import TrainRoundedIcon from '@mui/icons-material/TrainRounded';
+import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
+import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
+import rollercoaster from "../../assets/img/rollercoaster.webp";
 import { Icon } from "leaflet";
 import logo from "../../assets/img/logo.webp";
 import API_URL from '../../config.js';
@@ -28,6 +29,7 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 
 SwiperCore.use([Pagination]);
+
 const AlertSection = styled('div')({
   display: 'flex',
   flexDirection: 'column',
@@ -123,9 +125,13 @@ const ResponsiveBox = styled(Box)(({ theme }) => ({
   hyphens: 'auto', // Enable hyphenation
   wordBreak: 'break-word', // Allow words to break
   overflowWrap: 'break-word', // Ensure words break to avoid overflow
+  lineHeight: '1.6', // Ajout de l'espacement entre les lignes
+  letterSpacing: '0.5px', // Ajout de l'espacement entre les lettres
   [theme.breakpoints.up('sm')]: {
     width: '60%', // Ajustement pour les tablettes
     padding: '16px', // Ajustement pour les tablettes
+    lineHeight: '1.2', // Ajout de l'espacement entre les lignes
+    letterSpacing: '0.2px', // Ajout de l'espacement entre les lettres
   },
   [theme.breakpoints.up('md')]: {
     width: '40%', // Réduit la largeur pour les écrans moyens et plus grands
@@ -136,7 +142,6 @@ const ResponsiveBox = styled(Box)(({ theme }) => ({
     marginRight: '2px'
   },
 }));
-
 const MapContainerWrapper = styled(Box)(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
@@ -164,34 +169,11 @@ const ContactContainer = styled(Box)(({ theme }) => ({
   },
 }));
 const ContactInfo = styled('a')(({ theme }) => ({
-  color: 'inherit',
   textDecoration: 'none',
   fontSize: '1rem',
   marginLeft: theme.spacing(2),
   [theme.breakpoints.up('sm')]: {
     fontSize: '1.2rem',
-  },
-}));
-const PhoneIconContainer = styled(Box)(({ theme }) => ({
-  display: 'flex',
-  alignItems: 'center',
-  justifyContent: 'center',
-  width: '50px',
-  height: '50px',
-  borderRadius: '20px',
-  backgroundColor: '#d9d9d9',
-  [theme.breakpoints.down('sm')]: {
-    width: '30px',
-    height: '30px',
-    borderRadius: '15px',
-  },
-}));
-const PhoneIconStyled = styled('img')(({ theme }) => ({
-  width: '30px',
-  height: '30px',
-  [theme.breakpoints.down('sm')]: {
-    width: '20px',
-    height: '20px',
   },
 }));
 const SectionContainer = styled(Box)(({ theme }) => ({
@@ -235,10 +217,9 @@ const IconContainer = styled(Box)({
   backgroundColor: 'var(--dark_gray)',
   margin: '8px',
 });
-const IconStyled = styled('img')({
-  width: '40px',
-  height: '40px',
-});
+const ChevronIcon = styled(ChevronRightOutlinedIcon)(({ size }) => ({
+  fontSize: size || '50px',
+}));
 const TextContainer = styled(Box)(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -299,7 +280,6 @@ const PopupContent = styled(Box)(({ theme }) => ({
 const PopupText = styled(Typography)({
   color: 'black',
 });
-
 
 const InfosPratiques = () => {
   const [prices, setPrices] = useState([]);
@@ -496,10 +476,8 @@ const InfosPratiques = () => {
         </MapContainer>
       </MapContainerWrapper>
       <ContactContainer>
-        <PhoneIconContainer>
-          <PhoneIconStyled src={telephone} alt="icone telephone" />
-        </PhoneIconContainer>
-        <ContactInfo href="tel:+33123456789">01 23 45 67 89</ContactInfo>
+          <LocalPhoneOutlinedIcon sx={{color: 'white'}} />
+          <ContactInfo href="tel:+33123456789">01 23 45 67 89</ContactInfo>
       </ContactContainer>
       <SectionContainer>
         <Grid container spacing={4} justifyContent="center">
@@ -509,15 +487,15 @@ const InfosPratiques = () => {
             </Typography>
             <DirectionContainer>
               <IconContainer>
-                <IconStyled src={autobus} alt="icone bus" />
+                <DirectionsBusRoundedIcon style={{ fontSize: 50 }} />
               </IconContainer>
               <TextContainer>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon  />
                   <Typography>De Paris, prendre la ligne de BUS 3202</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Arrêt Mairie La Tombe</Typography>
                 </TextWithIcon>
               </TextContainer>
@@ -534,23 +512,23 @@ const InfosPratiques = () => {
             </Typography>
             <DirectionContainer>
               <IconContainer>
-                <IconStyled src={train} alt="icone train" />
+                <TrainRoundedIcon style={{ fontSize: 50 }} />
               </IconContainer>
               <TextContainer>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>De Paris prendre le TER Gare de Lyon</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Arrivée Gare SNCF de Montreaul</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Prendre le Bus 3202</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Arrêt Mairie La Tombe</Typography>
                 </TextWithIcon>
               </TextContainer>
@@ -567,24 +545,20 @@ const InfosPratiques = () => {
             </Typography>
             <DirectionContainer>
               <IconContainer>
-                <IconStyled src={voiture} alt="icone voiture" />
+                <DirectionsCarFilledRoundedIcon style={{ fontSize: 50 }}/>
               </IconContainer>
               <TextContainer>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>De Paris, en direction de A4 à Charenton-le-Pont.</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Prendre N104 et A5 en direction de Marolles-sur-Seine. Prendre la sortie 18</Typography>
                 </TextWithIcon>
                 <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
+                  <ChevronIcon />
                   <Typography>Suivre D411 en direction de La Tombe</Typography>
-                </TextWithIcon>
-                <TextWithIcon>
-                  <IconStyled src={fleche} alt="icone flèche de direction" />
-                  <Typography>Entrer dans La tombe.</Typography>
                 </TextWithIcon>
               </TextContainer>
               <ButtonContainer>
