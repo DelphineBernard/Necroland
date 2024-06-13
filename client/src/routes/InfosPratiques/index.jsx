@@ -5,13 +5,11 @@ import "leaflet/dist/leaflet.css";
 import { Typography, Box, Button, Grid, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, useMediaQuery, useTheme } from '@mui/material';
 import { styled } from '@mui/system';
 import { red } from '@mui/material/colors';
-import Alerte from "../../assets/icons/alerte.png";
 import DirectionsCarFilledRoundedIcon from '@mui/icons-material/DirectionsCarFilledRounded';
 import DirectionsBusRoundedIcon from '@mui/icons-material/DirectionsBusRounded';
 import TrainRoundedIcon from '@mui/icons-material/TrainRounded';
 import ChevronRightOutlinedIcon from '@mui/icons-material/ChevronRightOutlined';
 import LocalPhoneOutlinedIcon from '@mui/icons-material/LocalPhoneOutlined';
-import rollercoaster from "../../assets/img/rollercoaster.webp";
 import { Icon } from "leaflet";
 import logo from "../../assets/img/logo.webp";
 import API_URL from '../../config.js';
@@ -30,18 +28,6 @@ import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 SwiperCore.use([Pagination]);
 
-const AlertSection = styled('div')({
-  display: 'flex',
-  flexDirection: 'column',
-  alignItems: 'center',
-  justifyContent: 'center',
-  textAlign: 'center',
-  padding: '10px',
-  marginBottom: '30px',
-  '@media (min-width: 640px)': {
-    flexDirection: 'row',
-  },
-});
 const CustomTypographyH2 = styled(Typography)(({ theme }) => ({
   fontFamily: 'Cinzel, serif',
   fontWeight: 'bold',
@@ -88,16 +74,16 @@ const ResponsiveContainer = styled(Box)(({ theme }) => ({
     padding: "30px 80px",
   },
   [theme.breakpoints.up('lg')]: {
-    padding: "60px", // Ajustement pour les très grands écrans
+    padding: "60px", // Adjustment for very large screens
   },
 }));
 const GridContainer = styled(Box)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(1, 1fr)',
-  gap: theme.spacing(1), // Réduit l'espacement entre les images
+  gap: theme.spacing(1), // Reduce spacing between images
   width: '100%',
   [theme.breakpoints.up('sm')]: {
-    gridTemplateColumns: 'repeat(2, 1fr)', // Deux colonnes pour les écrans plus larges
+    gridTemplateColumns: 'repeat(2, 1fr)', // "Two columns for larger screens"
     maxWidth: '50%',
   },
   [theme.breakpoints.up('md')]: {
@@ -114,31 +100,31 @@ const ImageContainer = styled('img')(({ theme }) => ({
   height: 'auto',
   objectFit: 'cover',
   [theme.breakpoints.up('md')]: {
-    paddingRight: '0px', // Padding à droite seulement pour les grands écrans
+    paddingRight: '0px' 
   },
 }));
 const ResponsiveBox = styled(Box)(({ theme }) => ({
-  padding: '16px', // Padding minimal pour mobile
+  padding: '16px', 
   width: 'auto',
   textAlign: 'justify',
-  marginBottom: '0px', // Réduit la marge inférieure pour minimiser l'espace
+  marginBottom: '0px', 
   hyphens: 'auto', // Enable hyphenation
   wordBreak: 'break-word', // Allow words to break
   overflowWrap: 'break-word', // Ensure words break to avoid overflow
-  lineHeight: '1.6', // Ajout de l'espacement entre les lignes
-  letterSpacing: '0.5px', // Ajout de l'espacement entre les lettres
+  lineHeight: '1.6', 
+  letterSpacing: '0.5px', 
   [theme.breakpoints.up('sm')]: {
-    width: '60%', // Ajustement pour les tablettes
-    padding: '16px', // Ajustement pour les tablettes
-    lineHeight: '1.2', // Ajout de l'espacement entre les lignes
-    letterSpacing: '0.2px', // Ajout de l'espacement entre les lettres
+    width: '60%', 
+    padding: '16px', 
+    lineHeight: '1.2', 
+    letterSpacing: '0.2px', 
   },
   [theme.breakpoints.up('md')]: {
-    width: '40%', // Réduit la largeur pour les écrans moyens et plus grands
+    width: '40%', 
     marginRight: '2px'
   },
   [theme.breakpoints.up('lg')]: {
-    width: '25%', // Ajustement pour les très grands écrans
+    width: '25%', 
     marginRight: '2px'
   },
 }));
@@ -281,57 +267,100 @@ const PopupText = styled(Typography)({
   color: 'black',
 });
 
+
 const InfosPratiques = () => {
+  // Define a state variable 'prices' and a function 'setPrices' to update it.
   const [prices, setPrices] = useState([]);
+  
+  // Get the current theme using useTheme hook from Material-UI.
   const theme = useTheme();
-  const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md')); // Inclut les mobiles et les tablettes
+  
+  // Check if the current screen size is mobile or tablet using useMediaQuery hook.
+  const isMobileOrTablet = useMediaQuery(theme.breakpoints.down('md'));
+
+  // useEffect hook to fetch prices data from the server when the component mounts.
   useEffect(() => {
     const fetchPrices = async () => {
       try {
+        // Define the URL to fetch prices from.
         let url = `${API_URL}/prices`;
+        
+        // Make a request to the server.
         const response = await fetch(url);
+        
+        // Check if the response is ok.
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
+        
+        // Parse the response JSON data.
         const data = await response.json();
+        
+        // Update the prices state with the data fetched from the server.
         setPrices(data.prices);
       } catch (error) {
+        // Log any errors that occur during the fetch.
         console.error('Fetch error:', error);
       }
     };
+    
+    // Call the fetchPrices function.
     fetchPrices();
   }, []);
+
+  // Filter prices that include a hotel.
   const pricesWithHotel = prices.filter(price => price.hotel);
+  
+  // Filter prices that do not include a hotel.
   const pricesWithoutHotel = prices.filter(price => !price.hotel);
+
+  // Define a list of markers for a map.
   const markers = [
     {
-      geocode: [48.38756, 3.08915],
-      popup: "1 Rue des Frissons, 77170 La tombe",
+      geocode: [48.38756, 3.08915], // Coordinates for the marker.
+      popup: "1 Rue des Frissons, 77170 La tombe", // Text to show when the marker is clicked.
     },
   ];
+
+  // Create a custom icon for the map markers.
   const customIcon = new Icon({
-    iconUrl: require("../../assets/icons/markerIcon.png"),
-    iconSize: [38, 38],
+    iconUrl: require("../../assets/icons/markerIcon.png"), // Path to the custom icon image.
+    iconSize: [38, 38], // Size of the icon.
   });
+
+  // Handle map click events.
   const MapClickHandler = () => {
+    // useMapEvents hook to handle map events.
     useMapEvents({
       click(e) {
+        // Get the latitude and longitude where the map was clicked.
         const { lat, lng } = e.latlng;
+        
+        // Create a Google Maps URL with the clicked location as the destination.
         const googleMapsUrl = `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+        
+        // Open the Google Maps URL in a new tab.
         window.open(googleMapsUrl, '_blank');
       },
     });
-    return null;
+    return null; // This component does not render anything.
   };
+
+  // Get the current URL hash.
   const { hash } = useLocation();
+
+  // useEffect hook to scroll to the element with the ID matching the hash when the component mounts or hash changes.
   useEffect(() => {
     if (hash) {
+      // Find the element with the ID matching the hash.
       const element = document.querySelector(hash);
       if (element) {
+        // Scroll to the element smoothly.
         element.scrollIntoView({ behavior: 'smooth' });
       }
     }
   }, [hash]);
+  
   return (
     <main>
       <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
