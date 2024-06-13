@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import rollercoaster from "../../assets/img/rollercoaster.webp";
 import SwiperCore, { Autoplay, Navigation, Pagination, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import API_URL from '../../config.js';
