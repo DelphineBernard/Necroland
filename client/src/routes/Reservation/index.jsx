@@ -291,7 +291,9 @@ const Reservation = () => {
                                     type="date" 
                                     name="start_date" 
                                     id="start_date" 
-                                    min="2024-07-01" 
+                                    inputProps={{
+                                        min: "2024-07-01"
+                                    }} 
                                     size="small" 
                                     onChange={handleStartDateChange} 
                                 />
