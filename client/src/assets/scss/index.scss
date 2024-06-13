@@ -1,8 +1,8 @@
 @use 'reset';
 
 @use 'global';
+@use 'animations.scss';
 
 @use '../../components/Header/header.scss';
 @use '../../components/Footer/footer.scss';
 @use '../../routes/InfosPratiques/InfosPratiques.scss';
-
