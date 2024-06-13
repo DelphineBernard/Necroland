@@ -1,12 +1,10 @@
 @use '../scss/var';
-@font-face {
-  font-family: 'Gotham';
-  src:
-    url('../fonts/gotham.ttf') format('truetype'),
-    url('../fonts/gotham.woff2') format('woff2'),
-    url('../fonts/gotham.woff') format('woff');
-}
-p, h1, h2, h3, span, a, li {
+@use '../scss/mixin';
+
+@import url('https://fonts.cdnfonts.com/css/chilling-nightime');
+@import url('https://fonts.cdnfonts.com/css/nextir-brush-personal-use');
+
+p, h1, h2, h3, a, li {
     color: var.$color_white;
 }
 main {
@@ -26,24 +24,38 @@ main {
   justify-content: stretch;
   text-align: center;
 }
+
 .form {
   width: 80%;
+
+  @include mixin.small {
+    width: 50%;
+  }
+  @include mixin.medium {
+    width: 40%;
+  }
 }
+
 img {
   max-width: 100%;
 }
+
 .hidden {
   display: none;
 }
+
 input {
   color: black;
 }
+
 button {
   color: black;
 }
+
 .text-illustration {
   width: 20%;
 }
+
 // Zombie animation
 .anim-translate {
   display: inline-block;

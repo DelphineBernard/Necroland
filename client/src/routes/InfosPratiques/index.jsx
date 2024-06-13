@@ -354,7 +354,7 @@ const InfosPratiques = () => {
         <img src={Alerte} alt="Alert icon" className="header__alert_icon" />
         <span className="header__alert_span">Le parc est interdit au moins de 16 ans</span>
       </AlertSection>
-      <Typography variant="p" display="flex"
+      <Typography display="flex"
         justifyContent="center"
         alignItems="center"
         textAlign="center"

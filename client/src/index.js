@@ -1,9 +1,5 @@
 import * as ReactDOM from "react-dom/client";
-import {
-    createBrowserRouter,
-    RouterProvider,
-    Navigate
-} from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import Layout from "./components/Layout";
 import Accueil from "./routes/Accueil";
 import Attractions from "./routes/Attractions";
@@ -194,21 +190,34 @@ const theme = createTheme({
         spanItalic: {
             fontWeight: "800",
             fontStyle: "italic",
+            fontSize: "1.2rem",
             textTransform: "uppercase",
+            color: "white",
+            '@media (max-width:1280px)': {
+                fontSize: '1rem',
+            },
+            '@media (max-width:960px)': {
+                fontSize: '0.85rem',
+            },
+            '@media (max-width:600px)': {
+                fontSize: '0.8rem',
+            },
         },
         spanUppercase: {
             textTransform: "uppercase",
             fontWeight: "800",
+            fontFamily: 'Chilling Nightime, sans-serif',
+            fontSize: "4rem",                                    
             padding: "2rem 0",
-
+            color: "white",
             '@media (max-width:1280px)': {
-                fontSize: '2.5rem',
+                fontSize: '3.5rem',
             },
             '@media (max-width:960px)': {
-                fontSize: '1.8rem',
+                fontSize: '3rem',
             },
             '@media (max-width:600px)': {
-                fontSize: '1.5rem',
+                fontSize: '2.5rem',
             },
         }
     },
@@ -287,6 +296,13 @@ const theme = createTheme({
                 input: {
                     color: 'black',
                 }
+            },
+        },
+        MuiSvgIcon: {
+            styleOverrides: {
+              root: {
+                color: "white",
+              },
             },
         },
     },

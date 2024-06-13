@@ -41,7 +41,7 @@ const Connexion = () => {
                 {error && <Alert variant="filled" severity="error" >{error}</Alert>}
                     {/* <label htmlFor="email">Adresse e-mail *</label> */}
                     <Box sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <AccountCircle sx={{ color: 'action.active', fontSize: 45, mr: 1, my: 0.5 }} />
+                        <AccountCircle sx={{ fontSize: 45, mr: 1, my: 0.5 }} />
                         <FormField
                             variant="filled" 
                             label="Adresse e-mail"
@@ -56,7 +56,7 @@ const Connexion = () => {
                     </Box>
                     {/* <label htmlFor="password">Mot de passe *</label> */}
                     <Box sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <LockIcon sx={{ color: 'action.active', fontSize: 45, mr: 1, my: 0.5 }} />
+                        <LockIcon sx={{ fontSize: 45, mr: 1, my: 0.5 }} />
                         <FormField
                             variant="filled" 
                             label="Mot de passe"

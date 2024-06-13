@@ -10,7 +10,7 @@ const ReservationInfos = ({id, start_date, end_date, nb_people, hotel, total_pri
     const startDate = new Date(start_date);
     const endDate = new Date(end_date);
     
-    // Calcul de la date limite d'annulation (jour de début - 9 jours)
+    // Calculate cancel limit date (start date - 9 days)
     const cancelLimitDate = new Date(startDate);
     cancelLimitDate.setDate(cancelLimitDate.getDate() - 9);
 
@@ -23,19 +23,33 @@ const ReservationInfos = ({id, start_date, end_date, nb_people, hotel, total_pri
             {status === "Confirmée" 
             && endDate >= Date.now() 
             && cancelLimitDate > Date.now()
-            && <Button sx={{ alignSelf: "center"}} size="small" onClick={() => handleCancel(id)}>Annuler la réservation</Button>}
+            && 
+            <Button size="small" onClick={() => handleCancel(id)}>
+                Annuler la réservation
+            </Button>}
         </Box>
         
         <Box sx={{ pt:2, mx: "auto" }}>
             <Typography>Détails de la réservation :</Typography>
             <List sx={{ px: "0.5rem" }}>  
-                <ListItem><CalendarMonthIcon />Du {formatDate(start_date)} au {formatDate(end_date)}</ListItem>
-                <ListItem><EmojiPeopleIcon />Entrée au parc pour {nb_people} {nb_people >= 1 ? "personne" : "personnes"}</ListItem>
-                <ListItem><HotelIcon />Hôtel {hotel === true ? "inclus" : "non inclus"}</ListItem>
-                <ListItem><EuroIcon />Prix total: {total_price} €</ListItem>
+                <ListItem>
+                    <CalendarMonthIcon />
+                    Du {formatDate(start_date)} au {formatDate(end_date)}
+                </ListItem>
+                <ListItem>
+                    <EmojiPeopleIcon />
+                    Entrée au parc pour {nb_people} {nb_people >= 1 ? "personne" : "personnes"}
+                </ListItem>
+                <ListItem>
+                    <HotelIcon />
+                    Hôtel {hotel === true ? "inclus" : "non inclus"}
+                </ListItem>
+                <ListItem>
+                    <EuroIcon />
+                    Prix total: {total_price} €
+                </ListItem>
             </List>  
         </Box>
-        
     </Box>
     )  
 }
