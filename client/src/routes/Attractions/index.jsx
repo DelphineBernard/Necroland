@@ -8,7 +8,6 @@ import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css'; // Correct import path for effect-coverflow
 import { styled } from '@mui/system';
-import Alerte from "../../assets/icons/alerte.png";
 import Card from "../../components/Card";
 import SearchForm from "../../components/SearchForm";
 import CategoryTabs from "../../components/CategoryTabs";
@@ -84,7 +83,7 @@ const Attractions = () => {
 
     return (
         <main>
-            <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
+            <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
                 <WarningAmberIcon sx={{ color: "#e57373" }} />
                 <Typography sx={{ color: "#e57373", pb: "0.5rem" }} variant="body1">
                     Le parc est interdit aux moins de 16 ans
