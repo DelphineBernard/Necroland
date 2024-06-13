@@ -21,6 +21,11 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
+import hotelOne from "../../assets/img/hotel-1.webp";
+import hotelTwo from "../../assets/img/hotel-2.webp";
+import hotelThree from "../../assets/img/hotel-3.webp";
+import hotelFour from "../../assets/img/hotel-4.webp";
+import WarningAmberIcon from '@mui/icons-material/WarningAmber';
 
 
 SwiperCore.use([Pagination]);
@@ -329,10 +334,12 @@ const InfosPratiques = () => {
   }, [hash]);
   return (
     <main>
-      <AlertSection>
-        <img src={Alerte} alt="Alert icon" className="header__alert_icon" />
-        <span className="header__alert_span">Le parc est interdit au moins de 16 ans</span>
-      </AlertSection>
+      <Box sx={{ mx: 'auto', my: '2rem', maxWidth: '921px', display: 'flex', flexDirection: 'column', alignItems: 'center', backgroundColor: "#00000070", border: "1px solid #e57373", borderRadius: "0.5rem", pt: "0.5rem", px: "0.5rem" }}>
+        <WarningAmberIcon sx={{ color: "#e57373" }} />
+        <Typography sx={{ color: "#e57373", pb: "0.5rem" }} variant="body1">
+          Le parc est interdit aux moins de 16 ans
+        </Typography>
+      </Box>
       <Typography variant="p" display="flex"
         justifyContent="center"
         alignItems="center"
@@ -415,40 +422,40 @@ const InfosPratiques = () => {
             </p>
           </ResponsiveBox>
           {isMobileOrTablet ? (
-  <Box width="100%"> {/* Assurez-vous que le conteneur parent prend toute la largeur */}
-  <Swiper
-    pagination={{ clickable: true }}
-    style={{ width: '100%', paddingBottom: '16px' }} // Ajoute un padding en bas du swiper et prend toute la largeur
-  >
-    <SwiperSlide>
-      <ImageContainer src={rollercoaster} alt="Rollercoaster 1" />
-    </SwiperSlide>
-    <SwiperSlide>
-      <ImageContainer src={rollercoaster} alt="Rollercoaster 2" />
-    </SwiperSlide>
-    <SwiperSlide>
-      <ImageContainer src={rollercoaster} alt="Rollercoaster 3" />
-    </SwiperSlide>
-    <SwiperSlide>
-      <ImageContainer src={rollercoaster} alt="Rollercoaster 4" />
-    </SwiperSlide>
-    <div
-      className="swiper-pagination"
-      style={{ position: 'relative', bottom: '0', marginTop: '20px' }} // Positionne les points de pagination en dessous
-    ></div>
-  </Swiper>
-</Box>
+            <Box width="100%"> {/* Assurez-vous que le conteneur parent prend toute la largeur */}
+              <Swiper
+                pagination={{ clickable: true }}
+                style={{ width: '100%', paddingBottom: '16px' }} // Ajoute un padding en bas du swiper et prend toute la largeur
+              >
+                <SwiperSlide>
+                  <ImageContainer src={hotelOne} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ImageContainer src={hotelTwo} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ImageContainer src={hotelThree} alt="" />
+                </SwiperSlide>
+                <SwiperSlide>
+                  <ImageContainer src={hotelFour} alt="" />
+                </SwiperSlide>
+                <div
+                  className="swiper-pagination"
+                  style={{ position: 'relative', bottom: '0', marginTop: '20px' }} // Positionne les points de pagination en dessous
+                ></div>
+              </Swiper>
+            </Box>
           ) : (
             <GridContainer p={2}>
-              <ImageContainer src={rollercoaster} alt="Rollercoaster 1" />
-              <ImageContainer src={rollercoaster} alt="Rollercoaster 2" />
-              <ImageContainer src={rollercoaster} alt="Rollercoaster 3" />
-              <ImageContainer src={rollercoaster} alt="Rollercoaster 4" />
+              <ImageContainer src={hotelOne} alt="" />
+              <ImageContainer src={hotelTwo} alt="" />
+              <ImageContainer src={hotelThree} alt="" />
+              <ImageContainer src={hotelFour} alt="" />
             </GridContainer>
           )}
         </ResponsiveContainer>
       </section>
-      <CustomTypographyH2 id="itineraire" variant="h2" textAlign="center" gutterBottom padding= '15px'>Venir au parc</CustomTypographyH2>
+      <CustomTypographyH2 id="itineraire" variant="h2" textAlign="center" gutterBottom padding='15px'>Venir au parc</CustomTypographyH2>
       <MapContainerWrapper>
         <MapContainer center={[48.38756, 3.08915]} zoom={13} scrollWheelZoom={true} style={{ height: '100%', width: '100%' }}>
           <TileLayer
