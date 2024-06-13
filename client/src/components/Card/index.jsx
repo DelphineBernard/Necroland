@@ -3,6 +3,7 @@ import { Box, Typography, Button } from '@mui/material';
 import MorePhotosModal from '../Modals/MorePhotosModal';
 import { useState } from 'react';
 
+
 const StyledCard = styled(Box)(({ theme }) => ({
     width: '100%',
     marginTop: '3rem',

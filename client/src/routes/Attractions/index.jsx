@@ -6,7 +6,7 @@ import 'swiper/swiper-bundle.min.css';
 import 'swiper/swiper.min.css';
 import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
-import 'swiper/components/effect-coverflow/effect-coverflow.min.css'; // Correct import path for effect-coverflow
+import 'swiper/components/effect-coverflow/effect-coverflow.min.css'; 
 import { styled } from '@mui/system';
 import Card from "../../components/Card";
 import SearchForm from "../../components/SearchForm";
@@ -20,18 +20,7 @@ import { PUBLIC_URL } from "../../config.js";
 // Initialize Swiper modules
 SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
 
-const AlertSection = styled('div')({
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
-    textAlign: 'center',
-    padding: '10px',
-    marginBottom: '30px',
-    '@media (min-width: 640px)': {
-        flexDirection: 'row',
-    },
-});
+// Styled component for the heading
 const CenteredHeading = styled('h2')(({ theme }) => ({
     textAlign: 'center',
     margin: '16px 0',
@@ -44,17 +33,20 @@ const CenteredHeading = styled('h2')(({ theme }) => ({
     [theme.breakpoints.up('md')]: {
         fontSize: '2rem',
     },
-  }));
+}));
 
 const Attractions = () => {
+    // Get attractions from context and category from URL
     const { attractions, setAttractions } = useContext(Context);
-    const { category } = useParams(); // Récupère le paramètre de catégorie de l'URL
-    const [activeSlide, setActiveSlide] = useState(null);
-    const swiperRef = useRef(null);
+    const { category } = useParams(); // Get category parameter from the URL
+    const [activeSlide, setActiveSlide] = useState(null); // State for the active slide
+    const swiperRef = useRef(null); // Reference to the Swiper instance
 
+    // Fetch attractions data from the API
     const fetchAttractions = async () => {
         try {
             let response;
+            // Fetch data based on the category
             category
                 ? response = await fetch(`${API_URL}/attractions/${category}`)
                 : response = await fetch(`${API_URL}/attractions`);
@@ -65,21 +57,23 @@ const Attractions = () => {
         }
     };
 
+    // Use useEffect to fetch attractions whenever the category changes
     useEffect(() => {
         fetchAttractions();
-    }, [category]); // Re-fetch les attractions chaque fois que la catégorie change
+    }, [category]); // Dependency array to refetch when category changes
 
+    // Handle slide click event
     const handleSlideClick = (index) => {
         if (index === activeSlide) {
-            setActiveSlide(null);
-            swiperRef.current.swiper.autoplay.start();
+            setActiveSlide(null); // Deselect the slide
+            swiperRef.current.swiper.autoplay.start(); // Restart autoplay
         } else {
-            setActiveSlide(index);
-            swiperRef.current.swiper.autoplay.stop();
+            setActiveSlide(index); // Set the clicked slide as active
+            swiperRef.current.swiper.autoplay.stop(); // Stop autoplay
         }
     };
 
-    const middleSlideIndex = Math.floor(attractions.length / 2); // Dynamically calculate the middle slide index
+    const middleSlideIndex = Math.floor(attractions.length / 2); // Calculate the middle slide index
 
     return (
         <main>
@@ -124,7 +118,7 @@ const Attractions = () => {
                             spaceBetween: 10,
                         },
                         640: {
-                            slidesPerView: 2, // Tablette
+                            slidesPerView: 2, // Tablet
                             spaceBetween: 30,
                         },
                         1024: {
@@ -153,4 +147,5 @@ const Attractions = () => {
         </main>
     );
 }
+
 export default Attractions;

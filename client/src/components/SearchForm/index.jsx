@@ -7,14 +7,15 @@ import { styled } from '@mui/system';
 import { Box } from '@mui/material';
 import SearchIcon from '@mui/icons-material/Search';
 
-
+// Styled components for the form container, form, and suggestions
 const StyledFormContainer = styled('div')({
     position: 'relative',
     width: '100%',
     display: 'flex',
-    flexDirection: 'column', // Adjust to column
+    flexDirection: 'column', 
     alignItems: 'center',
 });
+
 const StyledForm = styled('form')(({ theme }) => ({
     display: 'flex',
     alignItems: 'center',
@@ -53,6 +54,7 @@ const StyledForm = styled('form')(({ theme }) => ({
         },
     }
 }));
+
 const StyledSuggestions = styled('ul')(({ theme }) => ({
     listStyle: 'none',
     margin: 0,
@@ -61,7 +63,7 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
     border: '2px solid white',
     borderRadius: '12px',
     position: 'relative',
-    top: '8px', // Adjust the position slightly below the form
+    top: '8px', 
     left: 0,
     maxHeight: '140px',
     overflow: 'auto',
@@ -109,13 +111,16 @@ const StyledSuggestions = styled('ul')(({ theme }) => ({
         borderTop: '2px solid var(--dark_gray)',
     },
 }));
+
 const SearchForm = () => {
-    const navigate = useNavigate();
+    const navigate = useNavigate(); // Hook to navigate programmatically
     const { tags, setTags, setAttractions, tagSearched, setTagSearched, resetCategory } = useContext(Context);
-    const [filteredTags, setFilteredTags] = useState([]);
-    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false);
+    const [filteredTags, setFilteredTags] = useState([]); // State for filtered tags
+    const [isSuggestionsOpen, setIsSuggestionsOpen] = useState(false); // State for suggestion dropdown visibility
     const suggestionsRef = useRef(null);
     const searchBarRef = useRef(null);
+
+    // Fetch tags from the API
     const fetchTags = async () => {
         try {
             const response = await fetch(`${API_URL}/tags`);
@@ -125,6 +130,8 @@ const SearchForm = () => {
             console.log(error);
         }
     };
+
+    // Handle search by tag
     const handleSearchByTag = async (event) => {
         try {
             event.preventDefault();
@@ -142,6 +149,8 @@ const SearchForm = () => {
             console.log(error);
         }
     };
+
+    // Fetch all attractions
     const fetchAllAttractions = async () => {
         try {
             const response = await fetch(`${API_URL}/attractions`);
@@ -151,6 +160,8 @@ const SearchForm = () => {
             console.log(error);
         }
     };
+
+    // Handle input change
     const handleChange = (event) => {
         const value = event.target.value;
         setTagSearched(value);
@@ -165,6 +176,8 @@ const SearchForm = () => {
             setIsSuggestionsOpen(false);
         }
     };
+
+    // Handle suggestion click
     const handleSuggestionClick = async (suggestion) => {
         setTagSearched(suggestion.name);
         setFilteredTags([]);
@@ -174,6 +187,8 @@ const SearchForm = () => {
         const data = await response.json();
         setAttractions(data.attractions.Attractions);
     };
+
+    // Handle search bar click
     const handleClick = () => {
         if (isSuggestionsOpen) {
             setIsSuggestionsOpen(false);
@@ -184,11 +199,15 @@ const SearchForm = () => {
             setIsSuggestionsOpen(true);
         }
     };
+
+    // Reset search
     const resetSearch = () => {
         setTagSearched("");
         setFilteredTags([]);
         setIsSuggestionsOpen(false);
     };
+
+    // Handle click outside the search bar to close suggestions
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (searchBarRef.current && !searchBarRef.current.contains(event.target)) {
@@ -200,10 +219,14 @@ const SearchForm = () => {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, [searchBarRef]);
+
+    // Fetch tags and all attractions when component mounts
     useEffect(() => {
         fetchTags();
         fetchAllAttractions();
     }, []);
+
+    // Auto-close suggestions after a delay
     useEffect(() => {
         if (filteredTags.length > 0) {
             const timer = setTimeout(() => {
@@ -212,6 +235,7 @@ const SearchForm = () => {
             return () => clearTimeout(timer);
         }
     }, [filteredTags]);
+
     return (
         <Box display="flex" justifyContent="center" alignItems="center" width="100%" mt={2}>
             <StyledFormContainer ref={searchBarRef}>
@@ -230,6 +254,7 @@ const SearchForm = () => {
                 </StyledForm>
                 {isSuggestionsOpen && filteredTags.length > 0 && (
                     <StyledSuggestions ref={suggestionsRef}>
+                        {/* Map through the filteredTags array and display each tag as a list item */}
                         {filteredTags.map((tag) => (
                             <li key={tag.id} onClick={() => handleSuggestionClick(tag)}>
                                 {tag.name}
@@ -241,4 +266,5 @@ const SearchForm = () => {
         </Box>
     );
 }
+
 export default SearchForm;
