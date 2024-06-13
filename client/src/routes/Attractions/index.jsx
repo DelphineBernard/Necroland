@@ -145,6 +145,7 @@ const Attractions = () => {
                                 name={attraction.name}
                                 img={`${PUBLIC_URL}/${attraction.photos[0].name}`}
                                 description={attraction.description}
+                                photos={attraction.photos}
                             />
                         </SwiperSlide>
                     ))}
