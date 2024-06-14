@@ -246,8 +246,8 @@ const ButtonContainer = styled(Box)(({ theme }) => ({
   margin: theme.spacing(1),
 }));
 const LogoImage = styled('img')({
-  width: '60px',
-  height: '60px',
+  width: '50px',
+  height: '50px',
 });
 const PopupContent = styled(Box)(({ theme }) => ({
   display: 'flex',
