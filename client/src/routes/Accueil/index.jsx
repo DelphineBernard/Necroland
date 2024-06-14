@@ -172,14 +172,14 @@ const Accueil = () => {
                                     position: 'relative',
                                     alignContent: 'center',
                                     '@media (max-width:1920px)': {
-                                        padding: '4rem',
+                                        padding: '2rem',
                                         marginBottom: '5rem',
-                                        width: '75% !important',
+                                        width: '65% !important',
                                     },
                                     '@media (max-width:1280px)': {
-                                        padding: '4rem',
+                                        padding: '2rem',
                                         marginBottom: '5rem',
-                                        width: '70% !important',
+                                        width: '60% !important',
                                     },
                                     '@media (max-width:960px)': {
                                         padding: '1rem',
