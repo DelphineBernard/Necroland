@@ -22,7 +22,7 @@ const EditCategoryModal = ({ categoryId, isOpen, onRequestClose, initialValues, 
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/category/${categoryId}`, {
+            const response = await fetch(`${API_URL}/categories/${categoryId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

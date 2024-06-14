@@ -1,9 +1,14 @@
 import Price from "../models/Price.js";
 
 const pricesController = {
+
     getPrices: async (req, res) => {
-        const prices = await Price.findAll();
-        res.json({prices});
+        try {
+            const prices = await Price.findAll();
+            res.status(200).json({prices});
+        } catch (error) {
+            res.status(500).json({ message: "Erreur lors de la récupération des prix", error });
+        }
     },
 
     addPrice: async (req, res) => {
@@ -16,8 +21,7 @@ const pricesController = {
             })
             res.status(201).json({ message: "Prix ajouté avec succès" });
         } catch (error) {
-            console.log(error);
-            res.status(500).json({ message: "Erreur lors de l'ajout du prix" });
+            res.status(500).json({ message: "Erreur lors de l'ajout du prix", error });
         }
     },
 
@@ -31,8 +35,7 @@ const pricesController = {
             });
             res.status(200).json({ message: "Modifications enregistrées" });
         } catch (error) {
-            console.log("Erreur", error);
-            res.status(500).json({ message: "Erreur lors de la mise à jour des informations du prix" });
+            res.status(500).json({ message: "Erreur lors de la mise à jour des informations du prix", error });
         }
     },
 
@@ -46,8 +49,7 @@ const pricesController = {
             });
             res.status(200).json({ message: "Prix supprimé avec succès" });
         } catch (error) {
-            console.error("Erreur lors de la suppression du prix:", error);
-            res.status(500).json({ message: "Erreur lors de la suppression du prix" });
+            res.status(500).json({ message: "Erreur lors de la suppression du prix", error });
         }
     },
 }

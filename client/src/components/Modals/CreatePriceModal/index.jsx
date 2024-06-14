@@ -15,7 +15,7 @@ const CreatePriceModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/price`, {
+            const response = await fetch(`${API_URL}/prices`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

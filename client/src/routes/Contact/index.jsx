@@ -15,7 +15,7 @@ const Contact = () => {
         const messageData = Object.fromEntries(formData.entries());
 
         try {
-            const response = await fetch(`${API_URL}/message`, {
+            const response = await fetch(`${API_URL}/messages`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

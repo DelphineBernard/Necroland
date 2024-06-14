@@ -23,7 +23,7 @@ const MessageItem = ({ element, onClose }) => {
     const updateMessageStatus = async (messageId) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/message/${messageId}`, {
+            await fetch(`${API_URL}/messages/${messageId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

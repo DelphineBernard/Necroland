@@ -18,7 +18,7 @@ const TagItem = ({ element, onClose }) => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/tag/delete/${element.id}`, {
+            const response = await fetch(`${API_URL}/tags/${element.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

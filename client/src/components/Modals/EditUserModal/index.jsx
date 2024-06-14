@@ -36,7 +36,7 @@ const EditUserModal = ({ userId, isOpen, onRequestClose, initialValues, onClose 
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/user/${userId}`, {
+            const response = await fetch(`${API_URL}/users/${userId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

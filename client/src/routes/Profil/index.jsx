@@ -25,7 +25,7 @@ const Profil = () => {
         try {
             const token = localStorage.getItem('token');
 
-            const response = await fetch(`${API_URL}/user/${userId}`, {
+            const response = await fetch(`${API_URL}/users/${userId}`, {
                 method: 'GET',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -92,7 +92,7 @@ const Profil = () => {
     const handleCancel = async (reservationId) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/reservation/${reservationId}`, {
+            await fetch(`${API_URL}/reservations/${reservationId}/status`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -109,7 +109,7 @@ const Profil = () => {
     const handleDeleteAccount = async (userId) => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/user/delete/${userId}`, {
+            const response = await fetch(`${API_URL}/users/${userId}`, {
             method: 'PATCH',
             headers: {
                 'Authorization': `Bearer ${token}`,

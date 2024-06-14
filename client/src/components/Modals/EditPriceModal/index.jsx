@@ -22,7 +22,7 @@ const EditPriceModal = ({ priceId, isOpen, onRequestClose, initialValues, onClos
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/price/${priceId}`, {
+            const response = await fetch(`${API_URL}/prices/${priceId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -48,7 +48,7 @@ const Attractions = () => {
             let response;
             // Fetch data based on the category
             category
-                ? response = await fetch(`${API_URL}/attractions/${category}`)
+                ? response = await fetch(`${API_URL}/attractions/categories/${category}`)
                 : response = await fetch(`${API_URL}/attractions`);
             const data = await response.json();
             setAttractions(data.attractions);
