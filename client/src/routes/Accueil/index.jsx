@@ -1,6 +1,5 @@
 import { useEffect, useState, useRef } from "react";
 import { Link } from "react-router-dom";
-import rollercoaster from "../../assets/img/rollercoaster.webp";
 import SwiperCore, { Autoplay, Navigation, Pagination, EffectCoverflow } from 'swiper';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import API_URL from '../../config.js';
@@ -140,37 +139,20 @@ const Accueil = () => {
                 <Typography variant="h2" sx={{ py: "3rem" }}>Des attractions aussi terrifiantes les unes que les autres</Typography>
                 <Swiper
                     ref={swiperRef}
-                    effect="coverflow"
                     grabCursor={true}
                     centeredSlides={true}
-                    slidesPerView="auto"
+                    slidesPerView="1"
                     initialSlide={middleSlideIndex}
                     loop={true}
-                    coverflowEffect={{
-                        rotate: 50,
-                        stretch: 0,
-                        depth: 100,
-                        modifier: 1,
-                        slideShadows: true,
-                    }}
                     autoplay={{
                         delay: 3000,
                         disableOnInteraction: false,
                     }}
-                    navigation
+                    navigation={true}
                     pagination={{ clickable: true }}
+                    modules={[Autoplay, Pagination, Navigation]}
                     className="mySwiper"
-                    breakpoints={{
-                        320: {
-                            slidesPerView: 1, // Mobile
-                        },
-                        640: {
-                            slidesPerView: 1, // Tablette
-                        },
-                        1024: {
-                            slidesPerView: 1, // Desktop
-                        },
-                    }}
+                    
                 >
                     {attractions.map((attraction, index) => (
                         <SwiperSlide
@@ -190,20 +172,24 @@ const Accueil = () => {
                                     position: 'relative',
                                     alignContent: 'center',
                                     '@media (max-width:1920px)': {
-                                        padding: '4rem',
+                                        padding: '2rem',
                                         marginBottom: '5rem',
+                                        width: '65% !important',
                                     },
                                     '@media (max-width:1280px)': {
-                                        padding: '4rem',
+                                        padding: '2rem',
                                         marginBottom: '5rem',
+                                        width: '60% !important',
                                     },
                                     '@media (max-width:960px)': {
                                         padding: '1rem',
                                         marginBottom: '3rem',
+                                        width: '100% !important',
                                     },
                                     '@media (max-width:600px)': {
                                         padding: '0.5rem',
                                         marginBottom: '3rem',
+                                        width: '100% !important',
                                     },
                                 }}
                             >
