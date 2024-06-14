@@ -38,7 +38,7 @@ const ReservationInfos = ({id, start_date, end_date, nb_people, hotel, total_pri
                 </ListItem>
                 <ListItem>
                     <EmojiPeopleIcon />
-                    Entrée au parc pour {nb_people} {nb_people >= 1 ? "personne" : "personnes"}
+                    Entrée au parc pour {nb_people} {nb_people < 2 ? "personne" : "personnes"}
                 </ListItem>
                 <ListItem>
                     <HotelIcon />

@@ -22,10 +22,12 @@ const calculateTotalPrice = (allPrices, durationSelected, hotelSelected) => {
 
         if (selectedPrice) {
             return selectedPrice.price;
+        } else {
+            throw new Error('Aucun prix correspondant trouvé');
         }
     } catch (error) {
-        console.error("Erreur le prix n'a pas pu être calculé:", error);
-        return "Erreur le prix n'a pas pu être calculé"
+        console.error("Erreur le prix n'a pas pu être calculé:", error.message);
+        return null;
     }
 }
 
@@ -333,7 +335,8 @@ const Reservation = () => {
                         {/* If hotel or duration are selected, show selection */}
                         {(hotelSelected || durationSelected) &&
                             <List>
-                                <ListItem><CalendarMonthIcon />
+                                <ListItem>
+                                    <CalendarMonthIcon />
                                     {!stringStartDate &&
                                         <>
                                             Dates
@@ -343,7 +346,8 @@ const Reservation = () => {
                                         `Du ${stringStartDate} au ${stringEndDate}`}
                                 </ListItem>
                                 <Divider component="li" />
-                                <ListItem><HotelIcon />
+                                <ListItem>
+                                    <HotelIcon />
                                     {!hotelSelected &&
                                         <>
                                             Hôtel
@@ -364,7 +368,8 @@ const Reservation = () => {
                                 </ListItem>
 
                                 <Divider component="li" />
-                                <ListItem><LocalActivityIcon />
+                                <ListItem>
+                                    <LocalActivityIcon />
                                     {!durationSelected &&
                                         <>
                                             <Typography>Durée du séjour</Typography>
@@ -375,12 +380,14 @@ const Reservation = () => {
                                 </ListItem>
 
                                 <Divider component="li" />
-                                <ListItem><EmojiPeopleIcon />
+                                <ListItem>
+                                    <EmojiPeopleIcon />
                                     Nombre de personnes: {nbPeopleSelected}
                                 </ListItem>
 
                                 <Divider component="li" />
-                                <ListItem><EuroIcon />
+                                <ListItem>
+                                    <EuroIcon />
                                     Prix total: {!totalPrice ? <HelpOutlineIcon /> : (totalPrice * nbPeopleSelected) + ' € TTC'}
                                 </ListItem>
                                 <Typography className="info">

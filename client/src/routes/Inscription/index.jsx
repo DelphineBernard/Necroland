@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import { register } from "../../actions/authActions.js";
 import { useState } from "react";
-import { Box } from "@mui/material";
+import { Box, InputBase, InputLabel, Typography } from "@mui/material";
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
@@ -39,7 +39,7 @@ const Inscription = () => {
 
         dispatch(register(userData))
             .then(() => {
-                // Redirection après une inscription réussie
+                // Redirect after success login
                 navigate('/profil');
             })
             .catch((error) => {
@@ -51,14 +51,28 @@ const Inscription = () => {
     return (
     
         <main className="center">
-            <p>Indiquez ci-dessous vos informations personnelles pour créer un compte.</p>
-            <form method="post" onSubmit={handleSubmit} className="form">
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
-                <p>Tous les champs sont obligatoires.</p>
-                {error && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
-                {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
+            <Typography>
+                Indiquez ci-dessous vos informations personnelles pour créer un compte.
+            </Typography>
 
-                    {/* <label htmlFor="email">Adresse e-mail *</label> */}
+            <form method="post" onSubmit={handleSubmit} className="form">
+
+                <Box 
+                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
+
+                    <Typography>
+                        Tous les champs sont obligatoires.
+                    </Typography>
+
+                    {error && 
+                    <Alert variant="filled" severity="error">
+                        {errorMessage}
+                    </Alert>}
+                    {errorMessage && 
+                    <Alert variant="filled" severity="error">
+                        {errorMessage}
+                    </Alert>}
+
                     <FormField
                         variant="filled" 
                         label="Adresse e-mail"
@@ -71,8 +85,10 @@ const Inscription = () => {
                         required
                     />
 
-                    {/* <label htmlFor="password">Mot de passe *</label> */}
-                    <p>Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.</p>
+                    <Typography>
+                        Le mot de passe doit contenir au moins 12 caractères dont 1 majuscule, 1 chiffre et 1 caractère spécial.
+                    </Typography>
+
                    <FormField
                         variant="filled" 
                         label="Mot de passe"
@@ -85,7 +101,6 @@ const Inscription = () => {
                         required
                     />
 
-                    {/* <label htmlFor="passwordConfirm">Confirmation mot de passe *</label> */}
                     <FormField
                         variant="filled" 
                         label="Confirmer le mot de passe"
@@ -97,7 +112,7 @@ const Inscription = () => {
                         placeholder="Confirmez votre mot de passe"
                         required
                     />
-                    {/* <label htmlFor="lastname">Nom *</label> */}
+
                     <FormField
                         variant="filled" 
                         label="Nom"
@@ -109,7 +124,7 @@ const Inscription = () => {
                         placeholder="Votre nom" 
                         required
                     /> 
-                    {/* <label htmlFor="firstname">Prénom *</label> */}
+
                     <FormField
                         variant="filled" 
                         label="Prénom"
@@ -122,7 +137,6 @@ const Inscription = () => {
                         required 
                     />
 
-                    {/* <label htmlFor="address">Adresse *</label> */}
                     <FormField
                         variant="filled" 
                         label="Adresse"
@@ -134,7 +148,7 @@ const Inscription = () => {
                         placeholder="Votre adresse" 
                         required 
                     />
-                    {/* <label htmlFor="postalCode">Code postal *</label> */}
+
                     <FormField
                         variant="filled" 
                         label="Code postal"
@@ -146,7 +160,7 @@ const Inscription = () => {
                         placeholder="Votre code postal" 
                         required 
                     />
-                    {/* <label htmlFor="city">Ville *</label> */}
+
                     <FormField
                         variant="filled" 
                         label="Ville"
@@ -158,7 +172,7 @@ const Inscription = () => {
                         placeholder="La ville où vous habitez" 
                         required 
                     />
-                    {/* <label htmlFor="country">Pays *</label> */}
+
                     <FormField
                         variant="filled" 
                         label="Pays"
@@ -171,29 +185,28 @@ const Inscription = () => {
                         required 
                     />
                     <Box sx={{color: "white"}}>
-                        <input type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
-                        <label htmlFor="legalTerms">J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles</a>.</label>
+                        <InputBase type="checkbox" name="legalTerms" id="legalTerms" onChange={handleCheckboxChange} />
+                        <InputLabel htmlFor="legalTerms" sx={{ color: "white"}}>J'accepte la <a href="/mentions-legales" target="_blank">politique de confidentialité des données personnelles
+                            </a>.
+                        </InputLabel>
                     </Box>
                     
-                <Button 
-                    type="submit" 
-                    variant="contained"
-                    onClick={handleRegistration}>
-                    S'inscrire
-                </Button>
+                    <Button 
+                        type="submit" 
+                        variant="contained"
+                        onClick={handleRegistration}>
+                        S'inscrire
+                    </Button>
                 </Box>
             </form>
-            <div>
-                <div></div>
-                <p>ou</p>
-                <div></div>
-            </div>
+
             <Button 
                 sx={{ backgroundColor: 'white', color: red[900], border: red[900], "&:hover": { backgroundColor: red[600], color: 'white', border: red[900]} }}
                 variant="outlined" 
                 href="/connexion">
                 Se connecter
             </Button>
+
         </main>
 
     )

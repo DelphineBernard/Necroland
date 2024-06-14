@@ -1,9 +1,8 @@
 import { useState } from "react";
 import API_URL from '../../config.js';
 import Button from '@mui/material/Button';
-import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
-import { Box, Alert } from "@mui/material";
+import { Box, Alert, Typography } from "@mui/material";
 
 const Contact = () => {
 
@@ -41,79 +40,91 @@ const Contact = () => {
 
     return (
         <main className="center">
-            <p>Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.</p>
+            <Typography>
+                Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.
+            </Typography>
+            
             <form method="post" onSubmit={handleSubmit} className="form">
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
-                {successMessage && <Alert variant="filled" severity="success">{successMessage}</Alert>}
-                {errorMessage && <Alert variant="filled" severity="error">{errorMessage}</Alert>}
-                <p>Tous les champs ci-dessous sont obligatoires.</p>
+                <Box 
+                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
 
-                    {/* <label htmlFor="lastname">Nom</label> */}
-                    <FormField
-                        variant="filled" 
-                        label="Nom"
-                        size="small"
-                        fullWidth
-                        type="text" 
-                        name="lastname" 
-                        id="lastname"
-                        required
-                    />
+                {successMessage && 
+                <Alert variant="filled" severity="success">
+                    {successMessage}
+                </Alert>}
 
-                    {/* <label htmlFor="firstname">Prénom</label> */}
-                    <FormField
-                        variant="filled"
-                        label="Prénom"
-                        size="small"
-                        fullWidth
-                        type="text" 
-                        name="firstname" 
-                        id="firstname"
-                        required
-                    />
+                {errorMessage &&
+                <Alert variant="filled" severity="error">
+                    {errorMessage}
+                </Alert>}
 
-                    {/* <label htmlFor="email">Email</label> */}
-                    <FormField
-                        variant="filled"
-                        label="E-mail"
-                        size="small"
-                        fullWidth
-                        type="email" 
-                        name="email" 
-                        id="email"
-                        required
-                    />
+                <Typography>
+                    Tous les champs ci-dessous sont obligatoires.
+                </Typography>
 
-                    {/* <label htmlFor="object">Objet</label> */}
-                    <FormField
-                        variant="filled"
-                        label="Objet"
-                        size="small"
-                        fullWidth
-                        type="text" 
-                        name="object" 
-                        id="object"
-                        required
-                    />
+                <FormField
+                    variant="filled" 
+                    label="Nom"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="lastname" 
+                    id="lastname"
+                    required
+                />
 
-                    {/* <label htmlFor="content">Description</label> */}
-                    <FormField
-                        variant="filled"
-                        multiline
-                        rows={4}
-                        label="Description"
-                        size="small"
-                        fullWidth
-                        name="content" 
-                        id="content"
-                        required
-                    />
+                <FormField
+                    variant="filled"
+                    label="Prénom"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="firstname" 
+                    id="firstname"
+                    required
+                />
+
+                <FormField
+                    variant="filled"
+                    label="E-mail"
+                    size="small"
+                    fullWidth
+                    type="email" 
+                    name="email" 
+                    id="email"
+                    required
+                />
+
+                <FormField
+                    variant="filled"
+                    label="Objet"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="object" 
+                    id="object"
+                    required
+                />
+
+                <FormField
+                    multiline
+                    rows={4}
+                    variant="filled"
+                    label="Description"
+                    size="small"
+                    fullWidth
+                    name="description" 
+                    id="description"
+                    required
+                >
+                </FormField>
 
                 <Button 
                     type="submit" 
                     variant="contained">
                     Envoyer
-                </Button>   
+                </Button>  
+
               </Box>                  
             </form>
         </main>

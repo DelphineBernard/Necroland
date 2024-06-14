@@ -250,7 +250,7 @@ const Accueil = () => {
                     <Typography>Tarifs</Typography>
                     <Typography>À partir de {lowestPrice !== null ? `${lowestPrice}€` : '...'} par personne</Typography>
                 </Box>
-                <Button sx={{ alignSelf: "center", my: "0.5rem" }} size="small">
+                <Button sx={{ alignSelf: "center", my: "0.5rem" }} >
                     <Link to={"/infos-pratiques"}>Tous les tarifs</Link>
                 </Button>
             </Box>
@@ -274,7 +274,7 @@ const Accueil = () => {
                 </Box>
                 <CardContent sx={{ display: "flex", flexDirection: "column", alignItems: "center", rowGap: "2rem" }}>
                     <Typography variant="body1">Si vous n'avez pas peur des défis qui vous attendent, aventurez-vous dans notre parc !</Typography>
-                    <Button size="small"><Link to="/infos-pratiques#itineraire">Venir au parc</Link></Button>
+                    <Button><Link to="/infos-pratiques#itineraire">Venir au parc</Link></Button>
                 </CardContent>
             </Card>
 
