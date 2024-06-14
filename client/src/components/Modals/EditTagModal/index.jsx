@@ -22,7 +22,7 @@ const EditTagModal = ({ tagId, isOpen, onRequestClose, initialValues, onClose })
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/tag/${tagId}`, {
+            const response = await fetch(`${API_URL}/tags/${tagId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

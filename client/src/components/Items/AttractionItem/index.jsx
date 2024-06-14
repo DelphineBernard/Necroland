@@ -34,7 +34,7 @@ const AttractionItem = ({ element, onClose }) => {
 
     const fetchTagsAssociated = async () => {
         try {
-            const response = await fetch(`${API_URL}/attraction/tags/${element.id}`, {
+            const response = await fetch(`${API_URL}/attractions/${element.id}/tags`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json'
@@ -65,7 +65,7 @@ const AttractionItem = ({ element, onClose }) => {
     const addTag = async () => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/attraction/${element.id}/addtag`, {
+            await fetch(`${API_URL}/attractions/${element.id}`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -87,7 +87,7 @@ const AttractionItem = ({ element, onClose }) => {
                 const photoData = {
                     name: selectedFile
                 }
-                await fetch(`${API_URL}/photo/${element.id}`, {
+                await fetch(`${API_URL}/photos/${element.id}`, {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`,
@@ -107,7 +107,7 @@ const AttractionItem = ({ element, onClose }) => {
     const removeTag = async (tagId) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/attraction/${element.id}/tag/${tagId}`, {
+            await fetch(`${API_URL}/attractions/${element.id}/tags/${tagId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -123,7 +123,7 @@ const AttractionItem = ({ element, onClose }) => {
     const removePhoto = async (photoId) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/photo/${photoId}`, {
+            await fetch(`${API_URL}/photos/${photoId}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -139,7 +139,7 @@ const AttractionItem = ({ element, onClose }) => {
     const removeAttraction = async (req, res) => {
         try {
             const token = localStorage.getItem('token');
-            await fetch(`${API_URL}/attraction/delete/${element.id}`, {
+            await fetch(`${API_URL}/attractions/${element.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

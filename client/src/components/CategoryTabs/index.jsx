@@ -89,7 +89,7 @@ const CategoryTabs = () => {
             if (category === "all" || !category) {
                 response = await fetch(`${API_URL}/attractions`);
             } else {
-                response = await fetch(`${API_URL}/attractions/${category}`);
+                response = await fetch(`${API_URL}/attractions/categories/${category}`);
             }
             const data = await response.json();
             setAttractions(data.attractions);

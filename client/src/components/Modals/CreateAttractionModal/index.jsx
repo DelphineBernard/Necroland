@@ -17,7 +17,7 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/attraction`, {
+            const response = await fetch(`${API_URL}/attractions`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

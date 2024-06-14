@@ -104,7 +104,7 @@ const EditReservationModal = ({ reservationId, isOpen, onRequestClose, initialVa
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/reservation/update/${reservationId}`, {
+            const response = await fetch(`${API_URL}/reservations/${reservationId}`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

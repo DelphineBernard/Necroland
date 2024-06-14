@@ -24,7 +24,7 @@ const EditAttractionModal = ({ attractionId, isOpen, onRequestClose, initialValu
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/attraction/${attractionId}`, {
+            const response = await fetch(`${API_URL}/attractions/${attractionId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,

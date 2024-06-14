@@ -14,7 +14,7 @@ const CreateUserModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/user`, {
+            const response = await fetch(`${API_URL}/users`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

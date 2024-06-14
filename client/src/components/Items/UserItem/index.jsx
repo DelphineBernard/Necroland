@@ -18,7 +18,7 @@ const UserItem = ({ element, onClose }) => {
     const deleteUser = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/user/${element.id}/delete`, {
+            const response = await fetch(`${API_URL}/users/${element.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

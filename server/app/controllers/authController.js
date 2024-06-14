@@ -37,8 +37,7 @@ const authController = {
             }, process.env.JWT_SECRET, { expiresIn: '24h' });
             res.status(201).json({ message: 'Inscription réussie', token });
         } catch (error) {
-            console.log(error.message)
-            res.status(500).json({ message: error.message });
+            res.status(500).json({ message:"Une erreur est survenue lors de l'inscription", error });
         }
     },
 
@@ -66,8 +65,7 @@ const authController = {
                 throw new Error('Mauvais couple identifiant/mot de passe');
             }
         } catch (error) {
-            console.error("Erreur lors de la connexion :", error);
-            res.status(500).json({ message: "Une erreur est survenue lors de la connexion." });
+            res.status(500).json({ message: "Une erreur est survenue lors de la connexion", error });
         }
     },
 
@@ -75,8 +73,7 @@ const authController = {
         try {
             res.status(200).json({ message: 'Vous avez été déconnecté(e)'});
         } catch (error) {
-            console.error("Erreur lors de la déconnexion :", error);
-            res.status(500).json({ message: "Une erreur est survenue lors de la déconnexion." });
+            res.status(500).json({ message: "Une erreur est survenue lors de la déconnexion", error });
         } 
 
     }

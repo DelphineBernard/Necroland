@@ -20,7 +20,7 @@ const ReservationItem = ({ element, onClose }) => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/reservation/delete/${element.id}`, {
+            const response = await fetch(`${API_URL}/reservations/${element.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,

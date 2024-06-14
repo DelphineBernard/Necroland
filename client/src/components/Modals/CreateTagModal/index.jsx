@@ -15,7 +15,7 @@ const CreateTagModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/tag`, {
+            const response = await fetch(`${API_URL}/tags`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

@@ -15,7 +15,7 @@ const CreateCategoryModal = ({ isOpen, onRequestClose }) => {
 
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/category`, {
+            const response = await fetch(`${API_URL}/categories`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

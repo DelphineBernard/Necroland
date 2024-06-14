@@ -139,7 +139,7 @@ const Reservation = () => {
             reservationData.user_id = userId
 
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/reservation`, {
+            const response = await fetch(`${API_URL}/reservations`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

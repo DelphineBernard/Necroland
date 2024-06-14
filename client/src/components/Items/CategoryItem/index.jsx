@@ -18,7 +18,7 @@ const CategoryItem = ({ element, onClose }) => {
     const handleDelete = async () => {
         try {
             const token = localStorage.getItem('token');
-            const response = await fetch(`${API_URL}/category/delete/${element.id}`, {
+            const response = await fetch(`${API_URL}/categories/${element.id}`, {
                 method: 'DELETE',
                 headers: {
                     'Authorization': `Bearer ${token}`,
