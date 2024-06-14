@@ -17,14 +17,17 @@ import 'swiper/components/navigation/navigation.min.css';
 import 'swiper/components/pagination/pagination.min.css';
 import 'swiper/components/effect-coverflow/effect-coverflow.min.css';
 
+// Initialize swiper with modules
 SwiperCore.use([Autoplay, Navigation, Pagination, EffectCoverflow]);
 
 const Accueil = () => {
+    // State variables to store attractions, lowest price and actvie slide
     const [attractions, setAttractions] = useState([]);
     const [lowestPrice, setLowestPrice] = useState(null);
-    const [activeSlide, setActiveSlide] = useState(null);  // Ajoute l'état pour le slide actif
-    const swiperRef = useRef(null);  // Ajoute la référence pour Swiper
+    const [activeSlide, setActiveSlide] = useState(null);  
+    const swiperRef = useRef(null);  // Reference for the swiper instance
 
+    // Fetch data from API when components mounts
     useEffect(() => {
         const fetchAttractions = async () => {
             try {
@@ -47,11 +50,11 @@ const Accueil = () => {
                 }
                 const data = await response.json();
 
-                // Assurez-vous que data.prices est un tableau
+                // Check if data.prices is an array
                 if (Array.isArray(data.prices)) {
-                    const prices = data.prices.map(item => item.price);
-                    const minPrice = Math.min(...prices);
-                    setLowestPrice(minPrice);
+                    const prices = data.prices.map(item => item.price); // Extract the price property from each item in the prices array of the fetched data
+                    const minPrice = Math.min(...prices); // Find the minimum value in the prices array
+                    setLowestPrice(minPrice); // Update the lowest price state with the minimum price value
                 } else {
                     console.error("Data.prices is not an array:", data);
                 }
@@ -62,7 +65,7 @@ const Accueil = () => {
         fetchAttractions();
         fetchPrices();
     }, []);
-
+    // Handle slide click to toggle autoplay 
     const handleSlideClick = (index) => {
         if (index === activeSlide) {
             setActiveSlide(null);
