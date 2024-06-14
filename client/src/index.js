@@ -19,7 +19,7 @@ import { ContextProvider } from "./components/Context";
 import { useSelector } from "react-redux";
 import { ThemeProvider } from "@emotion/react";
 import { createTheme } from "@mui/material";
-import { grey, red, yellow } from "@mui/material/colors";
+import { grey, red, yellow, orange } from "@mui/material/colors";
 import { Provider } from "react-redux";
 import { PersistGate } from 'redux-persist/integration/react';
 import { store, persistor } from './store/store.js'
@@ -111,10 +111,10 @@ const router = createBrowserRouter([
 const theme = createTheme({
     palette: {
         primary: {
-            main: grey[800],
+            main: grey[600],
         },
         secondary: {
-            main: grey[100],
+            main: grey[500],
         },
         red: {
             main: '#ff0000',
@@ -260,8 +260,11 @@ const theme = createTheme({
                         textDecoration: 'none',
                         color: 'inherit',
                     },
-                      '& a:hover': {
+                    '& a:hover': {
                         textDecoration: 'none',
+                    },
+                    span: {
+                        color: "white",
                     },
                 },
             },
@@ -283,11 +286,23 @@ const theme = createTheme({
         },
         MuiAlert: {
             styleOverrides: {
-                message: {
-                    color: yellow[100],
+                outlinedError: {
+                    borderColor: red[500],
+                    '& .MuiAlert-icon': {
+                        color: red[500],
+                    },
+                    '& .MuiAlert-message': {
+                        color: red[300],
+                    },
                 },
-                icon: {
-                    color: yellow[100],
+                outlinedWarning: {
+                    borderColor: orange[500],
+                    '& .MuiAlert-icon': {
+                        color: orange[500],
+                    },
+                    '& .MuiAlert-message': {
+                        color: orange[200],
+                    },
                 },
             },
         },
@@ -296,13 +311,6 @@ const theme = createTheme({
                 input: {
                     color: 'black',
                 }
-            },
-        },
-        MuiSvgIcon: {
-            styleOverrides: {
-              root: {
-                color: "white",
-              },
             },
         },
     },

@@ -1,14 +1,13 @@
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { login } from "../../actions/authActions.js";
-import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import LockIcon from '@mui/icons-material/Lock';
 import Button from '@mui/material/Button';
 import { red } from '@mui/material/colors';
 import FormField from "../../components/FormField/index.jsx";
-import { Alert } from "@mui/material";
+import { Alert, Typography } from "@mui/material";
 
 const Connexion = () => {
 
@@ -23,7 +22,7 @@ const Connexion = () => {
 
         dispatch(login(userData))
             .then(() => {
-                // Redirection après une connexion réussie
+                // Redirect after success login 
                 navigate('/profil');
             })
             .catch((error) => {
@@ -34,14 +33,27 @@ const Connexion = () => {
     return (
 
         <main className="center">
-            <p>Saisissez ci-dessous vos identifiants de connexion.</p>
+            <Typography>
+                Saisissez ci-dessous vos identifiants de connexion.
+            </Typography>
+
             <form method="post" onSubmit={handleSubmit} className="form">
-                <Box sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
-                <p>Tous les champs sont obligatoires.</p>
-                {error && <Alert variant="filled" severity="error" >{error}</Alert>}
-                    {/* <label htmlFor="email">Adresse e-mail *</label> */}
-                    <Box sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <AccountCircle sx={{ fontSize: 45, mr: 1, my: 0.5 }} />
+                <Box 
+                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
+                    <Typography>
+                        Tous les champs sont obligatoires.
+                    </Typography>
+
+                    {error && 
+                    <Alert 
+                        variant="filled" 
+                        severity="error" >
+                        {error}
+                    </Alert>}
+
+                    <Box 
+                        sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
+                        <AccountCircle sx={{ color: "white", fontSize: 45, mr: 1, my: 0.5 }} />
                         <FormField
                             variant="filled" 
                             label="Adresse e-mail"
@@ -54,9 +66,9 @@ const Connexion = () => {
                             required
                         />
                     </Box>
-                    {/* <label htmlFor="password">Mot de passe *</label> */}
+
                     <Box sx={{ my: 1, display: 'flex', alignItems: 'center', width: '100%' }}>
-                        <LockIcon sx={{ fontSize: 45, mr: 1, my: 0.5 }} />
+                        <LockIcon sx={{ color: "white", fontSize: 45, mr: 1, my: 0.5 }} />
                         <FormField
                             variant="filled" 
                             label="Mot de passe"
@@ -69,18 +81,15 @@ const Connexion = () => {
                             required
                         />
                     </Box>
-                <Button 
-                    type="submit" 
-                    variant="contained">
-                    Se connecter
-                </Button>
+
+                    <Button 
+                        type="submit" 
+                        variant="contained">
+                        Se connecter
+                    </Button>
                 </Box>
             </form>
-            <div>
-                <div></div>
-                <p>ou</p>
-                <div></div>
-            </div>
+
             <Button 
                 sx={{ backgroundColor: 'white', color: red[900], border: red[900], "&:hover": { backgroundColor: red[600], color: 'white', border: red[900]} }}
                 variant="outlined" 
@@ -88,7 +97,7 @@ const Connexion = () => {
                 S'inscrire
             </Button>
         </main>
-    )
-}
+    );
+};
 
 export default Connexion;

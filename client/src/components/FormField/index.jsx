@@ -2,7 +2,7 @@ import TextField from '@mui/material/TextField';
 import { styled } from '@mui/system';
 import { grey } from '@mui/material/colors';
 
-const Field = styled(TextField)(({ theme }) => ({
+const FormField = styled(TextField)(({ theme }) => ({
     '& .MuiFilledInput-root': {
       backgroundColor: 'white',
       '&:hover': {
@@ -21,15 +21,9 @@ const Field = styled(TextField)(({ theme }) => ({
     '& .MuiFilledInput-underline:after': {
       borderBottomColor: 'transparent',
     },
-    '& .MuiFilledInputLabel-root': {
+    '& .MuiInputLabel-filled': {
       color: grey[600],
     },
-    '& .MuiFilledInputLabel-formControl': {
-      color: grey[600],
-    },
-    // '& .MuiInputBase-input': {
-    //   color: 'white',
-    // },
     '& .MuiOutlinedInput-notchedOutline': {
       borderColor: 'white',
     },
@@ -40,11 +34,5 @@ const Field = styled(TextField)(({ theme }) => ({
       borderColor: 'white',
     },
   }));
-
-  const FormField = styled(Field)({
-    '& > :not(style)': { 
-      maxWidth: '100%',
-    },
-  });
 
 export default FormField;
