@@ -2,6 +2,7 @@ import express from 'express';
 import * as dotenv from 'dotenv';
 import router from './app/router.js';
 import cors from 'cors';
+import { swaggerUi, swaggerSpec } from './swaggerConfig.js';
 
 dotenv.config();
 
@@ -26,6 +27,7 @@ app.use(cors(corsOptions));
 
 app.use(express.static('./app/public'));
 app.use(express.json());
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use("/api", router);
 
