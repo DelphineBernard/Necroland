@@ -113,11 +113,10 @@ const Contact = () => {
                     label="Description"
                     size="small"
                     fullWidth
-                    name="description" 
-                    id="description"
+                    name="content" 
+                    id="content"
                     required
-                >
-                </FormField>
+                />
 
                 <Button 
                     type="submit" 
