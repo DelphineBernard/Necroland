@@ -43,88 +43,86 @@ const Contact = () => {
             <Typography>
                 Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.
             </Typography>
-            
+
             <form method="post" onSubmit={handleSubmit} className="form">
-                <Box 
-                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
+                <Box
+                    sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%' }}>
 
-                {successMessage && 
-                <Alert variant="filled" severity="success">
-                    {successMessage}
-                </Alert>}
+                    {successMessage &&
+                        <Alert variant="filled" severity="success">
+                            {successMessage}
+                        </Alert>}
 
-                {errorMessage &&
-                <Alert variant="filled" severity="error">
-                    {errorMessage}
-                </Alert>}
+                    {errorMessage &&
+                        <Alert variant="filled" severity="error">
+                            {errorMessage}
+                        </Alert>}
 
-                <Typography>
-                    Tous les champs ci-dessous sont obligatoires.
-                </Typography>
+                    <Typography>
+                        Tous les champs ci-dessous sont obligatoires.
+                    </Typography>
 
-                <FormField
-                    variant="filled" 
-                    label="Nom"
-                    size="small"
-                    fullWidth
-                    type="text" 
-                    name="lastname" 
-                    id="lastname"
-                    required
-                />
+                    <FormField
+                        variant="filled"
+                        label="Nom"
+                        size="small"
+                        fullWidth
+                        type="text"
+                        name="lastname"
+                        id="lastname"
+                        required
+                    />
 
-                <FormField
-                    variant="filled"
-                    label="Prénom"
-                    size="small"
-                    fullWidth
-                    type="text" 
-                    name="firstname" 
-                    id="firstname"
-                    required
-                />
+                    <FormField
+                        variant="filled"
+                        label="Prénom"
+                        size="small"
+                        fullWidth
+                        type="text"
+                        name="firstname"
+                        id="firstname"
+                        required
+                    />
 
-                <FormField
-                    variant="filled"
-                    label="E-mail"
-                    size="small"
-                    fullWidth
-                    type="email" 
-                    name="email" 
-                    id="email"
-                    required
-                />
+                    <FormField
+                        variant="filled"
+                        label="E-mail"
+                        size="small"
+                        fullWidth
+                        type="email"
+                        name="email"
+                        id="email"
+                        required
+                    />
 
-                <FormField
-                    variant="filled"
-                    label="Objet"
-                    size="small"
-                    fullWidth
-                    type="text" 
-                    name="object" 
-                    id="object"
-                    required
-                />
+                    <FormField
+                        variant="filled"
+                        label="Objet"
+                        size="small"
+                        fullWidth
+                        type="text"
+                        name="object"
+                        id="object"
+                        required
+                    />
 
-                <FormField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    label="Description"
-                    size="small"
-                    fullWidth
-                    name="content" 
-                    id="content"
-                    required
-                />
+                    <FormField
+                        variant="filled"
+                        label="Description"
+                        size="small"
+                        fullWidth
+                        name="content"
+                        id="content"
+                        required
+                    />
 
-                <Button 
-                    type="submit" 
-                    variant="contained">
-                    Envoyer
-                </Button>  
+                    <Button
+                        type="submit"
+                        variant="contained">
+                        Envoyer
+                    </Button>
 
-              </Box>                  
+                </Box>
             </form>
         </main>
     )
