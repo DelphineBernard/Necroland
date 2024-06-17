@@ -30,7 +30,7 @@ const MorePhotosModal = ({ isOpen, onRequestClose, photos, currentPhotoIndex, ne
                         right: '8px'
                     }}
                 >
-                    <Close sx={{ fontSize: 40 }} />
+                    <Close sx={{ fontSize: 40, color: "white" }} />
                 </IconButton>
                 <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                     <IconButton
@@ -44,7 +44,7 @@ const MorePhotosModal = ({ isOpen, onRequestClose, photos, currentPhotoIndex, ne
                             p: 0
                         }}
                     >
-                        <ArrowLeft sx={{ fontSize: 60 }} />
+                        <ArrowLeft sx={{ fontSize: 60, color: "white" }} />
                     </IconButton>
                     <CardMedia
                         component="img"
@@ -67,7 +67,7 @@ const MorePhotosModal = ({ isOpen, onRequestClose, photos, currentPhotoIndex, ne
                         zIndex: 1,
                     }}
                 >
-                    <ArrowRight sx={{ fontSize: 60 }} />
+                    <ArrowRight sx={{ fontSize: 60, color: "white" }} />
                 </IconButton>
             </Box>
         </Modal>
