@@ -112,7 +112,7 @@ const Contact = () => {
                     name="content"
                     id="content"
                     placeholder="Description*"
-                    minRows={4}
+                    rows={5}
                     aria-label="Description"
                     required
                     />
