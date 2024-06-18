@@ -78,18 +78,21 @@ const EditAttractionModal = ({ attractionId, isOpen, onRequestClose, initialValu
                         required
                         sx={{ mb: 2 }}
                     />
-                    <TextField
-                        fullWidth
-                        label="Description"
-                        name="description"
-                        type="text"
+
+                    <FormControl>
+                        <InputLabel htmlFor="description" sx={{display:"none"}} >Description</InputLabel>
+                        <textarea
                         value={formData.description}
                         onChange={handleChange}
+                        name="description"
+                        id="description"
+                        placeholder="Description*"
+                        rows={5}
+                        aria-label="Description"
                         required
-                        multiline
-                        minRows={3}
-                        sx={{ mb: 2 }}
-                    />
+                        />
+                    </FormControl>
+
                     <FormControl fullWidth variant='filled'>
                         <InputLabel>Catégorie</InputLabel>
                         <Select

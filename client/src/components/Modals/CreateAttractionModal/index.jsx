@@ -60,7 +60,19 @@ const CreateAttractionModal = ({ isOpen, onRequestClose }) => {
                     {errorMessage && <Alert sx={{ my: '1rem' }} variant='filled' severity='error'>{errorMessage}</Alert>}
                     <Typography sx={{ color: 'gray', mb: 2 }}>Tous les champs sont obligatoires.</Typography>
                     <TextField sx={{ mb: 2 }} fullWidth label="Nom" name="name" required />
-                    <TextField sx={{ mb: 2 }} fullWidth label="Description" name="description" required multiline minRows={3} />
+
+                    <FormControl>
+                        <InputLabel htmlFor="description" sx={{display:"none", mb: 2}} >Description</InputLabel>
+                        <textarea
+                        name="description"
+                        id="description"
+                        placeholder="Description*"
+                        rows={5}
+                        aria-label="Description"
+                        required
+                        />
+                    </FormControl>
+
                     <FormControl fullWidth variant='filled'>
                         <InputLabel>Catégorie</InputLabel>
                         <Select

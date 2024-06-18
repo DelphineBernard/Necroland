@@ -9,9 +9,15 @@ body {
   background-color: #181717;
 }
 
-p, h1, h2, h3, a, li {
-    color: var.$color_white;
+p,
+h1,
+h2,
+h3,
+a,
+li {
+  color: var.$color_white;
 }
+
 main {
   font-family: "Roboto", sans-serif;
   font-weight: 400;
@@ -36,6 +42,7 @@ main {
   @include mixin.small {
     width: 50%;
   }
+
   @include mixin.medium {
     width: 40%;
   }
@@ -49,74 +56,78 @@ img {
   display: none;
 }
 
-input {
-  color: black;
-}
-
-button {
-  color: black;
-}
-
-.text-illustration {
-  width: 20%;
-}
-
 .info {
   font-size: 0.8rem;
   font-style: italic;
   padding-top: 1rem;
 }
+
 .mySwiper {
-    width: 100%;
-    height: 100%;
-    
-  }
-  
+  width: 100%;
+  height: 100%;
+}
+
+.swiper-slide {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease-in-out, z-index 0.3s;
+}
+
+.card-content {
+  width: 100%;
+  transition: transform 0.3s ease-in-out, z-index 0.3s;
+}
+
+/* Styles pour les flèches de navigation */
+.swiper-button-next,
+.swiper-button-prev {
+  color: white;
+  /* Change la couleur des flèches */
+  width: 50px;
+  /* Change la taille des flèches */
+  height: 50px;
+  /* Change la taille des flèches */
+}
+
+/* Styles pour les points de pagination */
+.swiper-pagination-bullet {
+  background: white;
+  /* Change la couleur des points de pagination */
+  width: 12px;
+  /* Change la taille des points de pagination */
+  height: 12px;
+  /* Change la taille des points de pagination */
+  opacity: 1;
+  /* Assure que les points sont complètement visibles */
+}
+
+.swiper-pagination-bullet-active {
+  background: white;
+  /* Assure que le point actif est également blanc */
+  opacity: 1;
+  /* Assure que le point actif est complètement visible */
+}
+
+@media (max-width: 640px) {
   .swiper-slide {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s ease-in-out, z-index 0.3s;
+    width: 100% !important;
+    flex-shrink: 0;
   }
-  
-  .card-content {
-    width: 100%;
-    transition: transform 0.3s ease-in-out, z-index 0.3s;
-  }  
-  /* Styles pour les flèches de navigation */
-.swiper-button-next, .swiper-button-prev {
-    color: white; /* Change la couleur des flèches */
-    width: 50px; /* Change la taille des flèches */
-    height: 50px; /* Change la taille des flèches */
-  }
-  
-  /* Styles pour les points de pagination */
-  .swiper-pagination-bullet {
-    background: white; /* Change la couleur des points de pagination */
-    width: 12px; /* Change la taille des points de pagination */
-    height: 12px; /* Change la taille des points de pagination */
-    opacity: 1; /* Assure que les points sont complètement visibles */
-  }
-  
-  .swiper-pagination-bullet-active {
-    background: white; /* Assure que le point actif est également blanc */
-    opacity: 1; /* Assure que le point actif est complètement visible */
-  }
-  @media (max-width: 640px) {
-    .swiper-slide {
-      width: 100% !important;
-      flex-shrink: 0;
-  }
+
   .mySwiper .swiper-wrapper {
     width: 100%;
-}
-}
-@media (max-width: 960px) {
-  .swiper-button-next,
-  .swiper-button-prev {
-      display: none !important;
   }
 }
+
+@media (max-width: 960px) {
+
+  .swiper-button-next,
+  .swiper-button-prev {
+    display: none !important;
+  }
+}
+
 .centered-menu {
   left: 50% !important;
   transform: translateX(-50%) !important;
@@ -126,31 +137,25 @@ button {
 textarea {
   width: 100%;
   font-family: 'Roboto', sans-serif;
+  font-size: 0.80rem;
   padding: 16px 12px;
   border-radius: 4px 4px 0 0;
   background-color: white;
   border: 1px solid #ccc;
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.12);
   resize: vertical;
+  margin-bottom: 1rem;
 
   &:focus {
     outline: none;
-    border-color: #3f51b5;
-  }
-
-  &::placeholder {
-    font-size: 0.80rem;
+    border-color: #949494;
   }
 
   @media (min-width: 600px) {
-    &::placeholder {
       font-size: 0.85rem;
-    }
-  }
+    } 
 
   @media (min-width: 960px) {
-    &::placeholder {
       font-size: 1rem;
     }
-  }
 }
