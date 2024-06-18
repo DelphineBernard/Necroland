@@ -2,7 +2,8 @@ import { useState } from "react";
 import API_URL from '../../config.js';
 import Button from '@mui/material/Button';
 import FormField from "../../components/FormField/index.jsx";
-import { Box, Alert, Typography } from "@mui/material";
+import { Box, Alert, Typography, FormControl, InputLabel } from "@mui/material";
+import CustomTextareaAutosize from "../../components/CustomTextareaAutosize/index.jsx";
 
 const Contact = () => {
 
@@ -106,17 +107,18 @@ const Contact = () => {
                     required
                 />
 
-                <FormField
-                    multiline
-                    rows={4}
-                    variant="filled"
-                    label="Description"
-                    size="small"
+                <FormControl>
+                    <InputLabel htmlFor="content" sx={{display:"none"}} >Description</InputLabel>
+                    <CustomTextareaAutosize
                     fullWidth
-                    name="content" 
+                    name="content"
                     id="content"
+                    placeholder="Description*"
+                    minRows={4}
+                    aria-label="Description"
                     required
-                />
+                    />
+                </FormControl>
 
                 <Button 
                     type="submit" 
