@@ -43,7 +43,7 @@ const Contact = () => {
             <Typography>
                 Vous pouvez nous contacter pour toute demande d'information concernant le parc ou votre séjour.
             </Typography>
-            
+
             <form method="post" onSubmit={handleSubmit} className="form">
                 <Box 
                     sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
