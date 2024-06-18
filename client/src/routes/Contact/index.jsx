@@ -2,7 +2,8 @@ import { useState } from "react";
 import API_URL from '../../config.js';
 import Button from '@mui/material/Button';
 import FormField from "../../components/FormField/index.jsx";
-import { Box, Alert, Typography } from "@mui/material";
+import { Box, Alert, Typography, FormControl, InputLabel } from "@mui/material";
+import CustomTextareaAutosize from "../../components/CustomTextareaAutosize/index.jsx";
 
 const Contact = () => {
 
@@ -45,84 +46,87 @@ const Contact = () => {
             </Typography>
 
             <form method="post" onSubmit={handleSubmit} className="form">
-                <Box
-                    sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%' }}>
+                <Box 
+                    sx={{display: 'flex', flexDirection: 'column', alignItems: 'center', rowGap: '1rem', width: '100%'}}>
 
-                    {successMessage &&
-                        <Alert variant="filled" severity="success">
-                            {successMessage}
-                        </Alert>}
+                {successMessage && 
+                <Alert variant="filled" severity="success">
+                    {successMessage}
+                </Alert>}
 
-                    {errorMessage &&
-                        <Alert variant="filled" severity="error">
-                            {errorMessage}
-                        </Alert>}
+                {errorMessage &&
+                <Alert variant="filled" severity="error">
+                    {errorMessage}
+                </Alert>}
 
-                    <Typography>
-                        Tous les champs ci-dessous sont obligatoires.
-                    </Typography>
+                <Typography>
+                    Tous les champs ci-dessous sont obligatoires.
+                </Typography>
 
-                    <FormField
-                        variant="filled"
-                        label="Nom"
-                        size="small"
-                        fullWidth
-                        type="text"
-                        name="lastname"
-                        id="lastname"
-                        required
+                <FormField
+                    variant="filled" 
+                    label="Nom"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="lastname" 
+                    id="lastname"
+                    required
+                />
+
+                <FormField
+                    variant="filled"
+                    label="Prénom"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="firstname" 
+                    id="firstname"
+                    required
+                />
+
+                <FormField
+                    variant="filled"
+                    label="E-mail"
+                    size="small"
+                    fullWidth
+                    type="email" 
+                    name="email" 
+                    id="email"
+                    required
+                />
+
+                <FormField
+                    variant="filled"
+                    label="Objet"
+                    size="small"
+                    fullWidth
+                    type="text" 
+                    name="object" 
+                    id="object"
+                    required
+                />
+
+                <FormControl>
+                    <InputLabel htmlFor="content" sx={{display:"none"}} >Description</InputLabel>
+                    <CustomTextareaAutosize
+                    fullWidth
+                    name="content"
+                    id="content"
+                    placeholder="Description*"
+                    minRows={4}
+                    aria-label="Description"
+                    required
                     />
+                </FormControl>
 
-                    <FormField
-                        variant="filled"
-                        label="Prénom"
-                        size="small"
-                        fullWidth
-                        type="text"
-                        name="firstname"
-                        id="firstname"
-                        required
-                    />
+                <Button 
+                    type="submit" 
+                    variant="contained">
+                    Envoyer
+                </Button>  
 
-                    <FormField
-                        variant="filled"
-                        label="E-mail"
-                        size="small"
-                        fullWidth
-                        type="email"
-                        name="email"
-                        id="email"
-                        required
-                    />
-
-                    <FormField
-                        variant="filled"
-                        label="Objet"
-                        size="small"
-                        fullWidth
-                        type="text"
-                        name="object"
-                        id="object"
-                        required
-                    />
-
-                    <FormField
-                        variant="filled"
-                        label="Description"
-                        size="small"
-                        fullWidth
-                        name="content"
-                        id="content"
-                        required
-                    />
-
-                    <Button
-                        type="submit"
-                        variant="contained">
-                        Envoyer
-                    </Button>
-
-                </Box>
+              </Box>                  
             </form>
         </main>
     )
