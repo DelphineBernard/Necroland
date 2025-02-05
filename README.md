@@ -1,6 +1,6 @@
 # Necroland
 
-Projet de fin de formation O'clock réalisé en groupe de 3 pendant 2 mois en méthodologie agile scrum avec des sprints de 2 mois.
+Projet de fin de formation O'clock réalisé en groupe de 3 pendant 2 mois en méthodologie agile scrum avec des sprints de 2 semaines.
 
 Création d'un site dynamique pour un parc d'attraction (fictif) sur le thème zombie.
 
